@@ -37,9 +37,10 @@ void parsearW(int n, ifstream &file, map<int, map<int,float> > &a)
 		int i, j;
 		j = atoi(inicial.c_str());
 		i = atoi(final.c_str());
-		if ( i != j)
+		if ( i != j) {
 			// El map es de columnas a map de filas, valor
 			a[j][i] = 1;
+		}
 	}
 }
 /*
