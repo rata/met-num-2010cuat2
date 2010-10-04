@@ -41,16 +41,6 @@ void parsearW(int n, ifstream &file, map<int, map<int,float> > &a)
 			// El map es de columnas a map de filas, valor
 			a[j][i] = 1;
 	}
-
-/*
-	map<int, map<int, float> > m;
-	m[1][2] = 4;
-	m[1][1] = 4;
-	
-	cout << "r es: " << m[1][3] << endl;
-	cout << "r es: " << m[1][2] << endl;
-	cout << "r es: " << m[1][1] << endl;
-*/
 }
 /*
 float* jacobi(int n, map<int, map<int, float> > &a)
@@ -76,11 +66,6 @@ int main(int argc, char *argv[])
 	if (leer(pags_path, &f_pag) != 0 || leer(link_path, &f_link))
 		return 1;
 
-/*
-	while (! f_pag.eof())
-		cout << (char) f_pag.get();
-*/
-	
 	string palabra;
 	f_pag >> palabra;
 	int n = atoi(palabra.c_str());
@@ -92,13 +77,13 @@ int main(int argc, char *argv[])
 
 	parsearW(n, f_link, a);
 
-	imprimir(n, a);
+//	imprimir(n, a);
 
-//	cerrar(&f_link);
-//	cerrar(&f_pag);
-//	
+	cerrar(&f_link);
+	cerrar(&f_pag);
+	
 //	float[] x = jacobi(n, a);
-//
+
 //	normalizar(x);
 
 	return 0;
