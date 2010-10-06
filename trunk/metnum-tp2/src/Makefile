@@ -1,15 +1,22 @@
 CXXFLAGS += -Wall -std=c++98 -pedantic -Wno-long-long
 
+LU_OBJS = matrix.o
+
 OBJS = io_utils.o
 
-default: jacobis
+default: jacobis lu
 
 all: default
 
 jacobis: $(OBJS) jacobis.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
+lu: $(LU_OBJS) lu.o
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+
 clean:
 	rm -f $(OBJS)
 	rm -f jacobis.o jacobis
+	rm -f matrix.o lu.o lu
 
