@@ -14,8 +14,11 @@ matrix::matrix(uint i, uint j)
 	this->n = i;
 	this->m = j;
 
-	// Allocamos memoria para n*m elementos de tamaño sizeof(float) */
+	// Allocamos memoria para n*m elementos de tamaño sizeof(float)
+	// Usamos calloc para inicializar con ceros
 	mat = (float *) calloc(sizeof(float), n * m);
+
+	// TODO: error mas claro
 	if (mat == NULL)
 		throw;
 }
