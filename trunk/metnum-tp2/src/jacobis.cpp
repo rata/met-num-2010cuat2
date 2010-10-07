@@ -2,20 +2,11 @@
 #include <iostream>
 #include <map>
 #include "io_utils.hpp"
+#include "vector_utils.hpp"
 
 using namespace std;
 
 float p;
-
-void imprimir_vector(int n, float* x)
-{
-	cout << "[";
-	for ( int i= 0 ; i < n-1 ; i++)
-	{
-		cout << x[i] << ", ";
-	}
-	cout << x[n-1] << "]" << endl;
-}
 
 void imprimir(int n, map<int, map<int,float> > &a)
 {
@@ -121,10 +112,6 @@ float* jacobi(int n, map<int, map<int, float> > &a, int max_iter)
 	return x;
 }
 
-void normalizar(float* x, int n)
-{
-}
-
 int main(int argc, char *argv[])
 {
 	if (argc != 3 && argc != 4 ) {
@@ -162,7 +149,7 @@ int main(int argc, char *argv[])
 	
 	float* x = jacobi(n, a, max_iter);
 
-	normalizar(x, n);
+	normalizar(n, x);
 
 	cout << "Respuesta:\n";
 	imprimir_vector(n, x);
