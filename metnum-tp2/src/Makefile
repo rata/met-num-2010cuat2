@@ -2,7 +2,7 @@ CXXFLAGS += -Wall -std=c++98 -pedantic -o3
 
 LU_OBJS = matrix.o
 
-OBJS = io_utils.o
+OBJS = io_utils.o vector_utils.o
 
 default: jacobis lu
 
