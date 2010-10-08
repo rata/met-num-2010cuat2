@@ -36,7 +36,7 @@ int load_matrix(matrix &m)
 	// Entonces queremos:
 	// a) la diagonal con 1s (por I, ya que en W es cero)
 	// b) cada columna multiplicada por su Cj
-	// c) todos los elementos multiplicados por p
+	// c) todos los elementos multiplicados por -1 * p
 
 	cout << m.print();
 	for (uint j = 1; j <= m.cant_rows(); j++) {
@@ -58,7 +58,7 @@ int load_matrix(matrix &m)
 			if (k == j)
 				m.set(j, j, 1);
 			else
-				m.set(k, j, m.get(k, j) * cj * p);
+				m.set(k, j, m.get(k, j) * cj * p * -1);
 		}
 	}
 
