@@ -64,8 +64,12 @@ string matrix::print(void)
 	ostringstream ret;
 
 	for (uint i = 1; i <= n; i++) {
-		for (uint j = 1; j <= m; j++)
-			ret << this->get(i, j) << "\t";
+		for (uint j = 1; j <= m; j++) {
+			// TODO: En vez de agregar mas tabs deberiamos recortar
+			// la presicion del float para que al imprimirlo no
+			// "mueva" una fila de la matriz por mas largo que sea
+			ret << this->get(i, j) << "\t\t\t";
+		}
 
 		/* Termino la fila, ponemos una nueva linea */
 		ret << endl;
