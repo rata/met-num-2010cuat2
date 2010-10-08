@@ -76,15 +76,19 @@ void triang_row(matrix &m, uint row_base, uint row)
 
 	float coef = m.get(row, row_base) / m.get(row_base, row_base);
 
-	for (uint j = row_base; j <= m.cant_cols(); j++) {
+	// Ponemos cero donde ya sabemos que la cuenta deberia dar cero
+	m.set(row, row_base, 0);
+
+	for (uint j = row_base + 1; j <= m.cant_cols(); j++) {
 		float val = m.get(row, j) - coef * m.get(row_base, j);
 
 		// Imprimimos la cuenta en forma "simbolica"
-		// XXX: Asi vemos claramente que nos deberia dar cero, pero por
-		// error numerico, no da. Que hacemos ? Ni hacemos la cuenta
-		// para este que *debe* dar cero y lo ponemos en cero ? Y si
-		// otro de los numeros tambien deberia dar cero pero no da (y no
-		// es de los que anulamos directamente) ?
+		// XXX: Si el for empezara desde row_base, vemos claramente que
+		// nos deberia dar cero, pero por error numerico, no da. Que
+		// hacemos ? Ni hacemos la cuenta para este que *debe* dar cero
+		// y lo ponemos en cero ? Y si otro de los numeros tambien
+		// deberia dar cero pero no da (y no es de los que anulamos
+		// directamente) ?
 		cout << "haciendo: (" << row << ", " << j << ")" << endl;
 		cout << "m[" << row << ", " << j << "] " <<  " - ";
 			cout << "m[" << row << ", " << row_base <<"]";
