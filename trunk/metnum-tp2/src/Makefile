@@ -1,4 +1,4 @@
-CXXFLAGS += -Wall -std=c++98 -pedantic -o3
+CXXFLAGS += -Wall -std=c++98 -pedantic -O3
 
 LU_OBJS = matrix.o
 
