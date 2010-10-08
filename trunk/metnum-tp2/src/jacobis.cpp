@@ -65,7 +65,7 @@ void parsearW(int n, ifstream &file, map<int, map<int,float> > &a)
 		for ( it_fi = (*it_col).second.begin() ; it_fi != (*it_col).second.end(); it_fi++ ) {
 			float c_j = cj((*it_fi).first, a);
 			//Esta linea me suena a que no anda ni en pedo :S
-			(*it_fi).second = (*it_fi).second * c_j;
+			(*it_fi).second = (*it_fi).second * c_j * p;
 		}
 	}
 }
