@@ -63,7 +63,7 @@ void parsearW(int n, ifstream &file, map<int, map<int,float> > &a)
 	// Para cada columna
 	for ( it_col = a.begin() ; it_col != a.end(); it_col++ ) {
 		for ( it_fi = (*it_col).second.begin() ; it_fi != (*it_col).second.end(); it_fi++ ) {
-			float c_j = cj((*it_fi).first, a);
+			float c_j = cj((*it_col).first, a);
 			//Esta linea me suena a que no anda ni en pedo :S
 			(*it_fi).second = (*it_fi).second * c_j * p;
 		}
@@ -99,14 +99,17 @@ float* jacobi(int n, map<int, map<int, float> > &a, int max_iter)
 	// Propongo como solucion el vector nulo
 	float* x = (float *) calloc(sizeof(float), n);
 	int iteracion = 0;
+	bool cambia = true;
 
-	while(iteracion < max_iter)
+	while(iteracion < max_iter && cambia)
 	{
 		iteracion++;
 		float* buff = x;
 		x = iterarJacobi(n, a, x);
-//		cout << "Iteracion " << iteracion <<":\n";
-//		imprimir_vector(n, x);
+		normalizar(n, x);
+		cambia = distintos(n, buff, n, x);
+		cout << iteracion <<":\n";
+		imprimir_vector(n, x);
 		free(buff);
 	}
 	return x;
@@ -114,7 +117,7 @@ float* jacobi(int n, map<int, map<int, float> > &a, int max_iter)
 
 int main(int argc, char *argv[])
 {
-	if (argc != 3 && argc != 4 ) {
+	if (argc != 4 && argc != 5 ) {
 		cout << "Uso: <prob> <pag-file> <link-file> [iteraciones_max = 100]" << endl;
 		return 1;
 	}
@@ -122,10 +125,10 @@ int main(int argc, char *argv[])
 	char* pags_path = argv[2];
 	char* link_path = argv[3];
 	int max_iter = 100;
-	/*
-	if ( argc == 4 )
+	
+	if ( argc == 5 )
 		max_iter = atoi(argv[4]);
-	*/
+
 	ifstream f_pag, f_link;
 
 	if (leer(pags_path, &f_pag) != 0 || leer(link_path, &f_link))
@@ -149,10 +152,10 @@ int main(int argc, char *argv[])
 	
 	float* x = jacobi(n, a, max_iter);
 
-	normalizar(n, x);
+//	normalizar(n, x);
 
-	cout << "Respuesta:\n";
-	imprimir_vector(n, x);
+//	cout << "Respuesta:\n";
+//	imprimir_vector(n, x);
 	free(x);
 
 	return 0;

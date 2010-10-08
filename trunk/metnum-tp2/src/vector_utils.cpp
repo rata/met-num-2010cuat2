@@ -1,5 +1,6 @@
 #include "vector_utils.hpp"
 #include <math.h>
+#include <stdio.h>
 #include <iostream>
 
 using namespace std;
@@ -9,9 +10,11 @@ void imprimir_vector(int n, float* x)
 	cout << "[";
 	for ( int i= 0 ; i < n-1 ; i++)
 	{
-		cout << x[i] << ", ";
+		printf("%g, ", x[i]);
+//		cout << x[i] << ", ";
 	}
-	cout << x[n-1] << "]" << endl;
+	printf("%g ]\n", x[n-1]);
+//	cout << x[n-1] << "]" << endl;
 }
 
 void normalizar(int n, float* x)
@@ -20,10 +23,10 @@ void normalizar(int n, float* x)
 
 	for ( int i = 0 ; i < n ; i++ ) {
 		norma += fabs(x[i]);
-		cout << "valor de x: "<< x[i] << ". Valor de abs de x: "<< fabs(x[i]) << endl;
+//		cout << "valor de x: "<< x[i] << ". Valor de abs de x: "<< fabs(x[i]) << endl;
 	}
 
-	cout << "Norma: " << norma;
+//	cout << "Norma: " << norma;
 
 	if ( norma != 0)
 	{
@@ -33,4 +36,16 @@ void normalizar(int n, float* x)
 	}
 }
 
+bool distintos(int n1, float* x1, int n2, float* x2)
+{
+	if ( n1 != n2 )
+		return true;
+
+	for ( int i = 0 ; i < n1 ; i++) {
+		if ( x1[i] != x2[i] )
+			return true;
+	}
+
+	return false;
+}
 
