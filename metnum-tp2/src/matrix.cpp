@@ -33,14 +33,14 @@ void matrix::set(uint i, uint j, float num)
 {
 	assert(valid_pos(i, j));
 	assert(mat != NULL);
-	mat[(i - 1) * n + j - 1] = num;
+	mat[(i - 1) * m + j - 1] = num;
 }
 
 float matrix::get(uint i, uint j)
 {
 	assert(valid_pos(i, j));
 	assert(mat != NULL);
-	return mat[(i - 1) * n + j - 1];
+	return mat[(i - 1) * m + j - 1];
 }
 
 uint matrix::cant_rows()
