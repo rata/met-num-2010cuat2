@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <iostream>
-#include <assert.h>
-#include <sstream>
-#include <string>
+#include <stdlib.h>	// malloc, free y amigos
+#include <assert.h>	// assert
+#include <sstream>	// ostringstream
+#include <string>	// std::string
+#include <string.h>	// memcpy
 #include "matrix.h"
 
 using namespace std;
@@ -51,6 +51,40 @@ uint matrix::cant_rows()
 uint matrix::cant_cols()
 {
 	return m;
+}
+
+void matrix::swap_rows(uint i1, uint i2)
+{
+	assert(valid_pos(i1, i2));
+
+	float *tmp = (float *) malloc(sizeof(float) * m);
+	if (tmp == NULL)
+		throw;
+
+	float *i1_ptr = mat + (i1 - 1) * m;
+	float *i2_ptr = mat + (i2 - 1) * m;
+
+	// Copiamos la fila i1 a tmp
+	void *ret = memcpy(tmp, i1_ptr, m);
+	if (ret == NULL)
+		goto error;
+
+	// Copiamos la fila i2 a la fila i1
+	ret = memcpy(i1_ptr, i2_ptr, m);
+	if (ret == NULL)
+		goto error;
+
+	// Copiamos la fila i1 orig a la fila i2
+	ret = memcpy(i2_ptr, tmp, m);
+	if (ret == NULL)
+		goto error;
+
+	free(tmp);
+
+error:
+	free(tmp);
+	// TODO: error mas claro
+	throw;
 }
 
 bool matrix::valid_pos(uint i, uint j)
