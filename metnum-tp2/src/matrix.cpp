@@ -58,33 +58,24 @@ void matrix::swap_rows(uint i1, uint i2)
 	assert(valid_pos(i1, i2));
 
 	float *tmp = (float *) malloc(sizeof(float) * m);
-	if (tmp == NULL)
+	if (tmp == NULL) {
+		// TODO: error mas claro
 		throw;
+	}
 
 	float *i1_ptr = mat + (i1 - 1) * m;
 	float *i2_ptr = mat + (i2 - 1) * m;
 
 	// Copiamos la fila i1 a tmp
-	void *ret = memcpy(tmp, i1_ptr, m);
-	if (ret == NULL)
-		goto error;
+	memcpy(tmp, i1_ptr, m);
 
 	// Copiamos la fila i2 a la fila i1
-	ret = memcpy(i1_ptr, i2_ptr, m);
-	if (ret == NULL)
-		goto error;
+	memcpy(i1_ptr, i2_ptr, m);
 
 	// Copiamos la fila i1 orig a la fila i2
-	ret = memcpy(i2_ptr, tmp, m);
-	if (ret == NULL)
-		goto error;
+	memcpy(i2_ptr, tmp, m);
 
 	free(tmp);
-
-error:
-	free(tmp);
-	// TODO: error mas claro
-	throw;
 }
 
 bool matrix::valid_pos(uint i, uint j)
