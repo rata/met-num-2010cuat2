@@ -15,6 +15,7 @@ public:
 	float get(unsigned int i, unsigned int j);
 	unsigned int cant_rows();
 	unsigned int cant_cols();
+	void swap_rows(unsigned int i1, unsigned int i2);
 
 	std::string print(void);
 
