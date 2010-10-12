@@ -11,7 +11,6 @@ typedef unsigned int uint;
 
 ifstream fpags, flinks;
 
-/* TODO: tomar p por parametro */
 float p = 0.85;
 
 void load_matrix(matrix &m)
