@@ -29,6 +29,17 @@ matrix::~matrix()
 	mat = NULL;
 }
 
+matrix matrix::operator=(const matrix m2)
+{
+	this->n = m2.n;
+	this->m = m2.m;
+	free(this->mat);
+	this->mat = (float *) malloc(sizeof(float) * n * m);
+	memcpy(this->mat, m2.mat, sizeof(float) * n * m);
+
+	return *this;
+}
+
 void matrix::set(uint i, uint j, float num)
 {
 	assert(valid_pos(i, j));
