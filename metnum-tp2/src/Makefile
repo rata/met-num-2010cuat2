@@ -1,6 +1,6 @@
 CXXFLAGS += -Wall -std=c++98 -pedantic -O3
 
-LU_OBJS = matrix.o
+LU_OBJS = matrix.o vector_utils.o
 
 OBJS = io_utils.o vector_utils.o
 
