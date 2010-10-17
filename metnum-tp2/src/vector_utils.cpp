@@ -5,7 +5,7 @@
 
 using namespace std;
 
-void imprimir_vector(int n, float* x)
+void imprimir_vector(int n, double* x)
 {
 	cout << "[";
 	for ( int i= 0 ; i < n-1 ; i++)
@@ -17,9 +17,9 @@ void imprimir_vector(int n, float* x)
 //	cout << x[n-1] << "]" << endl;
 }
 
-void normalizar(int n, float* x)
+void normalizar(int n, double* x)
 {
-	float norma = 0;
+	double norma = 0;
 
 	for ( int i = 0 ; i < n ; i++ ) {
 		norma += fabs(x[i]);
@@ -36,7 +36,7 @@ void normalizar(int n, float* x)
 	}
 }
 
-bool distintos(int n1, float* x1, int n2, float* x2)
+bool distintos(int n1, double* x1, int n2, double* x2)
 {
 	if ( n1 != n2 )
 		return true;
