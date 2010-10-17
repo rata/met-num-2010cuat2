@@ -1,0 +1,24 @@
+set terminal png enhanced size 1024,768
+set style data linespoints
+
+
+set output "plot/mem.png"
+set title "Comparativa de uso de memoria"
+set autoscale # scale axes automatically
+set xlabel "Tamaño de la matriz"
+set ylabel "Maximo uso de memoria (KB)"
+#set xr [0.0:540]
+#set yr [15000:20000]
+plot 'out/lu_mem' using 1:2 title "LU", \
+	'out/jacobis_mem' title "Jacobis"
+
+
+set output "plot/time.png"
+set title "Comparativa de tiempo de ejecución"
+set autoscale # scale axes automatically
+set xlabel "Tamaño de la matriz"
+set ylabel "Tiempo de ejecución (segundos)"
+#set xr [0.0:540]
+#set yr [15000:20000]
+plot 'out/lu_time' using 1:2 title "LU", \
+	'out/jacobis_time' title "Jacobis"
