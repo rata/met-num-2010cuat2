@@ -2,7 +2,7 @@
 #include <fstream>	// fstream
 #include <assert.h>	// assert
 #include <stdlib.h>	// malloc, free
-#include <cmath>	// abs(float)
+#include <cmath>	// abs(double)
 #include "matrix.h"
 #include "vector_utils.hpp"
 
@@ -14,7 +14,7 @@ typedef unsigned int uint;
 
 ifstream fpags, flinks;
 
-float p = 0.85;
+double p = 0.85;
 
 void load_matrix(matrix &m)
 {
@@ -43,7 +43,7 @@ void load_matrix(matrix &m)
 
 //	cout << m.print();
 	for (uint j = 1; j < m.cant_cols(); j++) {
-		float cj = 0;
+		double cj = 0;
 
 		/* calculo cj */
 		for (uint i = 1; i <= m.cant_rows(); i++) {
@@ -69,7 +69,7 @@ void load_matrix(matrix &m)
 	for (uint i = 1; i <= m.cant_rows(); i++)
 		m.set(i, last_col, 1);
 
-//	cout << "matriz final:" << endl << m.print();
+	cout << "matriz final:" << endl << m.print();
 
 	return;
 }
@@ -80,13 +80,13 @@ void triang_row(matrix &m, uint row_base, uint row)
 {
 	assert(m.get(row_base, row_base) != 0);
 
-	float coef = m.get(row, row_base) / m.get(row_base, row_base);
+	double coef = m.get(row, row_base) / m.get(row_base, row_base);
 
 	// Ponemos cero donde ya sabemos que la cuenta deberia dar cero
 	m.set(row, row_base, 0);
 
 	for (uint j = row_base + 1; j <= m.cant_cols(); j++) {
-		float val = m.get(row, j) - coef * m.get(row_base, j);
+		double val = m.get(row, j) - coef * m.get(row_base, j);
 
 		// Imprimimos la cuenta en forma "simbolica"
 		// XXX: Si el for empezara desde row_base, vemos claramente que
@@ -121,37 +121,37 @@ void triang(matrix &m)
 //		cout << "col " << j << endl;
 
 		// Pivoteo parcial
-		uint max_row = j;
-		float max_module = 0;
-		uint i;
-		for (i = j; i <= m.cant_rows(); i++) {
-			if (abs(m.get(i, j)) > max_module) {
-				max_module = abs(m.get(i, j));
-				max_row = i;
-			}
-		}
-		if (max_row != j) {
-			cout << "swapeando porque " << max_module << "es mayor que"
-				<< m.get(i, j) << endl;
-			m.swap_rows(max_row, j);
-		}
+//		uint max_row = j;
+//		double max_module = 0;
+//		uint i;
+//		for (i = j; i <= m.cant_rows(); i++) {
+//			if (abs(m.get(i, j)) > max_module) {
+//				max_module = abs(m.get(i, j));
+//				max_row = i;
+//			}
+//		}
+//		if (max_row != j) {
+//			cout << "swapeando porque " << max_module << "es mayor que"
+//				<< m.get(i, j) << endl;
+//			m.swap_rows(max_row, j);
+//		}
 
 		triang_col(m, j);
 	}
 }
 
-void back_substitution(matrix &m, float *res)
+void back_substitution(matrix &m, double *res)
 {
 	// Asumimos que la longitud de res es m.cant_rows()
 
 	for (uint i = m.cant_rows(); i > 0; i--) {
-		float x_i = m.get(i, i);
+		double x_i = m.get(i, i);
 		assert(x_i != 0);
 
 		// El invariante de ciclo es que de la columna i+1 hasta el final
 		// conocemos el valor de las variables. Asique son un termino
 		// independiente
-		float ti = 0;
+		double ti = 0;
 		for (uint j = i + 1; j < m.cant_cols(); j++) {
 			// res es un array, empieza en 0. Asique la posicion
 			// j-esima es j - 1
@@ -197,7 +197,7 @@ int main(int argc, char *argv[])
 	triang(m);
 	cout << "matriz triangulada" << endl << m.print();
 
-	float *res = (float *) malloc(sizeof(float) * n);
+	double *res = (double *) malloc(sizeof(double) * n);
 	if (res == NULL)
 		throw;
 

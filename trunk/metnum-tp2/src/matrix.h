@@ -10,9 +10,9 @@ public:
 	matrix(unsigned int n, unsigned int m);
 	~matrix();
 
-//	float operator[][] (int i, int j);
-	void set(unsigned int i, unsigned int j, float num);
-	float get(unsigned int i, unsigned int j);
+//	double operator[][] (int i, int j);
+	void set(unsigned int i, unsigned int j, double num);
+	double get(unsigned int i, unsigned int j);
 	unsigned int cant_rows();
 	unsigned int cant_cols();
 	void swap_rows(unsigned int i1, unsigned int i2);
@@ -26,7 +26,7 @@ private:
 	unsigned int m;
 
 	// La matriz
-	float *mat;
+	double *mat;
 
 	bool valid_pos(unsigned int i, unsigned int j);
 };

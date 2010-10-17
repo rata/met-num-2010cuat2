@@ -14,9 +14,9 @@ matrix::matrix(uint i, uint j)
 	this->n = i;
 	this->m = j;
 
-	// Allocamos memoria para n*m elementos de tamaño sizeof(float)
+	// Allocamos memoria para n*m elementos de tamaño sizeof(double)
 	// Usamos calloc para inicializar con ceros
-	mat = (float *) calloc(sizeof(float), n * m);
+	mat = (double *) calloc(sizeof(double), n * m);
 
 	// TODO: error mas claro
 	if (mat == NULL)
@@ -34,20 +34,20 @@ matrix matrix::operator=(const matrix m2)
 	this->n = m2.n;
 	this->m = m2.m;
 	free(this->mat);
-	this->mat = (float *) malloc(sizeof(float) * n * m);
-	memcpy(this->mat, m2.mat, sizeof(float) * n * m);
+	this->mat = (double *) malloc(sizeof(double) * n * m);
+	memcpy(this->mat, m2.mat, sizeof(double) * n * m);
 
 	return *this;
 }
 
-void matrix::set(uint i, uint j, float num)
+void matrix::set(uint i, uint j, double num)
 {
 	assert(valid_pos(i, j));
 	assert(mat != NULL);
 	mat[(i - 1) * m + j - 1] = num;
 }
 
-float matrix::get(uint i, uint j)
+double matrix::get(uint i, uint j)
 {
 	assert(valid_pos(i, j));
 	assert(mat != NULL);
@@ -68,14 +68,14 @@ void matrix::swap_rows(uint i1, uint i2)
 {
 	assert(valid_pos(i1, i2));
 
-	float *tmp = (float *) malloc(sizeof(float) * m);
+	double *tmp = (double *) malloc(sizeof(double) * m);
 	if (tmp == NULL) {
 		// TODO: error mas claro
 		throw;
 	}
 
-	float *i1_ptr = mat + (i1 - 1) * m;
-	float *i2_ptr = mat + (i2 - 1) * m;
+	double *i1_ptr = mat + (i1 - 1) * m;
+	double *i2_ptr = mat + (i2 - 1) * m;
 
 	// Copiamos la fila i1 a tmp
 	memcpy(tmp, i1_ptr, m);
@@ -102,9 +102,9 @@ string matrix::print(void)
 	for (uint i = 1; i <= n; i++) {
 		for (uint j = 1; j <= m; j++) {
 			// TODO: En vez de agregar mas tabs deberiamos recortar
-			// la presicion del float para que al imprimirlo no
+			// la presicion del double para que al imprimirlo no
 			// "mueva" una fila de la matriz por mas largo que sea
-			ret << this->get(i, j) << "\t\t\t";
+			ret << this->get(i, j) << "\t";
 		}
 
 		/* Termino la fila, ponemos una nueva linea */

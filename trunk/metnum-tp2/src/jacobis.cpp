@@ -6,9 +6,9 @@
 
 using namespace std;
 
-float p;
+double p;
 
-void imprimir(int n, map<int, map<int,float> > &a)
+void imprimir(int n, map<int, map<int,double> > &a)
 {
 	for ( int i = 1; i <= n; i++) {
 		for (int j = 1; j <= n ; j++){
@@ -25,7 +25,7 @@ void imprimir(int n, map<int, map<int,float> > &a)
 	}
 }
 
-float cj(int j, map<int, map<int,float> > &a)
+double cj(int j, map<int, map<int,double> > &a)
 {
 	uint cant = a.count(j) == 0 ? 0 : a[j].size();
 	if ( cant == 0)
@@ -34,7 +34,7 @@ float cj(int j, map<int, map<int,float> > &a)
 		return 1.0/cant;
 }
 
-void parsearW(int n, ifstream &file, map<int, map<int,float> > &a)
+void parsearW(int n, ifstream &file, map<int, map<int,double> > &a)
 {
 	string palabra;
 	file >> palabra;
@@ -57,22 +57,22 @@ void parsearW(int n, ifstream &file, map<int, map<int,float> > &a)
 	// Como calcular cj no es tan terrible, voy a iterar los mapas
 	// y calcular el cj en cada paso
 
-	map<int, map<int, float> >::iterator it_col;
-	map<int,float>::iterator it_fi;
+	map<int, map<int, double> >::iterator it_col;
+	map<int,double>::iterator it_fi;
 
 	// Para cada columna
 	for ( it_col = a.begin() ; it_col != a.end(); it_col++ ) {
 		for ( it_fi = (*it_col).second.begin() ; it_fi != (*it_col).second.end(); it_fi++ ) {
-			float c_j = cj((*it_col).first, a);
+			double c_j = cj((*it_col).first, a);
 			//Esta linea me suena a que no anda ni en pedo :S
 			(*it_fi).second = (*it_fi).second * c_j * p;
 		}
 	}
 }
 
-float* iterarJacobi(int n, map<int, map<int, float> > &a, float* x)
+double* iterarJacobi(int n, map<int, map<int, double> > &a, double* x)
 {
-	float* x_sig = (float *) malloc(sizeof(float) * n);
+	double* x_sig = (double *) malloc(sizeof(double) * n);
 	
 	// Inicializo con 1
 	for ( int i = 0 ; i < n ; i++)
@@ -80,38 +80,39 @@ float* iterarJacobi(int n, map<int, map<int, float> > &a, float* x)
 
 	// A x_sig le voy restando los elementos de la matriz de la fila
 	// correspondiente
-	map<int, map<int, float> >::iterator it_col;
-	map<int,float>::iterator it_fi;
+	map<int, map<int, double> >::iterator it_col;
+	map<int,double>::iterator it_fi;
 
 	for ( it_col = a.begin() ; it_col != a.end(); it_col++ ) {
 		for ( it_fi = (*it_col).second.begin() ; it_fi != (*it_col).second.end(); it_fi++ ) {
 			int i = (*it_fi).first;
-			float elemento = ((*it_fi).second * x[i-1]);
-			x_sig[i-1] = (x_sig[i-1] - elemento);
+			double elemento = ((*it_fi).second * x[i-1]);
+			x_sig[i-1] = (x_sig[i-1] + elemento);
 		}
 	}
 
 	return x_sig;
 }
 
-float* jacobi(int n, map<int, map<int, float> > &a, int max_iter)
+double* jacobi(int n, map<int, map<int, double> > &a, int max_iter)
 {
 	// Propongo como solucion el vector nulo
-	float* x = (float *) calloc(sizeof(float), n);
+	double* x = (double *) calloc(sizeof(double), n);
 	int iteracion = 0;
 	bool cambia = true;
 
 	while(iteracion < max_iter && cambia)
 	{
 		iteracion++;
-		float* buff = x;
+		double* buff = x;
 		x = iterarJacobi(n, a, x);
-		normalizar(n, x);
+	//	normalizar(n, x);
 		cambia = distintos(n, buff, n, x);
 		cout << iteracion <<":\n";
 		imprimir_vector(n, x);
 		free(buff);
 	}
+	cout << "cambia: " << cambia << endl;
 	return x;
 }
 
@@ -140,22 +141,22 @@ int main(int argc, char *argv[])
 
 //	cout << "Paginas: " << n << endl;
 	
-	map<int, map<int, float> > a;
+	map<int, map<int, double> > a;
 	
 
 	parsearW(n, f_link, a);
 
-//	imprimir(n, a);
+	imprimir(n, a);
 
 	cerrar(&f_link);
 	cerrar(&f_pag);
 	
-	float* x = jacobi(n, a, max_iter);
+	double* x = jacobi(n, a, max_iter);
 
-//	normalizar(n, x);
+	normalizar(n, x);
 
-//	cout << "Respuesta:\n";
-//	imprimir_vector(n, x);
+	cout << "Respuesta:\n";
+	imprimir_vector(n, x);
 	free(x);
 
 	return 0;
