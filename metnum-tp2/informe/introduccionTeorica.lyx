@@ -1,0 +1,307 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Introducción teórica
+\end_layout
+
+\begin_layout Standard
+Sea 
+\begin_inset Formula $A\in\mathbb{R}^{n\times n},x\in\mathbb{R}^{n},b\in\mathbb{R}^{n}$
+\end_inset
+
+.
+ Consideremos el sistema: 
+\begin_inset Formula $Ax=b$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Resolución mediante factorización LU
+\end_layout
+
+\begin_layout Standard
+El método de resolución mediante factorización LU, consta en encontrar dos
+ matrices 
+\begin_inset Formula $L$
+\end_inset
+
+ y 
+\begin_inset Formula $U$
+\end_inset
+
+ tales que:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $L$
+\end_inset
+
+ sea Triangular Inferior con unos en la diagonal (inversible)
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $U$
+\end_inset
+
+ sea Triangular Superior
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $A=LU$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+De esta forma se reescribe el sistema como: 
+\begin_inset Formula $Ax=LUx=b$
+\end_inset
+
+, al ser 
+\begin_inset Formula $L$
+\end_inset
+
+ inversible se procede a resolver el sistema: 
+\begin_inset Formula $Ux=L^{-1}b$
+\end_inset
+
+.
+ Como 
+\begin_inset Formula $U$
+\end_inset
+
+ es Triangular Superior la resolución de este sistema es sencilla utilizando
+ la técnica de 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{back substitution}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Un método para lograr la factorización LU es el método de Gauss.
+ Dicho método, si existe una factorización LU, la encuentra siempre.
+\end_layout
+
+\begin_layout Standard
+Por otro lado, si la matriz 
+\begin_inset Formula $A$
+\end_inset
+
+ es estrictamente diagonal dominante, se puede asegurar la existencia de
+ 
+\begin_inset Formula $L$
+\end_inset
+
+ y 
+\begin_inset Formula $U$
+\end_inset
+
+ y su inversibilidad.
+\end_layout
+
+\begin_layout Subsection
+Resolución mediante el método de Jacobi
+\end_layout
+
+\begin_layout Standard
+El método de Jacobi pertenece a la familia de métodos iterativosque descompone
+ a 
+\begin_inset Formula $A$
+\end_inset
+
+ en dos matrices 
+\begin_inset Formula $M$
+\end_inset
+
+, 
+\begin_inset Formula $K$
+\end_inset
+
+ tal que 
+\begin_inset Formula $A=M-K$
+\end_inset
+
+ con 
+\begin_inset Formula $M$
+\end_inset
+
+ inversible.
+ Luego:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+Ax=b\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+(M-K)x=b\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+Mx-Kx=b\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+x=M^{-1}Kx+M^{-1}b\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sea 
+\begin_inset Formula $T=M^{-1}K$
+\end_inset
+
+, 
+\begin_inset Formula $c=M^{-1}b$
+\end_inset
+
+.
+ Entonces,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+x=Tx+c\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En base a esto se plantea el siguiete esquema recursivo:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+x_{n+1}=Tx_{n}+c\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Prop
+\bar default
+: si la sucesión 
+\begin_inset Formula $\left\{ x_{n}\right\} $
+\end_inset
+
+ converge 
+\begin_inset Formula $\Rightarrow$
+\end_inset
+
+ 
+\begin_inset Formula $\underset{n\rightarrow\infty}{lim}x_{n}{\displaystyle =x}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Prop
+\bar default
+: si 
+\begin_inset Formula $\rho(T)<1$
+\end_inset
+
+, dicha sucesión converge.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Prop
+\bar default
+: sea 
+\begin_inset Formula $\Vert.\Vert$
+\end_inset
+
+una norma matricial inducida
+\begin_inset Formula $\Rightarrow\rho(T)<\Vert T\Vert$
+\end_inset
+
+.
+\end_layout
+
+\end_body
+\end_document

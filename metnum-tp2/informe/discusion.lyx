@@ -1,0 +1,249 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Discusión
+\end_layout
+
+\begin_layout Standard
+Luego de obtener los resultados presentados en la sección anterior, se pueden
+ obsevar distintos aspectos tanto de los algoritmos como de los métodos.
+ Los mismos serán discutidos a continuación.
+\end_layout
+
+\begin_layout Subsection
+Métodos de aproximación de la mantisa
+\end_layout
+
+\begin_layout Standard
+Se pudo observar a partir de las pruebas empíricas como cambia el resultado
+ al cambiar el algoritmo que ajusta la precisión de los numeros, tanto al
+ usar truncamiento como al usar redondeo.
+\end_layout
+
+\begin_layout Standard
+Se puede observar que el comportamiento en sí de los algoritmos no se ve
+ modificado al cambiar los métodos.
+ Es decir, los resultados en sí difieren al usar un método u otro, pero
+ la tendencia de los mismos no se ve afectada.
+ Esto se puede ver en los graficos.
+ Al compararlos podemos ver las distintas perturbaciones al usar un método
+ o el otro, pero ambos decaen en manera similar al aumentar la cantidad
+ de términos usados.
+ También la cantidad de iteraciones hasta lograr que el algoritmo se estabilice
+ en un resultado resulta del mismo orden.
+\end_layout
+
+\begin_layout Standard
+Comparando el método babilonio con redondeo y el método babilonio con truncamien
+to, se puede ver que para ciertas precisiones y usando redondeo se llega
+ a un valor más preciso que para la misma precisión usando truncamiento.
+ Además se puede observar que, para ciertas precisiones, al utilizar el
+ método de truncamiento en vez del de redondeo, el algoritmo comete un error
+ mayor.
+ En este caso, dicho algoritmo no mejora ni subsana dicho error con más
+ iteraciones.
+ Lo que hace que en estos casos se aproxime con más error.
+\end_layout
+
+\begin_layout Standard
+Si comparamos también el método de fracciones continuas simple usando redondeo
+ con él mismo usando truncamiento, se puede observar un comportamiento similar
+ a lo que ocurre con el babilonio.
+ Se puede ver que usando redondeo el error se estabiliza en ciertos entornos
+ con más de 20 iteraciones.
+ En cambio, al usar truncamiento, en los mismos lugares donde se estabiliza
+ con redondeo, se ve una fluctuación en el error acotada inferiormente por
+ donde se estabiliza con redondeo.
+\end_layout
+
+\begin_layout Standard
+Al comparar el método binomial decreciente usando truncamiento con su variante
+ usando redondeo, se puede ver como estos errores son menores.
+ 
+\end_layout
+
+\begin_layout Subsection
+Método Babilonio
+\end_layout
+
+\begin_layout Standard
+Este método es el que mejores resultados obtiene de los tres propuestos.
+ El mismo encuentra el mejor resultado para una presicion 
+\begin_inset Formula $t$
+\end_inset
+
+ dada (
+\begin_inset Formula $t<52$
+\end_inset
+
+) al termino de 5 iteraciones.
+ Se puede observar en los gráficos como el error decae abruptamente hasta
+ estabilizarse en dicho valor.
+ 
+\end_layout
+
+\begin_layout Standard
+Es decir, al aumentar la cantidad de iteraciones no siempre mejora la aproximaci
+ón.
+\end_layout
+
+\begin_layout Subsection
+Método Binomial
+\end_layout
+
+\begin_layout Standard
+Este método resultó ser el más interesante para analizar.
+ El mismo no logra aproximar 
+\begin_inset Formula $\sqrt{2}$
+\end_inset
+
+ con menor error que el resto de los métodos, pero es el que más interesante
+ nos resultó a nivel numérico.
+\end_layout
+
+\begin_layout Standard
+A partir del análisis de los gráficos se puede observar como se diferencia
+ el comportamiento del método al implementarlo de manera creciente o decreciente.
+ Al comenzar la sumatoria con un 
+\begin_inset Formula $1$
+\end_inset
+
+, los errores que comete el algoritmo son más notables.
+ En cambio, cuando se comienza la sumatoria desde el término menos significativo
+, el error no es tan notable.
+ Esto se debe a que al ser 
+\begin_inset Formula $\sqrt{2}$
+\end_inset
+
+ un numero entre 
+\begin_inset Formula $1$
+\end_inset
+
+ y 
+\begin_inset Formula $2$
+\end_inset
+
+.
+ Cuando se comienza con un uno, se obliga a que el exponente, del número
+ que acumula el resultado, quede fijo.
+ Haciendo imposible que los números más pequeños tengan influencia en él.
+ En cambio, cuando se comienza a sumar desde los números más pequeños, el
+ exponente se establece de forma tal de adecuarse al orden de magnitud de
+ los sumandos, haciendo que todos los números sean considerados en el resultado.
+ Esto se traduce en un error menor en los experimentos.
+\end_layout
+
+\begin_layout Standard
+También, es importante notar que al se posible expresar la fórmula como
+ una sumatoria, a partir de cierta iteración (dependiente de la precisión)
+ los sumandos son despreciables para la precisión dada.
+ A partir de este punto no tiene sentido continuar realizando más iteraciones.
+\end_layout
+
+\begin_layout Standard
+Otro aspecto interesante es ver como, para una cantidad de iteraciones dada,
+ a partir de cierta precisión (dependiente de la cantidad de iteraciones)
+ el resultado final no varía.
+ Por ejemplo, en el gráfico <ref>{bin-err-i:100.png} se puede observar que
+ para 100 iteraciones, a partir de 25 bits de precisión el resultado se
+ mantiene.
+ Se supone que esto se debe a que los términos de la sumatoria van decreciendo
+ hasta que no pueden ser representados con la cota de 
+\begin_inset Formula $52$
+\end_inset
+
+bits que se tomó.
+\end_layout
+
+\begin_layout Standard
+También se puede observar en los gráficos la presencia de ciertos 
+\begin_inset Quotes eld
+\end_inset
+
+picos
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Suponemos que éstos son errores numéricos.
+ En particular, se puede ver el pico donde el error es menor a 
+\begin_inset Formula $10^{-6}$
+\end_inset
+
+, esto no significa un mejor cálculo, sino que es producto del error que
+ se comete.
+\end_layout
+
+\begin_layout Subsection
+Método de fracciones continuas
+\end_layout
+
+\begin_layout Standard
+Luego de implementar este método de la manera más simple, se trató de mejorar
+ dicha implementación como se explicó en la seccion de desarrollo.
+ Esta segunda implementación resltó ser peor que la inicial, ya que no mostró
+ un resultado superior y al alcanzar cierta cantidad de iteraciones, los
+ números que maneja el algoritmo son tan grandes que quedan por afuera del
+ rango representable.
+ Por esta razón, las pruebas anteriores se realizaron con la implementacion
+ inicial.
+\end_layout
+
+\begin_layout Standard
+Este método logra establizarse luego de pocas iteraciones, como se puede
+ observar.
+ Es decir, luego de esa cantidad de iteraciones, no mejora la aproximación.
+ En particular, se puede ver que para el rango de precisiones del trabajo,
+ no tiene sentido hacer más de 25 iteraciones.
+\end_layout
+
+\begin_layout Standard
+También se puede observar como el algoritmo se acerca de igual manera al
+ resultado, independentemente de la presicion con la que se trabaje.
+ Pero la precisión termina definiendo cuánto se acercará al valor buscado.
+ Es decir, con más precisión se acercará a un valor más próximo al buscado.
+\end_layout
+
+\end_body
+\end_document
