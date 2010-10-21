@@ -46,239 +46,341 @@ Desarrollo
 \end_layout
 
 \begin_layout Subsection
-Artimética de precisión arbitraria
+Problema
 \end_layout
 
 \begin_layout Standard
-Para realizar los experimentos se observó que es necesario contar con una
- aritmética de precisión arbitraria con las operaciones de suma, resta multiplic
-ación y división.
-\end_layout
-
-\begin_layout Standard
-Primero se pensó en hacer una clase que represente números de punto flotante,
- a la cual se le pueda fijar la presicion de manera dinámica.
- Para realizar las operaciones de la misma, se evaluó la posibilidad de
- implementar 
-\begin_inset Quotes eld
+Sea 
+\begin_inset Formula $W\in\mathbb{R}^{n\times n}$
 \end_inset
 
-manualmente
-\begin_inset Quotes erd
-\end_inset
-
- dichas operaciones.
-\end_layout
-
-\begin_layout Standard
-Luego se optó por un enfoque más simple: representar internamente el número
- con un double (
-\emph on
-IEEE 754 binary64
-\emph default
-).
- De esta forma, ya que el objetivo es lograr que la precisión sea t < 52,
- y sabiendo que un double tiene 52 bits en la mantisa (lo que define la
- presicion), el mismo alcanza para representar cualquier numero con presicion
- t.
- Lo que nos permite realizar las operaciones de suma, resta, multiplicación
- y división utilizando como base las provistas por el procesador.
-\end_layout
-
-\begin_layout Standard
-Otro aspecto relevante es la cantidad de bits del exponente, es decir, cuántos
- bits asignarle.
- Luego de discutir el tema y considerar que el exponente sólo define el
- alcance de la representación (cuál será el mayor y el menor numero representabl
-e), se optó por utilizar la misma cantidad de bits para el exponente que
- la que se utiliza para representar un double.
- De esta forma solo tendremos que ocuparnos de la mantisa de dicha representació
-n.
- Cabe mencionar que para esta decisión se tomo en consideración que las
- operaciónes aritméticas a realizar son todas con el fín de calcular 
-\begin_inset Formula $\sqrt{2}$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-La aritmética finalmente funciona de la siguiente manera:
-\end_layout
-
-\begin_layout Standard
-Cuando se genera un numero con presicion t, lo que se hacer es guardar intername
-nte el mismo como un double, pero se le quita presicion hasta llegar a la
- presicion t buscada.
-\end_layout
-
-\begin_layout Standard
-Luego, para realizar alguna operacion, se toman los dos operandos (ya con
- la presicion correcta) y se opera utilizano los doubles de la representacion
- interna.
- Una vez obtenido este resultado se genera nuevamente un numero con presicion
- t a partir de este.
-\end_layout
-
-\begin_layout Subsubsection
-Métodos de aproximación de la mantisa
-\end_layout
-
-\begin_layout Standard
-Para adecuar la precisión de un número a la presición t buscada, se implementaro
-n dos métodos: truncamiento y redondeo.
-\end_layout
-
-\begin_layout Standard
-El primero consiste en poner en cero todos los bits de la mantisa que estén
- en posiciones mayores a t.
- Para esto se utilizó una máscara de bits y se realizó un and lógico (de
- bits) sobre los bits de la mantisa y la máscara.
- 
-\end_layout
-
-\begin_layout Standard
-Para implementar el método de redondeo es necesario considerar el bit de
- la posición t+1 de la mantisa.
- Lo que se traduce en sumarle al numero original el valor que representa
- ese bit para luego truncar el resulado a precisión t.
- Para realizar esto se realiza un truncamiento del numero a presicion 
-\begin_inset Formula $t+1$
-\end_inset
-
- y otro con presicion 
-\begin_inset Formula $t$
-\end_inset
-
-, al restar estos dos numeros se obtiene el numero que representa el bit
- 
-\begin_inset Formula $t+1$
-\end_inset
-
-.
- Por ultimo se suma al numero original este valor y se lo trunca a presicion
- 
-\begin_inset Formula $t$
-\end_inset
-
-, como se explicó anteriormente.
- 
-\end_layout
-
-\begin_layout Subsection
-Método binomial
-\end_layout
-
-\begin_layout Standard
-Para este método se realizaron distintas implementaciones teniendo en cuenta
- ciertas particularidades que se notaron de la fórmula: 
-\end_layout
-
-\begin_layout Itemize
-que el numerador y denominador de cada término es un producto
-\end_layout
-
-\begin_layout Itemize
-que cada término es igual al anterior multiplicado por una constante que
- depende de la iteración actual
-\end_layout
-
-\begin_layout Itemize
-que la fórmula se puede expresar como una sumatoria
-\end_layout
-
-\begin_layout Standard
-La primera implementación, 
-\emph on
-binomial simple
-\emph default
-, calcula para cada término el numerador y el denominador y, luego, el resultado
- de la division.
- Mediante este proceso se calculan todos los terminos (hasta cierto n variable).
- Y a medida que se genera cada término, se lo suma en una variable que finalment
-e tendrá el resultado buscado.
-\end_layout
-
-\begin_layout Standard
-La segunda implementación, 
-\emph on
-binomial incremental
-\emph default
-, consta en dividir cada termino en productos de fracciones, esto es posible
- gracias a que:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-(1+x)^{n}=1+n\, x+\frac{n\,(n-1)}{2!}x^{2}+\frac{n\,(n-1)\,(n-2)}{3!}x^{3}+\dots\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-{\displaystyle (1+x)^{n}=1+{\displaystyle \sum_{i=0}^{\infty}a_{i}}}\]
-
-\end_inset
-
- Con,
-\begin_inset Formula $a_{i}={\displaystyle \prod_{j=0}^{i}b_{j}}$
+una matriz rala donde 
+\begin_inset Formula $w_{ii}=0$
 \end_inset
 
  y 
-\begin_inset Formula $b_{j}=\frac{n-j}{j+1}$
+\begin_inset Formula $w_{ij}\in\left\{ 0,1\right\} ,i\neq j$
+\end_inset
+
+.
+ Sea 
+\begin_inset Formula $p=0.85$
+\end_inset
+
+una probabilidad.
+ Sea 
+\begin_inset Formula $c_{j}=\sum_{i}w_{ij}$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
-Se puede ver tambien que 
-\begin_inset Formula $a_{i+1}=a_{i}.b_{i+1}$
+Se define 
+\begin_inset Formula $A\in\mathbb{R}^{n\times n}$
+\end_inset
+
+como:
+\begin_inset Formula \[
+a_{ij}=\begin{cases}
+\frac{1-p}{n}+\frac{pw_{ij}}{c_{j}} & c_{j}\neq0\\
+\frac{1}{n} & c_{j}=0\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El problema consiste en resolver el siguiente sistema:
+\begin_inset Formula \[
+Ax=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+que cumple que 
+\begin_inset Formula $x_{i}\geq0$
+\end_inset
+
+ y 
+\begin_inset Formula $\sum_{i}x_{i}=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Es importante notar que la matriz 
+\begin_inset Formula $A$
+\end_inset
+
+ puede reescribirse como:
+\begin_inset Formula \[
+A=pWD+ez^{\intercal}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+donde 
+\begin_inset Formula $D$
+\end_inset
+
+ es una matriz diagonal de la forma:
+\begin_inset Formula \[
+d_{jj}=\begin{cases}
+\frac{1}{c_{j}} & c_{j}\neq0\\
+0 & sino\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $e$
+\end_inset
+
+ es un vector columna de unos de dimensión 
+\begin_inset Formula $n$
+\end_inset
+
+ y 
+\begin_inset Formula $z\in\mathbb{R}^{n}$
+\end_inset
+
+
+\begin_inset Formula \[
+z_{j}=\begin{cases}
+\frac{1-p}{n} & c_{j}\neq0\\
+\frac{1}{n} & sino\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Luego, el sistema:
+\begin_inset Formula \[
+Ax=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+(pWD+ez^{\intercal})x=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+pWDx+ez^{\intercal}x=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+pWDx-x=-ez^{\intercal}x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+x-pWDx=ez^{\intercal}x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+(I-pWD)x=ez^{\intercal}x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se define 
+\begin_inset Formula $\gamma=z^{\intercal}x\in\mathbb{R}$
 \end_inset
 
 .
- Sabiendo esto, lo que se hizo en cada paso fue, en vez de recalcular todo
- el termino se utiliza el termino anterior y a partir de este (multiplicando
- por el valor de 
-\begin_inset Formula $b_{j}$
+ De esta manera, el procedimiento sugerido por la cátedra para resolver
+ el sistema es:
+\end_layout
+
+\begin_layout Enumerate
+Suponer 
+\begin_inset Formula $\gamma=1$
 \end_inset
 
-) se obtiene el termino siguiente.
+
+\end_layout
+
+\begin_layout Enumerate
+Resolver la ecuacion 
+\begin_inset Formula $(I-pWD)x=e\gamma$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Normalizar el vector 
+\begin_inset Formula $x$
+\end_inset
+
+ de manera que 
+\begin_inset Formula ${\displaystyle \sum_{i=1}^{n}}x_{i}=1$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-La tercera y ultima implementacion, 
-\emph on
-binomial decremetal
+
+\bar under
+Propiedad: 
+\bar default
+
+\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n,{\displaystyle \sum_{i=1}^{n}}(WD)_{ij}=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Demostración: 
+\bar default
+Sea 
+\begin_inset Formula $j\in\mathbb{N},1\leq j\leq n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+{\displaystyle \sum_{i=1}^{n}}(WD)_{ij}={\displaystyle \sum_{i=1}^{n}}\frac{w_{ij}}{c_{j}}={\displaystyle \frac{1}{c_{j}}\sum_{i=1}^{n}}w_{ij}={\displaystyle \frac{1}{{\displaystyle \sum_{i=1}^{n}}w_{ij}}\sum_{i=1}^{n}}w_{ij}={\displaystyle \frac{{\displaystyle \sum_{i=1}^{n}}w_{ij}}{{\displaystyle \sum_{i=1}^{n}}w_{ij}}}=1\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Corolario:
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula ${\displaystyle \forall j\in\mathbb{N},1\leq j\leq n\sum_{i=1}^{n}}(pWD)_{ij}=0.85$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Corolario: 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n$
+\end_inset
+
+, 
+\begin_inset Formula ${\displaystyle \sum_{i=1}^{n}}|(pWD)_{ij}|=0.85$
+\end_inset
+
+.
+ Pues 
+\family default
+\series default
+\shape default
+\size default
 \emph default
-, usa la propiedad conmutativa de la suma, ya que suma los terminos en el
- orden inverso.
- Con este fin se calcularon los terminos de manera similar a la implementacion
- anterior, pero en vez de sumarlos, se los guarda en una lista.
- Finalmente se recorre la lista de atras haca adelante realizando, ahora
- sí, la sumatoria de los terminos.
+\bar default
+\noun default
+\color inherit
+
+\begin_inset Formula $(pWD)_{ij}\geq0$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
-Método de las fracciones continuas
+Resolución mediante factorización LU
+\end_layout
+
+\begin_layout Subsubsection*
+Existencia de factorización LU
 \end_layout
 
 \begin_layout Standard
-La primera implementacion planteada para este metodo consiste en realizar
- el calculo de la fraccion partiendo desde la más interior hasta llegar
- a la exterior.
- La implementacion, de este modo, no tiene mayores complicaciones.
+Mostraremos que la matriz 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $(I-pWD)$
+\end_inset
+
+ es estrictamente diagonal dominante.
+ Es decir que 
+\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n$
+\end_inset
+
+, vale:
 \end_layout
 
 \begin_layout Standard
-Otro enfoque que se usó fué el de no realizar las divisiones de las fracciones
- hasta la última iteración, esto es más sencillo de ver de la siguiente
- manera:
 \begin_inset Formula \[
-\sqrt{2}=1+\frac{1}{2+\frac{1}{2+\frac{1}{2+\dots}}}\]
+|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(I-pWD)_{ij}|\]
 
 \end_inset
 
@@ -286,69 +388,8 @@ Otro enfoque que se usó fué el de no realizar las divisiones de las fracciones
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula \[
-\sqrt{2}=1+\underset{n\rightarrow\infty}{lim}a_{n}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Siendo:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\begin{cases}
-a_{1}=\frac{1}{2}\\
-a_{i+1}=\frac{1}{2+a_{i}}\end{cases}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-A partir de esto, si se considera: 
-\begin_inset Formula $a_{i}=\frac{b_{i}}{c_{i}}$
-\end_inset
-
-, se obtiene:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-a_{i+1}=\frac{1}{2+a_{i}}=\frac{1}{2+\frac{b_{i}}{c_{i}}}=\frac{1}{\frac{2c_{i}+b_{i}}{c_{i}}}=\frac{c_{i}}{2c_{i}+b_{i}}=\frac{b_{i+1}}{c_{i+1}}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Finalmente se obtiene:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\sqrt{2}=1+{\displaystyle \underset{n\rightarrow\infty}{lim}}\frac{b_{n}}{c_{n}}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Con:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\begin{cases}
-b_{1}=1\\
-b_{i+1}=c_{i}\end{cases}\]
-
+Primero veamos, como 
+\begin_inset Formula $p(WD)_{jj}=0$
 \end_inset
 
 
@@ -356,9 +397,7 @@ b_{i+1}=c_{i}\end{cases}\]
 
 \begin_layout Standard
 \begin_inset Formula \[
-\begin{cases}
-c_{1}=2\\
-c_{i+1}=2c_{i}+b_{i}\end{cases}\]
+|(I-pWD)_{jj}|=|I_{jj}|=1\]
 
 \end_inset
 
@@ -366,31 +405,122 @@ c_{i+1}=2c_{i}+b_{i}\end{cases}\]
 \end_layout
 
 \begin_layout Standard
-Utilizando esto es posible no realizar ninguna division hasta la ultima
- iteración.
+Por otro lado, dado que 
+\begin_inset Formula $i\neq j\Rightarrow I_{ij}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\sum_{i=1,i\neq j}^{n}|(I-pWD)_{ij}|=\sum_{i=1,i\neq j}^{n}|I_{ij}-(pWD)_{ij}|=\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|=0.85\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En consecuencia
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Luego, la matriz 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $(I-pWD)$
+\end_inset
+
+ es estrictamente diagonal dominante.
+ Lo que implica, por la propiedad antes expuesta, que existe una factorización
+ LU.
+\end_layout
+
+\begin_layout Subsubsection*
+Implementación
 \end_layout
 
 \begin_layout Subsection
-Metodo Babilonio
+Resolución mediante el método de Jacobi
+\end_layout
+
+\begin_layout Subsubsection*
+Convergencia del método
 \end_layout
 
 \begin_layout Standard
-Para este método sólo se realizó una implementación, la misma es una traduccion
- bastante literal de la formula que el método presenta.
- La aproximacion inicial 
-\emph on
-A 
-\emph default
-se fijó como 
-\begin_inset Formula $2$
+Para ver la convergencia del método es suficiente ver que 
+\begin_inset Formula $\Vert T\Vert<1$
 \end_inset
 
-, pero se estableció también como parámetro opcional de entrada.
- De esta forma es posible ver cómo el mismo varía según el 
-\emph on
-A
-\emph default
- elegido.
+, para 
+\begin_inset Formula $\Vert.\Vert$
+\end_inset
+
+ norma matricial inducida y 
+\begin_inset Formula $T=D^{-1}(L+U)$
+\end_inset
+
+.
+ Por lo visto en la introducción teórica.
+\end_layout
+
+\begin_layout Standard
+Tomaremos 
+\begin_inset Formula $\Vert.\Vert_{1}$
+\end_inset
+
+.
+ En resumen, queremos ver que:
+\begin_inset Formula \[
+\Vert I^{-1}(-pWD)\Vert_{1}<1\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\Vert I^{-1}(-pWD)\Vert_{1}=|-1|\Vert I^{-1}pWD)\Vert_{1}=\Vert pIWD)\Vert_{1}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\Vert pWD)\Vert_{1}=\max_{j}{\displaystyle \sum_{i=1}^{n}}|(pWD)_{ij}|=0.85<1\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+De esta manera queda asegurada la convergencia del método.
+\end_layout
+
+\begin_layout Subsubsection*
+Implementación
 \end_layout
 
 \end_body
