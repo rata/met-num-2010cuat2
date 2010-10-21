@@ -134,10 +134,18 @@ emph{back substitution}
 \begin_layout Standard
 Un método para lograr la factorización LU es el método de Gauss.
  Dicho método, si existe una factorización LU, la encuentra siempre.
+\begin_inset Newline newline
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Por otro lado, si la matriz 
+
+\bar under
+Prop
+\bar default
+: si la matriz 
 \begin_inset Formula $A$
 \end_inset
 
@@ -301,6 +309,61 @@ una norma matricial inducida
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Corolario: 
+\bar default
+sea 
+\begin_inset Formula $\Vert.\Vert$
+\end_inset
+
+una norma matricial inducida, si 
+\begin_inset Formula $\Vert T\Vert<1$
+\end_inset
+
+, dicha sucesión converge.
+\end_layout
+
+\begin_layout Standard
+En el método de jacobi se considera 
+\begin_inset Formula $M=D$
+\end_inset
+
+ y
+\begin_inset Formula $K=L+U$
+\end_inset
+
+, donde:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $d_{ij}=\begin{cases}
+a_{ii} & i=j\\
+0 & i\neq j\end{cases}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $l_{ij}=\begin{cases}
+a_{ij} & i>j\\
+0 & i\leq j\end{cases}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $u_{ij}=\begin{cases}
+a_{ij} & i<j\\
+0 & i\geq j\end{cases}$
+\end_inset
+
+
 \end_layout
 
 \end_body
