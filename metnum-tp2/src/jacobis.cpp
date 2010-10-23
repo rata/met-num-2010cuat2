@@ -109,7 +109,7 @@ double* jacobi(int n, map<int, map<int, double> > &a, int max_iter)
 	//	normalizar(n, x);
 		cambia = distintos(n, buff, n, x);
 		cout << iteracion <<":\n";
-		imprimir_vector(n, x);
+	//	imprimir_vector(n, x);
 		free(buff);
 	}
 	cout << "cambia: " << cambia << endl;
@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
 
 	parsearW(n, f_link, a);
 
-	imprimir(n, a);
+	//imprimir(n, a);
 
 	cerrar(&f_link);
 	cerrar(&f_pag);

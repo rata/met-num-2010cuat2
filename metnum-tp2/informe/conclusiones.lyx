@@ -36,6 +36,7 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -45,38 +46,42 @@ Conclusiones
 \end_layout
 
 \begin_layout Standard
-Luego de analizar todos los resultados se llegó a la conclusión de que los
- errores númericos que se generan al trabajar con una aritmética finita
- son muy variados.
- Los mismos pueden aparecer tanto por particularidades del método que se
- está implementando como por particularidades de la implementacion.
- Las diferentes decisiones de implementación afectan los resultados de diferente
-s formas, y el efecto que tienen sobre los errores dependen también de los
- algoritmos con los que se trabaja.
+Luego de analizar todos los resultados se llegó a la conclusión de que para
+ matrices suficientemente grandes, los algoritmos exactos como el caso de
+ 
+\begin_inset Formula $LU$
+\end_inset
+
+ resultan ser prohibitivos, ya sea tanto por el consumo de memoria que el
+ mismo requiere, como por su performance temporal.
+ Es por esto que los métodos iterativos resultan de gran importancia.
+ Cuando se puede asegurar su convergencia, como es el caso de nuestro domino,
+ se puede lograr resolver un sistema de ecuaciones que de otra forma sería
+ imposible de resolver.
 \end_layout
 
 \begin_layout Standard
-Esto se pudo ver, por ejemplo, al analizar cómo se ven afectados los resultados
- al elegir truncamiento o redondeo al ajustar la precisión de un número.
- Por ejemplo, para el método babilonio, esta decisión tiene una influencia
- más que significativa.
+También vale decir que aunque se esté en un dominio en el que no sea posible
+ asegurar su convergencia, un método iterativo puede ser una buena opción,
+ ya que un método exacto puede resultar ser inutilizable para contextos
+ con matrices suficientemente grandes, que suelen ser los casos interesantes
+ de resolver.
+ En estos casos un método iterativo puede llegar a ser a lo mejor que se
+ pueda acceder.
+ Y si bien quizá no se puede asegurar la convergencia del método, sí se
+ puede conocer la norma del residuo (
+\begin_inset Formula $b-Ax$
+\end_inset
+
+).
+ Entonces pueden ser una excelente alternativa aún cuando no se puede asegurar
+ su convergencia si, para ese caso, alcanza con acotar el residuo.
 \end_layout
 
 \begin_layout Standard
-También se vio cómo decisiones de la implementación pueden lograr que no
- se cometan ciertos errores.
- Esto se puede ver en el caso del método binomial.
- En este caso, cuando se realiza una implementación que acumula los valores
- desde el más grande hasta el más chico, contra una que lo hace en el sentido
- contrario, los errores cometidos son menores en el caso de la segunda opción.
-\end_layout
-
-\begin_layout Standard
-Además, se vio que no necesariamente un método mejora si se aumentan la
- cantidad de términos sumados (de hecho, a veces empeora), por lo que a
- veces tiene sentido no correr demasiadas iteraciones de un método.
- También, no siempre tener mayor precisión asegura una mejor aproximación
- al resultado.
+Los algoritmos iterativos resultan una alternativa performante, tanto en
+ memoria como en tiempo, a los algoritmos exactos tradicionales y hacen
+ posible trabajar con matrices que son intratables con un método directo.
 \end_layout
 
 \end_body
