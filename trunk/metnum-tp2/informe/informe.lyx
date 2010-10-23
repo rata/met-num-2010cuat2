@@ -141,20 +141,6 @@ filename "conclusiones.lyx"
 \end_inset
 
 
-\begin_inset CommandInset include
-LatexCommand include
-filename "apendiceA.lyx"
-
-\end_inset
-
-
-\begin_inset CommandInset include
-LatexCommand include
-filename "apendiceB.lyx"
-
-\end_inset
-
-
 \end_layout
 
 \end_body
