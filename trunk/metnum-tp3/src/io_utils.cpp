@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int leer(char* pags_path, ifstream* fpag ) 
+int leer(char* pags_path, ifstream* fpag )
 {
         fpag->open(pags_path , ifstream::in);
 
