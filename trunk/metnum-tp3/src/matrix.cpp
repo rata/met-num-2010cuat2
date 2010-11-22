@@ -4,10 +4,19 @@
 #include <string>	// std::string
 #include <string.h>	// memcpy
 #include "matrix.hpp"
+#include <iostream>
 
 using namespace std;
 
 typedef unsigned int uint;
+
+matrix::matrix()
+{
+	//cout << "cons defecto" << endl;
+	this->mat = NULL;
+	this->n = 0;
+	this->m = 0;
+}
 
 matrix::matrix(uint i, uint j)
 {
@@ -19,20 +28,39 @@ matrix::matrix(uint i, uint j)
 	mat = (double *) calloc(sizeof(double), n * m);
 
 	// TODO: error mas claro
-	if (mat == NULL)
+	if (mat == NULL) {
+		//cout << "sin memoria" << endl;
 		throw;
+	}
 }
+
+matrix matrix::identity(uint n)
+{
+	matrix m(n, n);
+	for (uint i = 1; i <= n; i++)
+		m.set(i, i, 1);
+	return m;
+}
+
 
 matrix::~matrix()
 {
-	free(mat);
+	//cout << "destructor" << endl;
+	free(this->mat);
 	mat = NULL;
 }
 
-matrix matrix::operator=(const matrix m2)
+matrix& matrix::operator=(const matrix& m2)
 {
+	//cout << "operator=!!" << endl;
 	this->n = m2.n;
 	this->m = m2.m;
+
+	if (this->mat == m2.mat) {
+		//cout << "self assignment" << endl;
+		return *this;
+	}
+
 	free(this->mat);
 	this->mat = (double *) malloc(sizeof(double) * n * m);
 	memcpy(this->mat, m2.mat, sizeof(double) * n * m);
@@ -47,21 +75,45 @@ void matrix::set(uint i, uint j, double num)
 	mat[(i - 1) * m + j - 1] = num;
 }
 
-double matrix::get(uint i, uint j)
+double matrix::get(uint i, uint j) const
 {
 	assert(valid_pos(i, j));
 	assert(mat != NULL);
 	return mat[(i - 1) * m + j - 1];
 }
 
-uint matrix::cant_rows()
+uint matrix::cant_rows() const
 {
 	return n;
 }
 
-uint matrix::cant_cols()
+uint matrix::cant_cols() const
 {
 	return m;
+}
+
+
+// ""this * A""
+matrix matrix::mult(const matrix& a)
+{
+	assert(a.cant_rows() == this->cant_cols());
+
+	matrix res(this->cant_rows(), a.cant_cols());
+//	matrix res(2, 2);
+
+	for (uint i = 1; i <= this->cant_rows(); i++) {
+		for (uint j = 1; j <= a.cant_cols(); j++) {
+			double val = 0;
+
+			for (uint k = 1; k <= a.cant_rows(); k++) {
+				val += this->get(i, k) * a.get(k, j);
+			}
+
+			res.set(i, j, val);
+		}
+	}
+
+	return res;
 }
 
 void matrix::swap_rows(uint i1, uint i2)
@@ -89,7 +141,7 @@ void matrix::swap_rows(uint i1, uint i2)
 	free(tmp);
 }
 
-bool matrix::valid_pos(uint i, uint j)
+bool matrix::valid_pos(uint i, uint j) const
 {
 	return (i > 0 && j > 0 && i <= n && j <= m);
 }
