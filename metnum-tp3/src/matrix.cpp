@@ -3,7 +3,7 @@
 #include <sstream>	// ostringstream
 #include <string>	// std::string
 #include <string.h>	// memcpy
-#include "matrix.h"
+#include "matrix.hpp"
 
 using namespace std;
 
