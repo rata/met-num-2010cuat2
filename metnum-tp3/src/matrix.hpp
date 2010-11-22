@@ -8,15 +8,21 @@ class matrix
 public:
 	// Crea una matriz de n * m inicializada con ceros
 	matrix(unsigned int n, unsigned int m);
+	matrix();
+
+	// identidad
+	static matrix identity(uint n);
+
 	~matrix();
 
 //	double operator[][] (int i, int j);
+	matrix mult(const matrix& m);
 	void set(unsigned int i, unsigned int j, double num);
-	double get(unsigned int i, unsigned int j);
-	unsigned int cant_rows();
-	unsigned int cant_cols();
+	double get(unsigned int i, unsigned int j) const;
+	unsigned int cant_rows() const;
+	unsigned int cant_cols() const;
 	void swap_rows(unsigned int i1, unsigned int i2);
-	matrix operator=(const matrix m2);
+	matrix& operator=(const matrix& m2);
 
 	std::string print(void);
 
@@ -28,7 +34,7 @@ private:
 	// La matriz
 	double *mat;
 
-	bool valid_pos(unsigned int i, unsigned int j);
+	bool valid_pos(unsigned int i, unsigned int j) const;
 };
 
 #endif // _MATRIX_H

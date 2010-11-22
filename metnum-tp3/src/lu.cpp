@@ -16,64 +16,6 @@ ifstream fpags, flinks;
 
 double p = 0.85;
 
-void load_matrix(matrix &m)
-{
-	// Hacemos que m sea igual W
-	int cant_links;
-	flinks >> cant_links;
-
-	for (int k = 0; k < cant_links; k++) {
-		int i, j;
-		flinks >> j >> i;
-
-		// Ignoramos autolinks
-		if (i == j)
-			continue;
-
-		// Ponemos un 1 porque hay un link
-		m.set(i, j, 1);
-	}
-
-	// Ahora tenemos W, pero queremos (I - pWD)
-	// Entonces queremos:
-	// a) la diagonal con 1s (por I, ya que en W es cero)
-	// b) cada columna multiplicada por su Cj
-	// c) todos los elementos multiplicados por -1 * p
-	// d) No lo hacemos con la ultima columna pues sera "b"
-
-//	cout << m.print();
-	for (uint j = 1; j < m.cant_cols(); j++) {
-		double cj = 0;
-
-		/* calculo cj */
-		for (uint i = 1; i <= m.cant_rows(); i++) {
-			if (m.get(i, j) == 1)
-				cj += 1;
-		}
-
-		if (cj != 0)
-			cj = 1 / cj;
-
-		/* Multiplico la columna j por cj * p * -1. Y si es la diagonal lo
-		 * pongo en 1. Es decir, dejo esta columna como es en I - pWD */
-		for (uint i = 1; i <= m.cant_rows(); i++) {
-			if (i == j)
-				m.set(j, j, 1);
-			else
-				m.set(i, j, m.get(i, j) * cj * p * -1);
-		}
-	}
-
-	// Ponemos b
-	uint last_col = m.cant_cols();
-	for (uint i = 1; i <= m.cant_rows(); i++)
-		m.set(i, last_col, 1);
-
-	cout << "matriz final:" << endl << m.print();
-
-	return;
-}
-
 // Pone en cero el elemento (row, row_base) usando la fila row_base como base
 // para calcular el coeficiente de gauss
 void triang_row(matrix &m, uint row_base, uint row)
@@ -116,25 +58,9 @@ void triang_col(matrix &m, uint j)
 
 void triang(matrix &m)
 {
-	// Triangulamos todas las columnas menos la ultima porque es "b"
-	for (uint j = 1; j < m.cant_cols(); j++) {
+	// Triangulamos todas las columnas
+	for (uint j = 1; j <= m.cant_cols(); j++) {
 //		cout << "col " << j << endl;
-
-		// Pivoteo parcial
-//		uint max_row = j;
-//		double max_module = 0;
-//		uint i;
-//		for (i = j; i <= m.cant_rows(); i++) {
-//			if (abs(m.get(i, j)) > max_module) {
-//				max_module = abs(m.get(i, j));
-//				max_row = i;
-//			}
-//		}
-//		if (max_row != j) {
-//			cout << "swapeando porque " << max_module << "es mayor que"
-//				<< m.get(i, j) << endl;
-//			m.swap_rows(max_row, j);
-//		}
 
 		triang_col(m, j);
 	}
