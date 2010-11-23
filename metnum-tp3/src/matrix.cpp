@@ -11,18 +11,14 @@ using namespace std;
 typedef unsigned int uint;
 
 matrix::matrix()
+:n(0), m(0), mat(NULL)
 {
 	//cout << "cons defecto" << endl;
-	this->mat = NULL;
-	this->n = 0;
-	this->m = 0;
 }
 
 matrix::matrix(uint i, uint j)
+:n(i), m(j), mat(NULL)
 {
-	this->n = i;
-	this->m = j;
-
 	// Allocamos memoria para n*m elementos de tamaño sizeof(double)
 	// Usamos calloc para inicializar con ceros
 	mat = (double *) calloc(sizeof(double), n * m);
@@ -43,9 +39,9 @@ matrix matrix::identity(uint n)
 }
 
 matrix::matrix(const matrix &m2)
+:n(0), m(0), mat(NULL)
 {
 	//cout << "copy constructor" << endl;
-	this->mat = NULL;
 	*this = m2;
 }
 
