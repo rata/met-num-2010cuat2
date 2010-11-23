@@ -1,4 +1,4 @@
-CXXFLAGS += -Wall -std=c++98 -pedantic -O3
+CXXFLAGS += -Wall -std=c++98 -pedantic -O3 -Weffc++
 
 OBJS = matrix.o io_utils.o vector_utils.o
 
