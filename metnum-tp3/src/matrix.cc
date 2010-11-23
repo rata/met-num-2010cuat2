@@ -7,6 +7,7 @@
 #include <iostream>
 
 using namespace std;
+// gay!
 
 typedef unsigned int uint;
 
