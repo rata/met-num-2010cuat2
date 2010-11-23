@@ -42,12 +42,18 @@ matrix matrix::identity(uint n)
 	return m;
 }
 
+matrix::matrix(const matrix &m2)
+{
+	//cout << "copy constructor" << endl;
+	this->mat = NULL;
+	*this = m2;
+}
 
 matrix::~matrix()
 {
 	//cout << "destructor" << endl;
 	free(this->mat);
-	mat = NULL;
+	this->mat = NULL;
 }
 
 matrix& matrix::operator=(const matrix& m2)

@@ -10,8 +10,10 @@ public:
 	matrix(unsigned int n, unsigned int m);
 	matrix();
 
+	matrix(const matrix &m2);
+
 	// identidad
-	static matrix identity(uint n);
+	static matrix identity(unsigned int n);
 
 	~matrix();
 

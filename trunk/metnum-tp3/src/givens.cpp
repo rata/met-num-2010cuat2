@@ -63,7 +63,7 @@ void triang_col(uint j)
 	// es my chico)
 	for (uint i= j+1; i <= R->cant_rows(); i++) {
 		double val = R->get(i, j);
-	//	assert(val < tolerancia);
+		assert(val < tolerancia);
 		R->set(i, j, 0);
 	}
 }
