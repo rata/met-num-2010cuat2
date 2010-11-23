@@ -1,5 +1,10 @@
 CXXFLAGS += -Wall -std=c++98 -pedantic -O3 -Weffc++
 
+# Quick&dirty
+matrix.o: matrix.hpp matrix.cc
+io_utils.o: io_utils.hpp io_utils.cc
+vector_utils.o: vector_utils.hpp vector_utils.cc
+
 OBJS = matrix.o io_utils.o vector_utils.o
 
 default: givens
