@@ -46,7 +46,7 @@ matrix getW(uint j)
 		matrix g_i = getW_i(i, j);
 		W = W.mult(g_i);
 		*R = g_i.mult(*R);
-		*Q = Q->mult(g_i);
+		*Q = g_i.mult(*Q);
 	}
 
 	return W;
@@ -108,6 +108,14 @@ int main()
 	cout << "A es: " << endl << A->print();
 	cout << "Q es: " << endl << Q->print();
 	cout << "R es: " << endl << R->print();
+
+	cout << "Q transpuesta es: " << endl << Q->transpose().print();
+	
+	cout << "Q transpuesta * Q  es: " << endl << Q->transpose().mult(*Q).print();
+
+	cout << "Q transpuesta * R  es: " << endl << Q->transpose().mult(*R).print();
+
+	cout << "Q * A  es: " << endl << Q->mult(*A).print();
 
 	delete A;
 	delete Q;
