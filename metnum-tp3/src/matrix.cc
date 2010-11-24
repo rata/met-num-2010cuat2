@@ -3,7 +3,9 @@
 #include <sstream>	// ostringstream
 #include <string>	// std::string
 #include <string.h>	// memcpy
+#include <cmath>	// abs(double)
 #include "matrix.hpp"
+#include "convenciones.hpp"
 #include <iostream>
 
 using namespace std;
@@ -111,7 +113,9 @@ matrix matrix::mult(const matrix& a)
 			for (uint k = 1; k <= a.cant_rows(); k++) {
 				val += this->get(i, k) * a.get(k, j);
 			}
-
+			if ( abs(val) < convenciones::tolerancia()) {
+				val = 0;
+			}
 			res.set(i, j, val);
 		}
 	}
