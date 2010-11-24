@@ -23,6 +23,7 @@ public:
 	double get(unsigned int i, unsigned int j) const;
 	unsigned int cant_rows() const;
 	unsigned int cant_cols() const;
+	matrix transpose() const;
 	void swap_rows(unsigned int i1, unsigned int i2);
 	matrix& operator=(const matrix& m2);
 
