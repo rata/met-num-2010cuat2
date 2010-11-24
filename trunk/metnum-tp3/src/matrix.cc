@@ -119,6 +119,18 @@ matrix matrix::mult(const matrix& a)
 	return res;
 }
 
+matrix matrix::transpose() const
+{
+	// La traspuesta es de mxn
+	matrix transp(this->cant_cols(), this->cant_rows());
+	for(uint i = 1; i <= cant_rows(); i++) {
+		for (uint j = 1; j <= cant_cols(); j++) {
+			transp.set(j, i, this->get(i,j));
+		}
+	}
+	return transp;
+}
+
 void matrix::swap_rows(uint i1, uint i2)
 {
 	assert(valid_pos(i1, i2));
