@@ -4,6 +4,7 @@
 #include <cmath>	// abs(double)
 #include <math.h>	// sqrt
 #include "matrix.hpp"
+#include "convenciones.hpp"
 #include "vector_utils.hpp"
 
 using namespace std;
@@ -13,8 +14,6 @@ typedef unsigned int uint;
 matrix *A;
 matrix *Q;
 matrix *R;
-
-double tolerancia = 1e-14;
 
 matrix getW_i(uint i, uint j)
 {
@@ -63,7 +62,7 @@ void triang_col(uint j)
 	// es my chico)
 	for (uint i= j+1; i <= R->cant_rows(); i++) {
 		double val = R->get(i, j);
-		assert(val < tolerancia);
+		assert(abs(val) < convenciones::tolerancia());
 		R->set(i, j, 0);
 	}
 }
