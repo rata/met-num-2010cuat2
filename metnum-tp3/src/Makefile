@@ -1,4 +1,4 @@
-CXXFLAGS += -Wall -std=c++98 -pedantic -O3 -Weffc++
+CXXFLAGS += -Wall -std=c++98 -pedantic -O3 -g
 
 # Quick&dirty
 matrix.o: matrix.hpp matrix.cc

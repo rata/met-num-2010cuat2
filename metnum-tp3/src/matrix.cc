@@ -9,7 +9,6 @@
 #include <iostream>
 
 using namespace std;
-// gay!
 
 typedef unsigned int uint;
 
@@ -99,7 +98,7 @@ uint matrix::cant_cols() const
 
 
 // ""this * A""
-matrix matrix::mult(const matrix& a)
+matrix matrix::mult(const matrix& a) const
 {
 	assert(a.cant_rows() == this->cant_cols());
 
@@ -113,14 +112,27 @@ matrix matrix::mult(const matrix& a)
 			for (uint k = 1; k <= a.cant_rows(); k++) {
 				val += this->get(i, k) * a.get(k, j);
 			}
+			/*
 			if ( abs(val) < convenciones::tolerancia()) {
 				val = 0;
 			}
+			*/
 			res.set(i, j, val);
 		}
 	}
 
 	return res;
+}
+
+void matrix::mult(double alpha)
+{
+	for ( uint i = 1 ; i <= this->cant_rows() ; i++) {
+		for ( uint j = 1 ; j <= this->cant_cols() ; j++) {
+			double val = this->get(i,j);
+			val *= alpha;
+			this->set(i,j,val);
+		}
+	}
 }
 
 matrix matrix::transpose() const
@@ -133,6 +145,19 @@ matrix matrix::transpose() const
 		}
 	}
 	return transp;
+}
+
+matrix matrix::columna(uint j) const
+{
+	assert(valid_pos(1, j));
+	
+	matrix columna(this->cant_rows(), 1);
+
+	for (uint i = 1 ; i <= this->cant_rows() ; i++ ) {
+		columna.set(i, 1, this->get(i,j));
+	}
+
+	return columna;
 }
 
 void matrix::swap_rows(uint i1, uint i2)
