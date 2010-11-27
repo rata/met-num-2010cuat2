@@ -19,7 +19,8 @@ public:
 
 //	double operator[][] (int i, int j);
 	matrix mult(const matrix& m) const;
-	void mult(double alpha);
+	matrix mult(double alpha) const;
+	void scale(double alpha);
 	void set(unsigned int i, unsigned int j, double num);
 	double get(unsigned int i, unsigned int j) const;
 	unsigned int cant_rows() const;
@@ -27,9 +28,9 @@ public:
 	matrix transpose() const;
 	void swap_rows(unsigned int i1, unsigned int i2);
 	matrix& operator=(const matrix& m2);
-	matrix columna(unsigned int i) const;
+	matrix column(unsigned int i) const;
 
-	std::string print(void);
+	std::string print(void) const;
 
 private:
 	// Tamaño

@@ -112,19 +112,25 @@ matrix matrix::mult(const matrix& a) const
 			for (uint k = 1; k <= a.cant_rows(); k++) {
 				val += this->get(i, k) * a.get(k, j);
 			}
-			/*
-			if ( abs(val) < convenciones::tolerancia()) {
-				val = 0;
-			}
-			*/
+//			double tol = 0.00000000000001;
+//			if ( ((-1)*tol) < val && val < tol) {
+//				val = 0;
+//			}
+
 			res.set(i, j, val);
 		}
 	}
 
 	return res;
 }
+matrix matrix::mult(double alpha) const
+{
+	matrix scaled = *this;
+	scaled.scale(alpha);
+	return scaled;
+}
 
-void matrix::mult(double alpha)
+void matrix::scale(double alpha)
 {
 	for ( uint i = 1 ; i <= this->cant_rows() ; i++) {
 		for ( uint j = 1 ; j <= this->cant_cols() ; j++) {
@@ -147,10 +153,10 @@ matrix matrix::transpose() const
 	return transp;
 }
 
-matrix matrix::columna(uint j) const
+matrix matrix::column(uint j) const
 {
 	assert(valid_pos(1, j));
-	
+
 	matrix columna(this->cant_rows(), 1);
 
 	for (uint i = 1 ; i <= this->cant_rows() ; i++ ) {
@@ -191,7 +197,7 @@ bool matrix::valid_pos(uint i, uint j) const
 }
 
 // TODO: operator<< en vez de print (?)
-string matrix::print(void)
+string matrix::print(void) const
 {
 	ostringstream ret;
 
