@@ -57,14 +57,6 @@ void triang_col(uint j, matrix& Q, matrix& R)
 		R = G_i.mult(R);
 		Q = G_i.mult(Q);
 	}
-
-	// Ponemos en cero lo que sabemos que debe dar cero (y chillamos si no
-	// es my chico)
-//	for (uint i= j + 1; i <= R.cant_rows(); i++) {
-//		double val = R.get(i, j);
-//		assert(abs(val) < convenciones::tolerancia());
-//		R.set(i, j, 0);
-//	}
 }
 
 // devuelve <Q,R>
