@@ -6,16 +6,13 @@
 #include <cmath>	// abs(double)
 #include "matrix.hpp"
 #include "convenciones.hpp"
-#include <iostream>
-
-using namespace std;
 
 typedef unsigned int uint;
 
 matrix::matrix()
 :n(0), m(0), mat(NULL)
 {
-	//cout << "cons defecto" << endl;
+
 }
 
 matrix::matrix(uint i, uint j)
@@ -26,10 +23,8 @@ matrix::matrix(uint i, uint j)
 	mat = (double *) calloc(sizeof(double), n * m);
 
 	// TODO: error mas claro
-	if (mat == NULL) {
-		//cout << "sin memoria" << endl;
+	if (mat == NULL)
 		throw;
-	}
 }
 
 matrix matrix::identity(uint n)
@@ -43,27 +38,22 @@ matrix matrix::identity(uint n)
 matrix::matrix(const matrix &m2)
 :n(0), m(0), mat(NULL)
 {
-	//cout << "copy constructor" << endl;
 	*this = m2;
 }
 
 matrix::~matrix()
 {
-	//cout << "destructor" << endl;
 	free(this->mat);
 	this->mat = NULL;
 }
 
 matrix& matrix::operator=(const matrix& m2)
 {
-	//cout << "operator=!!" << endl;
 	this->n = m2.n;
 	this->m = m2.m;
 
-	if (this->mat == m2.mat) {
-		//cout << "self assignment" << endl;
+	if (this->mat == m2.mat)
 		return *this;
-	}
 
 	free(this->mat);
 	this->mat = (double *) malloc(sizeof(double) * n * m);
@@ -103,7 +93,6 @@ matrix matrix::mult(const matrix& a) const
 	assert(a.cant_rows() == this->cant_cols());
 
 	matrix res(this->cant_rows(), a.cant_cols());
-//	matrix res(2, 2);
 
 	for (uint i = 1; i <= this->cant_rows(); i++) {
 		for (uint j = 1; j <= a.cant_cols(); j++) {
@@ -112,10 +101,9 @@ matrix matrix::mult(const matrix& a) const
 			for (uint k = 1; k <= a.cant_rows(); k++) {
 				val += this->get(i, k) * a.get(k, j);
 			}
-//			double tol = 0.00000000000001;
-//			if ( ((-1)*tol) < val && val < tol) {
-//				val = 0;
-//			}
+
+			//if (abs(val) < convenciones::tolerancia())
+			//	val = 0;
 
 			res.set(i, j, val);
 		}
@@ -197,8 +185,9 @@ bool matrix::valid_pos(uint i, uint j) const
 }
 
 // TODO: operator<< en vez de print (?)
-string matrix::print(void) const
+std::string matrix::print(void) const
 {
+	using namespace std;
 	ostringstream ret;
 
 	for (uint i = 1; i <= n; i++) {
@@ -215,14 +204,3 @@ string matrix::print(void) const
 
 	return ret.str();
 }
-
-/*
-int main()
-{
-	matrix m(1, 2);
-	m.set(1, 1, 3);
-	std::cout << m.get(1, 1) << std::endl;
-	std::cout << m.get(1, 2) << std::endl;
-	return 0;
-}
-*/

@@ -121,26 +121,34 @@ bool cambioV(const matrix& Vant, const matrix& V)
 	return false;
 }
 
-
-void calc_autov(const matrix& A_orig, matrix& Q, matrix& R, matrix& V)
+bool esSimetrica(const matrix& A)
 {
-	matrix A = A_orig;
-	V = matrix::identity(A_orig.cant_rows());
-	matrix Vant = matrix::identity(A_orig.cant_rows());
-	int rat = 0;
+	for (uint i = 1; i <= A.cant_rows(); i++) {
+		for (uint j = i + 1; j <= A.cant_cols(); j++) {
+			if (A.get(i, j) != A.get(j, i))
+				return false;
+		}
+	}
+	return true;
+}
+
+void calc_autov(const matrix& A_orig, matrix& Vect, matrix& Val)
+{
+	assert(esSimetrica(A_orig));
+	Val = A_orig;
+	Vect = matrix::identity(A_orig.cant_rows());
+	matrix R(A_orig.cant_rows(), A_orig.cant_cols());
+	matrix Q(A_orig.cant_rows(), A_orig.cant_cols());
 
 	do {
-		givens(A, Q, R);
+		givens(Val, Q, R);
 
-		Vant = V;
-		A = R.mult(Q);
-		V = V.mult(Q);
-		rat++;
+		Val = R.mult(Q);
+		Vect = Vect.mult(Q);
 
-//	} while (rat < 1024);
 //	} while (cambioV(Vant, V));
 //	} while (!esTriangularSup(A, 1e-17));
-	} while (!esDiagonal(A, 1e-7));
+	} while (!esDiagonal(Val, 1e-7));
 
 	return;
 }
@@ -153,10 +161,8 @@ void sep()
 int main()
 {
 	matrix A(3,3);
-	matrix B(3,3);
-	matrix Q(3,3);
-	matrix R(3,3);
-	matrix V(3,3);
+	matrix Vect(3,3);
+	matrix Val(3,3);
 
 	A.set(1,1,4);
 	A.set(1,2,-1);
@@ -167,43 +173,12 @@ int main()
 	A.set(3,1,1);
 	A.set(3,2,9);
 	A.set(3,3,5);
-	B = A;
-	calc_autov(A, Q, R, V);
-
-	matrix AVal = R.mult(Q);
-//	V = V.transpose();
-	cout << "A es " << endl << A.print();
-	sep();
-	cout << "V es " << endl << V.print();
-	sep();
-	cout << "R es " << endl << R.print();
-	sep();
-	cout << "AVal es " << endl << AVal.print();
-	sep();
-	cout << "VVt es " << endl << V.mult(V.transpose()).print();
-	sep();
-	cout << "VtV es " << endl << (V.transpose()).mult(V).print();
-	sep();
-	cout << "VtAV es " << endl << (V.transpose()).mult(A).mult(V).print();
-	sep();
-	cout << "VtA es " << endl << (V.transpose()).mult(A).print();
-	sep();
-	cout << "RVt es " << endl << R.mult(V.transpose()).print();
-	sep();
-	cout << "AV es " << endl << (A.mult(V)).print();
-	sep();
-	cout << "VR es " << endl << (V.mult(R)).print();
-	sep();
-
-
-
-
-
+	calc_autov(A, Vect, Val);
 
 	for (int i = 1; i <= 3; i++) {
 		cout << "autov " << i << "------------------------------------" << endl;
-		double lambda = AVal.get(i, i);
-		matrix v = V.column(i);
+		double lambda = Val.get(i, i);
+		matrix v = Vect.column(i);
 		cout << "v es: " << v.transpose().print() << endl;
 		cout << "A * v " << endl << (A.mult(v)).transpose().print() << endl;
 		v.scale(lambda);
@@ -212,62 +187,6 @@ int main()
 		cout << "autov " << i <<
 			" finished----------------------------------------" << endl;
 	}
-
-//	Cambiar E por V;
-//	for (int mati = 1; mati <= 3; mati++) {
-//		matrix x(3,1);
-//		matrix v_1(3,1);
-//		matrix v_2(3,1);
-//		double lamb = A.get(mati, mati);
-//		v = E.columna(mati);
-//
-//		y = v;
-//		y.mult(lamb);
-//
-//		x = B.mult(v);
-//
-//		cout << "E*A*Et es:\n" << ((E.mult(B)).mult((E.transpose()))).print();
-//		cout << endl;
-//		cout << "E*Et es:\n" << (E.mult(E.transpose())).print();
-//		cout << endl;
-//		cout << "B es:\n" << B.print();
-//		cout << endl;
-//		cout << "v es:\n" << v.print();
-//		cout << endl;
-//		cout << "lambda: " << lamb << endl;
-//		cout << endl;
-//		cout << "B*v es:\n" << x.print();
-//		cout << endl;
-//		cout << "lambda*v es:\n" << y.print();
-//		cout << endl;
-//		cout << "------------------------------------------------\n";
-//		cout << "B*E es:\n" << (B.mult(E)).print();
-//		cout << "A*E es:\n" << (A.mult(E)).print();
-//		cout << "------------------------------------------------\n";
-//	}
-
-//	*R = A->mult(*A);
-//	cout << "A es: " << endl << A.print();
-//	cout << "Q es: " << endl << Q.print();
-//	cout << "R es: " << endl << R.print();
-//
-//	cout << "Q transpuesta es: " << endl << Q.transpose().print();
-//
-//	cout << "Q transpuesta * Q  es: " << endl << Q.transpose().mult(Q).print();
-//
-//	cout << "Q * R  es: " << endl << Q.mult(R).print();
-//
-//	cout << "Q traspuesta * A  es: " << endl << Q.transpose().mult(A).print();
-
-//	cout <<	"================================================================";
-//	cout << "Q transpuesta es: " << endl << Q.transpose().print();
-//
-//	cout << "Q transpuesta * Q  es: " << endl << Q.transpose().mult(Q).print();
-//
-//	cout << "Q * R  es: " << endl << Q.mult(R).print();
-//
-//	cout << "Q traspuesta * A  es: " << endl << Q.transpose().mult(A).print();
-
 
 	return 0;
 }
