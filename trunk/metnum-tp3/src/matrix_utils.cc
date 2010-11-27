@@ -1,15 +1,15 @@
-#include <iostream>	// cout
 #include <assert.h>	// assert
-#include <stdlib.h>	// malloc, free
 #include <cmath>	// abs(double)
 #include <math.h>	// sqrt
 #include "matrix.hpp"
 #include "convenciones.hpp"
+#include "matrix_utils.hpp"
 
 using namespace std;
 
 typedef unsigned int uint;
 
+static
 matrix getG_i(uint i, uint j, matrix& Q, matrix& R)
 {
 
@@ -44,6 +44,7 @@ matrix getG_i(uint i, uint j, matrix& Q, matrix& R)
 	return G_i;
 }
 
+static
 void triang_col(uint j, matrix& Q, matrix& R)
 {
 	// A y Q tienen la misma cantidad de filas, asique nos fijamos la
@@ -103,10 +104,11 @@ bool esTriangularSup(const matrix& M, double cota)
 	return true;
 }
 
+static
 bool cambioV(const matrix& Vant, const matrix& V)
 {
 	for (uint i = 1; i <= V.cant_rows(); i++) {
-		if (abs(V.get(i, i) - Vant.get(i, i)) > 0.001)
+		if (abs(V.get(i, i) - Vant.get(i, i)) > 0.000000000000001)
 			return true;
 	}
 
@@ -124,61 +126,27 @@ bool esSimetrica(const matrix& A)
 	return true;
 }
 
-void calc_autov(const matrix& A_orig, matrix& Vect, matrix& Val)
+void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val)
 {
 	assert(esSimetrica(A_orig));
 	Val = A_orig;
 	Vect = matrix::identity(A_orig.cant_rows());
+	matrix ValAnt = Val;
 	matrix R(A_orig.cant_rows(), A_orig.cant_cols());
 	matrix Q(A_orig.cant_rows(), A_orig.cant_cols());
 
 	do {
 		givens(Val, Q, R);
+		ValAnt = Val;
 
 		Val = R.mult(Q);
 		Vect = Vect.mult(Q);
 
-//	} while (cambioV(Vant, V));
+	} while (cambioV(ValAnt, Val));
 //	} while (!esTriangularSup(A, 1e-17));
-	} while (!esDiagonal(Val, 1e-7));
+//	} while (!esDiagonal(Val, 1e-7));
 
 	return;
 }
 
-void sep()
-{
-	cout << "=================================================" << endl;
-}
 
-int main()
-{
-	matrix A(3,3);
-	matrix Vect(3,3);
-	matrix Val(3,3);
-
-	A.set(1,1,4);
-	A.set(1,2,-1);
-	A.set(1,3,1);
-	A.set(2,1,-1);
-	A.set(2,2,3);
-	A.set(2,3,9);
-	A.set(3,1,1);
-	A.set(3,2,9);
-	A.set(3,3,5);
-	calc_autov(A, Vect, Val);
-
-	for (int i = 1; i <= 3; i++) {
-		cout << "autov " << i << "------------------------------------" << endl;
-		double lambda = Val.get(i, i);
-		matrix v = Vect.column(i);
-		cout << "v es: " << v.transpose().print() << endl;
-		cout << "A * v " << endl << (A.mult(v)).transpose().print() << endl;
-		v.scale(lambda);
-		cout << "lambda* v" << endl << v.transpose().print() << endl;
-
-		cout << "autov " << i <<
-			" finished----------------------------------------" << endl;
-	}
-
-	return 0;
-}

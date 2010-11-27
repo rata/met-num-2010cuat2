@@ -1,19 +1,22 @@
 CXXFLAGS += -Wall -std=c++98 -pedantic -O3 -g -Weffc++
 
+default: art-attack
+
 # Quick&dirty
-matrix.o: matrix.hpp matrix.cc
+
+matrix.o: matrix.hpp matrix.cc matrix_utils.hpp
+matrix_utils.o: matrix_utils.cc matrix_utils.hpp
 io_utils.o: io_utils.hpp io_utils.cc
 vector_utils.o: vector_utils.hpp vector_utils.cc
 
-OBJS = matrix.o io_utils.o vector_utils.o convenciones.o
 
-default: givens
+OBJS = matrix.o matrix_utils.o io_utils.o vector_utils.o convenciones.o
 
 all: default
 
-givens: $(OBJS) givens.o
+art-attack: $(OBJS) art-attack.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJS)
-	rm -f matrix.o givens.o givens
+	rm -f art-attack.o art-attack
