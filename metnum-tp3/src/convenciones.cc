@@ -1,5 +1,5 @@
 #include "convenciones.hpp"
 
 double convenciones::tolerancia() {
-	return 1;
+	return 1e-7;
 }
