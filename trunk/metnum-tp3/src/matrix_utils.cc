@@ -2,12 +2,35 @@
 #include <cmath>	// abs(double)
 #include <math.h>	// sqrt
 #include <iostream>
-#include "matrix.hpp"
 #include "matrix_utils.hpp"
 
 using namespace std;
 
 typedef unsigned int uint;
+
+matrix tc(const vector<matrix>& autoVectores, const matrix& x)
+{
+	assert(x.cant_cols() == 1);
+
+	uint k = autoVectores.size();
+
+	matrix tcx(k, 1);
+
+	for (uint i = 0 ; i < k ; i++) {
+		matrix vi = autoVectores[i];
+		assert(vi.cant_cols() == 1);
+		// Este otro assert es necesario pero lo hace la multiplicación
+//		assert(v1.cant_rows() == x.cant_cols());
+		matrix value = (vi.transpose() * x);
+		// Asserts para debug
+		assert(value.cant_rows() == 1);
+		assert(value.cant_cols() == 1);
+
+		tcx.set(i, 1, value.get(1,1) );
+	}
+
+	return tcx;
+}
 
 static
 void mult_por_G_i(uint i, uint j, matrix& Q, matrix& R)

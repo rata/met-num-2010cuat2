@@ -2,6 +2,9 @@
 #define _MATRIX_UTILS_HPP
 
 #include "matrix.hpp"
+#include <vector>	// vector
+
+matrix tc(const std::vector<matrix>& autoVectores, const matrix& x);
 
 // Deja en Q y R la factorización QR de A
 void givens(const matrix& A, matrix& Q, matrix& R);
