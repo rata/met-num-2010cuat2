@@ -11,7 +11,7 @@ using namespace std;
 typedef unsigned int uint;
 
 static
-matrix getG_i(uint i, uint j, matrix& Q, matrix& R)
+void mult_por_G_i(uint i, uint j, matrix& Q, matrix& R)
 {
 
 	// Nos armamos la matriz de Givens que tiene como pivote el elemento (j, j)
@@ -30,23 +30,23 @@ matrix getG_i(uint i, uint j, matrix& Q, matrix& R)
 	//  |                 1     |
 	//  |                   1   |
 
-//	matrix G_i = matrix::identity(Q.cant_rows());
 	double p = R.get(j, j);
 	double n = R.get(i, j);
-	matrix res;
-	if (n == 0)
-		return res;
 	double norm = sqrt(p*p + n*n);
-	if (norm == 0)
-		cout << "NORM ES CERO!!!" << endl;
+
+	// Si ya es cero, no hace falta multiplicar por nada para dejarlo en
+	// cero :)
+	if (n == 0)
+		return;
 
 	double c = p / norm;
 	double s = n / norm;
-//	G_i.set(i, i, c);
-//	G_i.set(i, j, -s);
-//	G_i.set(j, i, s);
-//	G_i.set(j, j, c);
 
+	// G_i * R es igual a R salvo en la fila i y en la fila j. Asique solo
+	// calculamos el resultado de multiplicar esas dos filas y lo ponemos en
+	// R, para ahorrar pasos.
+	// Y hacemos lo mismo para calcular G_i * Q, ya que es multiplicar por
+	// G_i de nuevo, que tiene esta forma particular
 	for (uint k = 1; k <= Q.cant_cols(); k++) {
 		double Rjk = R.get(j,k);
 		double Rik = R.get(i,k);
@@ -60,8 +60,7 @@ matrix getG_i(uint i, uint j, matrix& Q, matrix& R)
 		Q.set(i, k, ((-1 * s) * Qjk) + (c * Qik));
 	}
 
-	return res;
-//	return G_i;
+	return;
 }
 
 static
@@ -73,11 +72,8 @@ void triang_col(uint j, matrix& Q, matrix& R)
 
 	// Calculamos las matrices de givens para cada (i, j) y las
 	// multiplicamos para anular la columna j
-	for (uint i = j + 1; i <= n; i++) {
-		matrix G_i = getG_i(i, j, Q, R);
-	//	R = G_i * R;
-	//	Q = G_i * Q;
-	}
+	for (uint i = j + 1; i <= n; i++)
+		mult_por_G_i(i, j, Q, R);
 }
 
 // devuelve <Q,R>
