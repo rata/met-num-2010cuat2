@@ -1,4 +1,4 @@
-CXXFLAGS += -Wall -std=c++98 -pedantic -g -Weffc++
+CXXFLAGS += -Wall -std=c++98 -pedantic -O3 -Weffc++
 
 default: art-attack
 
