@@ -17,8 +17,9 @@ new_src="$src.gray"
 
 $DIR/to-raw.sh $src $new_src $new_size
 
-#if [ ! -e $DIR/asdasd ]; then
-#	echo generar el archivo usando las imagenes de prueba
+#if [ ! -e $DIR/data/a1.data ]; then
+#	$DIR/gen-data 11 19 $DIR/imgs/*.gray
+#	echo Datos generados.
 #fi
 
 $DIR/ascii-art $new_src $new_w $new_h $dst
