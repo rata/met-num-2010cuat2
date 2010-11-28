@@ -1,6 +1,7 @@
 #include <assert.h>	// assert
 #include <cmath>	// abs(double)
 #include <math.h>	// sqrt
+#include <iostream>
 #include "matrix.hpp"
 #include "convenciones.hpp"
 #include "matrix_utils.hpp"
@@ -29,19 +30,38 @@ matrix getG_i(uint i, uint j, matrix& Q, matrix& R)
 	//  |                 1     |
 	//  |                   1   |
 
-	matrix G_i = matrix::identity(Q.cant_rows());
+//	matrix G_i = matrix::identity(Q.cant_rows());
 	double p = R.get(j, j);
 	double n = R.get(i, j);
+	matrix res;
+	if (n == 0)
+		return res;
 	double norm = sqrt(p*p + n*n);
+	if (norm == 0)
+		cout << "NORM ES CERO!!!" << endl;
 
 	double c = p / norm;
 	double s = n / norm;
-	G_i.set(i, i, c);
-	G_i.set(i, j, -s);
-	G_i.set(j, i, s);
-	G_i.set(j, j, c);
+//	G_i.set(i, i, c);
+//	G_i.set(i, j, -s);
+//	G_i.set(j, i, s);
+//	G_i.set(j, j, c);
 
-	return G_i;
+	for (uint k = 1; k <= Q.cant_cols(); k++) {
+		double Rjk = R.get(j,k);
+		double Rik = R.get(i,k);
+		double Qjk = Q.get(j,k);
+		double Qik = Q.get(i,k);
+
+		R.set(j, k, (c * Rjk) + (s * Rik));
+		Q.set(j, k, (c * Qjk) + (s * Qik));
+
+		R.set(i, k, (c * Rik) - (s * Rjk));
+		Q.set(i, k, ((-1 * s) * Qjk) + (c * Qik));
+	}
+
+	return res;
+//	return G_i;
 }
 
 static
@@ -55,8 +75,8 @@ void triang_col(uint j, matrix& Q, matrix& R)
 	// multiplicamos para anular la columna j
 	for (uint i = j + 1; i <= n; i++) {
 		matrix G_i = getG_i(i, j, Q, R);
-		R = G_i.mult(R);
-		Q = G_i.mult(Q);
+	//	R = G_i * R;
+	//	Q = G_i * Q;
 	}
 }
 
@@ -131,20 +151,24 @@ void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val)
 	assert(esSimetrica(A_orig));
 	Val = A_orig;
 	Vect = matrix::identity(A_orig.cant_rows());
-	matrix ValAnt = Val;
+//	matrix ValAnt = Val;
 	matrix R(A_orig.cant_rows(), A_orig.cant_cols());
 	matrix Q(A_orig.cant_rows(), A_orig.cant_cols());
 
 	do {
+		std::cout << "iniciando QR" << std::endl;
 		givens(Val, Q, R);
-		ValAnt = Val;
+//		std::cout << "Q es " << endl << Q.print();
+//		std::cout << "R es " << endl << R.print();
+		std::cout << "QR OK" << std::endl;
+//		ValAnt = Val;
 
-		Val = R.mult(Q);
-		Vect = Vect.mult(Q);
+		Val = R * Q;
+		Vect = Vect * Q;
 
-	} while (cambioV(ValAnt, Val));
+//	} while (cambioV(ValAnt, Val));
 //	} while (!esTriangularSup(A, 1e-17));
-//	} while (!esDiagonal(Val, 1e-7));
+	} while (!esDiagonal(Val, 1e-2));
 
 	return;
 }

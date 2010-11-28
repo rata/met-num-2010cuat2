@@ -11,40 +11,25 @@ using namespace std;
 
 typedef unsigned int uint;
 
-void sep()
+int main(int argc, char** argv)
 {
-	cout << "=================================================" << endl;
-}
-
-int main()
-{
-	matrix A(3,3);
-	matrix Vect(3,3);
-	matrix Val(3,3);
-
-	A.set(1,1,4);
-	A.set(1,2,-1);
-	A.set(1,3,1);
-	A.set(2,1,-1);
-	A.set(2,2,3);
-	A.set(2,3,9);
-	A.set(3,1,1);
-	A.set(3,2,9);
-	A.set(3,3,5);
-	calcular_autovalores(A, Vect, Val);
-
-	for (int i = 1; i <= 3; i++) {
-		cout << "autov " << i << "------------------------------------" << endl;
-		double lambda = Val.get(i, i);
-		matrix v = Vect.column(i);
-		cout << "v es: " << v.transpose().print() << endl;
-		cout << "A * v " << endl << (A.mult(v)).transpose().print() << endl;
-		v.scale(lambda);
-		cout << "lambda* v" << endl << v.transpose().print() << endl;
-
-		cout << "autov " << i <<
-			" finished----------------------------------------" << endl;
+	if (argc != 5) {
+		cout << "Usage: " << argv[0] << " <src> <width> <height> <dst>"
+			<< endl;
+		return 1;
 	}
+
+	if (atoi(argv[2]) < 0 || atoi(argv[3]) < 0) {
+		cout << "width y heigth deben ser positivos" << endl;
+		return 1;
+	}
+
+	string src = argv[1];
+	uint w = atoi(argv[2]);
+	uint h = atoi(argv[3]);
+	string dst = argv[4];
+
+//	cout << src << endl<< w <<endl << h << endl << dst << endl;
 
 	return 0;
 }

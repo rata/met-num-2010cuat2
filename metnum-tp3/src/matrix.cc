@@ -4,6 +4,7 @@
 #include <string>	// std::string
 #include <string.h>	// memcpy
 #include <cmath>	// abs(double)
+#include <iostream>
 #include "matrix.hpp"
 #include "convenciones.hpp"
 
@@ -86,9 +87,43 @@ uint matrix::cant_cols() const
 	return m;
 }
 
+matrix matrix::operator-(const matrix& a) const
+{
+	// Duplicamos el codigo para evitar copias de a (que es const)
+	assert(a.cant_rows() == this->cant_rows());
+	assert(a.cant_cols() == this->cant_cols());
+
+	matrix res(this->cant_rows(), this->cant_cols());
+
+	for (uint i = 1; i <= this->cant_rows(); i++) {
+		for (uint j = 1; j <= this->cant_cols(); j++) {
+			double val = this->get(i, j) - a.get(i, j);
+			res.set(i, j, val);
+		}
+	}
+
+	return res;
+}
+
+matrix matrix::operator+(const matrix& a) const
+{
+	assert(a.cant_rows() == this->cant_rows());
+	assert(a.cant_cols() == this->cant_cols());
+
+	matrix res(this->cant_rows(), this->cant_cols());
+
+	for (uint i = 1; i <= this->cant_rows(); i++) {
+		for (uint j = 1; j <= this->cant_cols(); j++) {
+			double val = this->get(i, j) + a.get(i, j);
+			res.set(i, j, val);
+		}
+	}
+
+	return res;
+}
 
 // ""this * A""
-matrix matrix::mult(const matrix& a) const
+matrix matrix::operator*(const matrix& a) const
 {
 	assert(a.cant_rows() == this->cant_cols());
 
@@ -111,7 +146,7 @@ matrix matrix::mult(const matrix& a) const
 
 	return res;
 }
-matrix matrix::mult(double alpha) const
+matrix matrix::operator*(double alpha) const
 {
 	matrix scaled = *this;
 	scaled.scale(alpha);
@@ -120,6 +155,7 @@ matrix matrix::mult(double alpha) const
 
 void matrix::scale(double alpha)
 {
+	std::cout << "escalando con " << alpha << std::endl;
 	for ( uint i = 1 ; i <= this->cant_rows() ; i++) {
 		for ( uint j = 1 ; j <= this->cant_cols() ; j++) {
 			double val = this->get(i,j);
