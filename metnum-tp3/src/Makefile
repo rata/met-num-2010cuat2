@@ -3,7 +3,6 @@ CXXFLAGS += -Wall -std=c++98 -pedantic -O3 -Weffc++
 default: art-attack
 
 # Quick&dirty
-
 matrix.o: matrix.hpp matrix.cc matrix_utils.hpp
 matrix_utils.o: matrix_utils.cc matrix_utils.hpp
 io_utils.o: io_utils.hpp io_utils.cc
@@ -19,6 +18,7 @@ art-attack: $(OBJS) art-attack.o
 
 gen-data: $(OBJS) gen-data.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
+
 test: $(OBJS) test.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
