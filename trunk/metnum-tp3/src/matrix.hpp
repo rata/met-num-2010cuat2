@@ -18,8 +18,10 @@ public:
 	~matrix();
 
 //	double operator[][] (int i, int j);
-	matrix mult(const matrix& m) const;
-	matrix mult(double alpha) const;
+	matrix operator*(const matrix& m) const;
+	matrix operator*(double alpha) const;
+	matrix operator+(const matrix& a) const;
+	matrix operator-(const matrix& a) const;
 	void scale(double alpha);
 	void set(unsigned int i, unsigned int j, double num);
 	double get(unsigned int i, unsigned int j) const;
