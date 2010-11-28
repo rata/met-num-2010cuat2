@@ -103,7 +103,7 @@ int main(int argc, char** argv)
 	cout << M.print();
 	matrix Vect(M.cant_rows(), M.cant_cols());
 	matrix Val(M.cant_rows(), M.cant_cols());
-	calcular_autovalores(M, Vect, Val);
+	calcular_autovalores(M, Vect, Val, 1e-3);
 
 	cout << "primer autovalor: " << Val.get(1, 1) << endl;
 	cout << "calculado" << endl;

@@ -18,21 +18,21 @@ void sep()
 
 int main()
 {
-	matrix A(3,3);
-	matrix Vect(3,3);
-	matrix Val(3,3);
+	matrix A(4,4);
+	matrix Vect(4,4);
+	matrix Val(4,4);
 
-	A.set(1,1,0);
-	A.set(1,2,-0);
-	A.set(1,3,0);
-	A.set(2,1,-0);
-	A.set(2,2,0);
-	A.set(2,3,9);
-	A.set(3,1,0);
-	A.set(3,2,9);
-	A.set(3,3,5);
+	A.set(1,1,4);	A.set(1,2,2);	A.set(1,3,2);	A.set(1,4,1);
+
+	A.set(2,1,2);	A.set(2,2,-1);	A.set(2,3,1);	A.set(2,4,1);
+
+	A.set(3,1,2);	A.set(3,2,1);	A.set(3,3,3);	A.set(3,4,1);
+
+	A.set(4,1,1);	A.set(4,2,1);	A.set(4,3,1);	A.set(4,4,2);
+	
 	cout << "A es: " << endl << A.print();
-	calcular_autovalores(A, Vect, Val);
+	
+	calcular_autovalores(A, Vect, Val, 1e-8);
 
 	for (int i = 1; i <= 3; i++) {
 		cout << "autov " << i << "------------------------------------" << endl;

@@ -17,8 +17,8 @@ new_src="$src.gray"
 
 $DIR/to-raw.sh $src $new_src $new_size
 
-#if [ ! -e $DIR/data/a1.data ]; then
-#	$DIR/gen-data 11 19 $DIR/imgs/*.gray
+#if [ ! -e $DIR/../data/a1.data ]; then
+#	$DIR/gen-data 11 19 $DIR/../imgs/*.gray
 #	echo Datos generados.
 #fi
 
