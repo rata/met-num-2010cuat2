@@ -5,7 +5,6 @@
 #include <math.h>	// sqrt
 #include "matrix.hpp"
 #include "matrix_utils.hpp"
-#include "convenciones.hpp"
 
 using namespace std;
 
