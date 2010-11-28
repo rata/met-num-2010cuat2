@@ -4,7 +4,8 @@
 #include <cmath>	// abs(double)
 #include <math.h>	// sqrt
 #include <vector>	// vector
-#include <fstream>	// ifstream
+#include <fstream>	// ifstream / ofstream
+#include "convenciones.hpp" // dataDirectory
 #include "matrix.hpp"
 #include "matrix_utils.hpp"
 
@@ -54,7 +55,7 @@ matrix vect_promedio(const vector<matrix> l)
 	return res;
 }
 
-matrix covarianza(vector<matrix> X)
+matrix covarianza(const vector<matrix> X)
 {
 	assert(X.size() >= 1);
 
@@ -72,6 +73,53 @@ matrix covarianza(vector<matrix> X)
 	M.scale(1.0/m);
 
 	return M;
+}
+
+void escribirArchivoAutovalor(const char* nombre, double autovalor, matrix autovector)
+{
+	ofstream myfile;
+	myfile.open(nombre);
+	
+	if ( ! myfile.is_open() ) {
+		cout << "Path inválido: "<< nombre << endl;
+                exit(4);
+        }
+
+	myfile << autovector.cant_rows() << endl;
+	myfile << autovalor << endl;
+
+	for ( uint i = 1 ; i < autovector.cant_rows() ; i++ ) {
+		myfile << autovector.get(i,1) << endl;
+	}
+	myfile.close();
+
+
+//	cout << nombre << " ------------------------------------" << endl;
+//	cout << "autovalor: " << autovalor << endl;
+//	cout << "v es: " << autovector.transpose().print() << endl;
+//	cout << nombre << " finished ---------------------------" << endl;
+
+}
+
+void escribirVectorAArchivo(const matrix& vect, char* nombre)
+{
+	assert(vect.cant_cols() == 1);
+
+	ofstream myfile;
+	myfile.open(nombre);
+	
+	if ( ! myfile.is_open() ) {
+		cout << "Path inválido: "<< nombre << endl;
+                exit(4);
+        }
+
+	myfile << vect.cant_rows() << endl;
+
+	for ( uint i = 1 ; i < vect.cant_rows() ; i++ ) {
+		myfile << vect.get(i,1) << endl;
+	}
+
+	myfile.close();
 }
 
 int main(int argc, char** argv)
@@ -100,32 +148,37 @@ int main(int argc, char** argv)
 	}
 
 	matrix M = covarianza(imgs);
-	cout << M.print();
+//	cout << M.print();
 	matrix Vect(M.cant_rows(), M.cant_cols());
 	matrix Val(M.cant_rows(), M.cant_cols());
-	calcular_autovalores(M, Vect, Val, 1e-3);
+	calcular_autovalores(M, Vect, Val, 1e-5);
 
-	cout << "primer autovalor: " << Val.get(1, 1) << endl;
-	cout << "calculado" << endl;
+//	cout << "calculado" << endl;
+
+	string nombre = dataDirectory() + "/autoVal";
 	for (uint i = 1; i <= M.cant_rows(); i++) {
-		cout << "autov " << i << "------------------------------------" << endl;
-		double lambda = Val.get(i, i);
-		matrix v = Vect.column(i);
-		cout << "v es: " << v.transpose().print() << endl;
-		cout << "M * v " << endl << (M * v).transpose().print() << endl;
-		v.scale(lambda);
-		cout << "lambda* v" << endl << v.transpose().print() << endl;
-
-		cout << "autov " << i <<
-			" finished----------------------------------------" << endl;
+		double autovalor = Val.get(i, i);
+		matrix autovector = Vect.column(i);
+		
+		char path[100];
+		sprintf(path, "%s%u.dat", nombre.c_str(), i);
+		
+		escribirArchivoAutovalor(path, autovalor, autovector);
+		
+//		cout << "M * v " << endl << (M * autovector).transpose().print() << endl;
+//		autovector.scale(autovalor);
+//		cout << "lambda* v" << endl << autovector.transpose().print() << endl;
 	}
 
-
-
-//	for (uint i = 0; i < imgs.size(); i++) {
-//		cout << "Matriz " << i << endl << imgs[i].transpose().print();
-//	}
-//	cout << src << endl<< w <<endl << h << endl << dst << endl;
+	nombre = dataDirectory() + "/img";
+	// Ojo con esto que pude estar mal!!
+	matrix transformacion = Vect.transpose();
+	for ( uint i = 0 ; i < imgs.size() ; i++ ) {
+		matrix transformada = transformacion * imgs[i];
+		char path[100];
+		sprintf(path, "%s%u.dat", nombre.c_str(), i);
+		escribirVectorAArchivo(transformada, path);
+	}
 
 	return 0;
 }

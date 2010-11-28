@@ -4,5 +4,6 @@
 #include <string>
 
 double tolerancia();
+std::string dataDirectory();
 
 #endif // _CONVENCIONES_H
