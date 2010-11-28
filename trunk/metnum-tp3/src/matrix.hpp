@@ -28,6 +28,7 @@ public:
 	unsigned int cant_rows() const;
 	unsigned int cant_cols() const;
 	matrix transpose() const;
+	matrix diagonal() const;
 	void swap_rows(unsigned int i1, unsigned int i2);
 	matrix& operator=(const matrix& m2);
 	matrix column(unsigned int i) const;

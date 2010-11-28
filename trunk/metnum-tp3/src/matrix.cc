@@ -177,6 +177,16 @@ matrix matrix::transpose() const
 	return transp;
 }
 
+matrix matrix::diagonal() const
+{
+	// La traspuesta es de mxn
+	matrix diag(this->cant_rows(), this->cant_cols());
+	for(uint i = 1; i <= cant_rows() && i <= cant_cols(); i++) {
+		diag.set(i, i, this->get(i,i));
+	}
+	return diag;
+}
+
 matrix matrix::column(uint j) const
 {
 	assert(valid_pos(1, j));
