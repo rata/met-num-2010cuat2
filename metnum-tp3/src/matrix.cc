@@ -137,7 +137,7 @@ matrix matrix::operator*(const matrix& a) const
 				val += this->get(i, k) * a.get(k, j);
 			}
 
-			//if (abs(val) < convenciones::tolerancia())
+			//if (abs(val) < tolerancia())
 			//	val = 0;
 
 			res.set(i, j, val);

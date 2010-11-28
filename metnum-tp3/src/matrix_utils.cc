@@ -3,7 +3,6 @@
 #include <math.h>	// sqrt
 #include <iostream>
 #include "matrix.hpp"
-#include "convenciones.hpp"
 #include "matrix_utils.hpp"
 
 using namespace std;
