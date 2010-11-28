@@ -130,6 +130,20 @@ bool cambioV(const matrix& Vant, const matrix& V)
 	return false;
 }
 
+static
+bool tieneDiferenteDiag(const matrix& A1, const matrix& A2, double cota)
+{
+	assert(A1.cant_rows() == A2.cant_rows());
+	assert(A1.cant_cols() == A2.cant_cols());
+	
+	for (uint i = 1; i <= A1.cant_rows() && i <= A1.cant_cols(); i++) {
+		if (abs(A1.get(i, i) - A2.get(i, i)) > cota)
+			return true;
+	}
+
+	return false;
+}
+
 bool esSimetrica(const matrix& A)
 {
 	for (uint i = 1; i <= A.cant_rows(); i++) {
@@ -141,14 +155,17 @@ bool esSimetrica(const matrix& A)
 	return true;
 }
 
-void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val)
+void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val, double tol)
 {
+	assert(tol > 0);
 	assert(esSimetrica(A_orig));
 	Val = A_orig;
 	Vect = matrix::identity(A_orig.cant_rows());
-//	matrix ValAnt = Val;
+
 	matrix R(A_orig.cant_rows(), A_orig.cant_cols());
 	matrix Q(A_orig.cant_rows(), A_orig.cant_cols());
+
+	matrix DiagAnt = Val.diagonal();
 
 	do {
 		std::cout << "iniciando QR" << std::endl;
@@ -156,14 +173,15 @@ void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val)
 //		std::cout << "Q es " << endl << Q.print();
 //		std::cout << "R es " << endl << R.print();
 		std::cout << "QR OK" << std::endl;
-//		ValAnt = Val;
+		DiagAnt = Val.diagonal();
 
 		Val = R * Q;
 		Vect = Vect * Q;
 
 //	} while (cambioV(ValAnt, Val));
 //	} while (!esTriangularSup(A, 1e-17));
-	} while (!esDiagonal(Val, 1e-2));
+//	} while (!esDiagonal(Val, 1e-2));
+	} while (!esDiagonal(Val, tol) || tieneDiferenteDiag(DiagAnt, Val, tol));
 
 	return;
 }

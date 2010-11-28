@@ -6,7 +6,7 @@
 // Deja en Q y R la factorización QR de A
 void givens(const matrix& A, matrix& Q, matrix& R);
 
-void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val);
+void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val, double tol);
 
 bool esDiagonal(const matrix& M, double cota);
 
