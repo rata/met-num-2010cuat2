@@ -3,10 +3,6 @@
 
 #include <string>
 
-class convenciones
-{
-public:
-	static double tolerancia();
-};
+double tolerancia();
 
 #endif // _CONVENCIONES_H
