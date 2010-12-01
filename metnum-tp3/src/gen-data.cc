@@ -5,6 +5,7 @@
 #include <math.h>	// sqrt
 #include <vector>	// vector
 #include <fstream>	// ifstream / ofstream
+#include <algorithm>	// sort
 #include "convenciones.hpp" // dataDirectory
 #include "matrix.hpp"
 #include "matrix_utils.hpp"
@@ -23,7 +24,6 @@ matrix gen_vector(string img_path, uint n)
 		cout << "Error al leer: " << img_path << endl;
 		exit(2);
 	}
-
 
 	for (uint i = 1; i <= n; i++) {
 		if (img.eof()) {
@@ -88,9 +88,9 @@ void escribirArchivoAutovalor(const char* nombre, double autovalor, matrix autov
 	myfile << autovector.cant_rows() << endl;
 	myfile << autovalor << endl;
 
-	for ( uint i = 1 ; i < autovector.cant_rows() ; i++ ) {
+	for (uint i = 1 ; i < autovector.cant_rows() ; i++)
 		myfile << autovector.get(i,1) << endl;
-	}
+
 	myfile.close();
 
 
@@ -98,7 +98,6 @@ void escribirArchivoAutovalor(const char* nombre, double autovalor, matrix autov
 	cout << "autovalor: " << autovalor << endl;
 	cout << "v es: " << autovector.transpose().print() << endl;
 	cout << nombre << " finished ---------------------------" << endl;
-
 }
 
 void escribirVectorAArchivo(const matrix& vect, char* nombre)
@@ -120,6 +119,11 @@ void escribirVectorAArchivo(const matrix& vect, char* nombre)
 	}
 
 	myfile.close();
+}
+
+bool sort_autovect(pair<double, matrix> i, pair<double, matrix> j)
+{
+	return i.first <= j.first;
 }
 
 int main(int argc, char** argv)
@@ -154,14 +158,21 @@ int main(int argc, char** argv)
 	calcular_autovalores(M, Vect, Val, 1e-7);
 
 	// TODO: Hay que oredenar los autovalores y autocetores!!!
-	// Sí, lo sé, no compila...
 
 //	cout << "calculado" << endl;
 
 	string nombre = dataDirectory() + "/autoVal";
+	vector<pair<double, matrix> > autoval;
 	for (uint i = 1; i <= M.cant_rows(); i++) {
 		double autovalor = Val.get(i, i);
 		matrix autovector = Vect.column(i);
+
+		// TODO: ver el constructor de pair para pasarle directamente a
+		// .push_back
+		pair<double, matrix> p;
+		p.first = autovalor;
+		p.second = autovector;
+		autoval.push_back(p);
 
 		char path[100];
 		sprintf(path, "%s%u.dat", nombre.c_str(), i);
@@ -172,6 +183,12 @@ int main(int argc, char** argv)
 //		autovector.scale(autovalor);
 //		cout << "lambda* v" << endl << autovector.transpose().print() << endl;
 	}
+
+	// TODO: probar que efectivamente funcione y que no la cague
+	// TODO: capaz que calcular_autovalores podria devolver el par, o el par
+	// ordenado. Asi no copiamos tantas cosas (si es que vale la pena
+	// ahorrarse las copiadas y cambiarle la signatura)
+	sort(autoval.begin(), autoval.end(), sort_autovect);
 
 	nombre = dataDirectory() + "/img";
 	// Ojo con esto que pude estar mal!!
