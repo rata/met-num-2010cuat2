@@ -94,10 +94,10 @@ void escribirArchivoAutovalor(const char* nombre, double autovalor, matrix autov
 	myfile.close();
 
 
-//	cout << nombre << " ------------------------------------" << endl;
-//	cout << "autovalor: " << autovalor << endl;
-//	cout << "v es: " << autovector.transpose().print() << endl;
-//	cout << nombre << " finished ---------------------------" << endl;
+	cout << nombre << " ------------------------------------" << endl;
+	cout << "autovalor: " << autovalor << endl;
+	cout << "v es: " << autovector.transpose().print() << endl;
+	cout << nombre << " finished ---------------------------" << endl;
 
 }
 
@@ -151,7 +151,10 @@ int main(int argc, char** argv)
 //	cout << M.print();
 	matrix Vect(M.cant_rows(), M.cant_cols());
 	matrix Val(M.cant_rows(), M.cant_cols());
-	calcular_autovalores(M, Vect, Val, 1e-5);
+	calcular_autovalores(M, Vect, Val, 1e-7);
+
+	TODO: Hay que oredenar los autovalores y autocetores!!!
+      	// Sí, lo sé, no compila...
 
 //	cout << "calculado" << endl;
 
