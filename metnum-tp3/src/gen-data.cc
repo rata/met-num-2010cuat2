@@ -79,7 +79,7 @@ void escribirArchivoAutovalor(const char* nombre, double autovalor, matrix autov
 {
 	ofstream myfile;
 	myfile.open(nombre);
-	
+
 	if ( ! myfile.is_open() ) {
 		cout << "Path inválido: "<< nombre << endl;
                 exit(4);
@@ -107,7 +107,7 @@ void escribirVectorAArchivo(const matrix& vect, char* nombre)
 
 	ofstream myfile;
 	myfile.open(nombre);
-	
+
 	if ( ! myfile.is_open() ) {
 		cout << "Path inválido: "<< nombre << endl;
                 exit(4);
@@ -153,8 +153,8 @@ int main(int argc, char** argv)
 	matrix Val(M.cant_rows(), M.cant_cols());
 	calcular_autovalores(M, Vect, Val, 1e-7);
 
-	TODO: Hay que oredenar los autovalores y autocetores!!!
-      	// Sí, lo sé, no compila...
+	// TODO: Hay que oredenar los autovalores y autocetores!!!
+	// Sí, lo sé, no compila...
 
 //	cout << "calculado" << endl;
 
@@ -162,12 +162,12 @@ int main(int argc, char** argv)
 	for (uint i = 1; i <= M.cant_rows(); i++) {
 		double autovalor = Val.get(i, i);
 		matrix autovector = Vect.column(i);
-		
+
 		char path[100];
 		sprintf(path, "%s%u.dat", nombre.c_str(), i);
-		
+
 		escribirArchivoAutovalor(path, autovalor, autovector);
-		
+
 //		cout << "M * v " << endl << (M * autovector).transpose().print() << endl;
 //		autovector.scale(autovalor);
 //		cout << "lambda* v" << endl << autovector.transpose().print() << endl;
