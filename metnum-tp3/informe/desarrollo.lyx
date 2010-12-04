@@ -1,0 +1,708 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Desarrollo
+\end_layout
+
+\begin_layout Subsection
+Problema
+\end_layout
+
+\begin_layout Standard
+Sea 
+\begin_inset Formula $W\in\mathbb{R}^{n\times n}$
+\end_inset
+
+una matriz rala donde 
+\begin_inset Formula $w_{ii}=0$
+\end_inset
+
+ y 
+\begin_inset Formula $w_{ij}\in\left\{ 0,1\right\} ,i\neq j$
+\end_inset
+
+.
+ Sea 
+\begin_inset Formula $p=0.85$
+\end_inset
+
+una probabilidad.
+ Sea 
+\begin_inset Formula $c_{j}=\sum_{i}w_{ij}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Se define 
+\begin_inset Formula $A\in\mathbb{R}^{n\times n}$
+\end_inset
+
+como:
+\begin_inset Formula \[
+a_{ij}=\begin{cases}
+\frac{1-p}{n}+\frac{pw_{ij}}{c_{j}} & c_{j}\neq0\\
+\frac{1}{n} & c_{j}=0\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El problema consiste en resolver el siguiente sistema:
+\begin_inset Formula \[
+Ax=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+que cumple que 
+\begin_inset Formula $x_{i}\geq0$
+\end_inset
+
+ y 
+\begin_inset Formula $\sum_{i}x_{i}=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Es importante notar que la matriz 
+\begin_inset Formula $A$
+\end_inset
+
+ puede reescribirse como:
+\begin_inset Formula \[
+A=pWD+ez^{\intercal}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+donde 
+\begin_inset Formula $D$
+\end_inset
+
+ es una matriz diagonal de la forma:
+\begin_inset Formula \[
+d_{jj}=\begin{cases}
+\frac{1}{c_{j}} & c_{j}\neq0\\
+0 & sino\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $e$
+\end_inset
+
+ es un vector columna de unos de dimensión 
+\begin_inset Formula $n$
+\end_inset
+
+ y 
+\begin_inset Formula $z\in\mathbb{R}^{n}$
+\end_inset
+
+
+\begin_inset Formula \[
+z_{j}=\begin{cases}
+\frac{1-p}{n} & c_{j}\neq0\\
+\frac{1}{n} & sino\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Luego, el sistema:
+\begin_inset Formula \[
+Ax=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+(pWD+ez^{\intercal})x=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+pWDx+ez^{\intercal}x=x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+pWDx-x=-ez^{\intercal}x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+x-pWDx=ez^{\intercal}x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+(I-pWD)x=ez^{\intercal}x\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se define 
+\begin_inset Formula $\gamma=z^{\intercal}x\in\mathbb{R}$
+\end_inset
+
+.
+ De esta manera, el procedimiento sugerido por la cátedra para resolver
+ el sistema es:
+\end_layout
+
+\begin_layout Enumerate
+Suponer 
+\begin_inset Formula $\gamma=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Resolver la ecuacion 
+\begin_inset Formula $(I-pWD)x=e\gamma$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Normalizar el vector 
+\begin_inset Formula $x$
+\end_inset
+
+ de manera que 
+\begin_inset Formula ${\displaystyle \sum_{i=1}^{n}}x_{i}=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Propiedad: 
+\bar default
+
+\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n,{\displaystyle \sum_{i=1}^{n}}(WD)_{ij}=1$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Demostración: 
+\bar default
+Sea 
+\begin_inset Formula $j\in\mathbb{N},1\leq j\leq n$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+{\displaystyle \sum_{i=1}^{n}}(WD)_{ij}={\displaystyle \sum_{i=1}^{n}}\frac{w_{ij}}{c_{j}}={\displaystyle \frac{1}{c_{j}}\sum_{i=1}^{n}}w_{ij}={\displaystyle \frac{1}{{\displaystyle \sum_{i=1}^{n}}w_{ij}}\sum_{i=1}^{n}}w_{ij}={\displaystyle \frac{{\displaystyle \sum_{i=1}^{n}}w_{ij}}{{\displaystyle \sum_{i=1}^{n}}w_{ij}}}=1\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Corolario:
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula ${\displaystyle \forall j\in\mathbb{N},1\leq j\leq n\sum_{i=1}^{n}}(pWD)_{ij}=0.85$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\bar under
+Corolario: 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n$
+\end_inset
+
+, 
+\begin_inset Formula ${\displaystyle \sum_{i=1}^{n}}|(pWD)_{ij}|=0.85$
+\end_inset
+
+.
+ Pues 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+\color inherit
+
+\begin_inset Formula $(pWD)_{ij}\geq0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Resolución mediante factorización LU
+\end_layout
+
+\begin_layout Subsubsection*
+Existencia de factorización LU
+\end_layout
+
+\begin_layout Standard
+Mostraremos que la matriz 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $(I-pWD)$
+\end_inset
+
+ es estrictamente diagonal dominante.
+ Es decir que 
+\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n$
+\end_inset
+
+, vale:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(I-pWD)_{ij}|\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Primero veamos que como 
+\begin_inset Formula $p(WD)_{jj}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+|(I-pWD)_{jj}|=|I_{jj}|=1\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Por otro lado, dado que 
+\begin_inset Formula $i\neq j\Rightarrow I_{ij}=0$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\sum_{i=1,i\neq j}^{n}|(I-pWD)_{ij}|=\sum_{i=1,i\neq j}^{n}|I_{ij}-(pWD)_{ij}|=\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|=0.85\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En consecuencia
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Luego, la matriz 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+
+\begin_inset Formula $(I-pWD)$
+\end_inset
+
+ es estrictamente diagonal dominante.
+ Lo que implica, por la propiedad antes expuesta, que existe una factorización
+ LU.
+\end_layout
+
+\begin_layout Subsubsection*
+Implementación
+\end_layout
+
+\begin_layout Standard
+Se utilizó el método de eliminación Gaussiana para hallar 
+\begin_inset Formula $U$
+\end_inset
+
+ y 
+\begin_inset Formula $M^{-1}b$
+\end_inset
+
+.
+ Mediante el mismo se logró conseguir un sistema de ecuaciones equivalente
+ cuya matriz asociada es triangular superior.
+ Finalmente, para hallar el vector solución de este sistema equivalente,
+ se utilizó la técnica de backsubstitution.
+\end_layout
+
+\begin_layout Standard
+Para resolver el sistema, se agregó a la matriz el vector 
+\begin_inset Quotes eld
+\end_inset
+
+b
+\begin_inset Quotes erd
+\end_inset
+
+ como última columna.
+ De esta forma, al triangular la matriz, en cada paso se tiene un sistema
+ equivalente a anterior.
+ Obteniendo al finalizar la matriz 
+\begin_inset Formula $U$
+\end_inset
+
+ y el vector 
+\begin_inset Formula $M^{-1}b$
+\end_inset
+
+ buscados.
+ El resto de la implementación no trajo mayores complicaciones.
+\end_layout
+
+\begin_layout Standard
+El método de eliminación Gaussiana tiene la particularidad de que si la
+ matriz es rala no conserva esta propiedad.
+ Por este motivo, se decidió representar la matriz como filas contiguas
+ en memoria, guardando todos sus elementos.
+ Esto resulta en un consumo de memoria 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+ para la matriz.
+ Vale recordar que el órden del método es 
+\begin_inset Formula $O(n^{3})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+También se decidió utilizar pivoteo parcial para reducir el error numérico,
+ aunque, como ya se mostró en secciones anteriores, esto no era necesario
+ dado que la matriz tiene factorización 
+\begin_inset Formula $LU$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Resolución mediante el método de Jacobi
+\end_layout
+
+\begin_layout Subsubsection*
+Convergencia del método
+\end_layout
+
+\begin_layout Standard
+Para ver la convergencia del método es suficiente ver que 
+\begin_inset Formula $\Vert T\Vert<1$
+\end_inset
+
+, para 
+\begin_inset Formula $\Vert.\Vert$
+\end_inset
+
+ norma matricial inducida y 
+\begin_inset Formula $T=D^{-1}(L+U)$
+\end_inset
+
+.
+ Por lo visto en la introducción teórica.
+\end_layout
+
+\begin_layout Standard
+Tomaremos 
+\begin_inset Formula $\Vert.\Vert_{1}$
+\end_inset
+
+.
+ En resumen, queremos ver que:
+\begin_inset Formula \[
+\Vert I^{-1}(-pWD)\Vert_{1}<1\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\Vert I^{-1}(-pWD)\Vert_{1}=|-1|\Vert I^{-1}pWD)\Vert_{1}=\Vert pIWD)\Vert_{1}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\Vert pWD)\Vert_{1}=\max_{j}{\displaystyle \sum_{i=1}^{n}}|(pWD)_{ij}|=0.85<1\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+De esta manera queda asegurada la convergencia del método.
+\end_layout
+
+\begin_layout Subsubsection*
+Implementación
+\end_layout
+
+\begin_layout Standard
+En contraposición con el método de eliminación Gaussiana, este método no
+ modifica la matriz.
+ Como consecuencia inmediata, si la matriz es rala, lo será en toda la ejecución
+ del algoritmo.
+ Para aprovechar esto y disminuir el requerimiento de memoria, a la vez
+ que se reducen la cantidad de operaciones, se decidió representar solo
+ los elementos no nulos de la matriz.
+ A su vez, dado que la diagonal de la matriz consta de unos, ésta tampoco
+ se incluyó.
+\end_layout
+
+\begin_layout Standard
+Para lograr dicha representación se decidió usar 2 diccionarios anidados.
+ El exterior es un diccionario cuyas claves son las columnas no nulas, y
+ sus valores son la representación de la columna correspondiente.
+ Dichas columnas se representan mediante el diccionario interior.
+ Éste tiene como claves las filas no nulas de esta columna y como valor,
+ el elemento correspondiente a esa fila y columna.
+\end_layout
+
+\begin_layout Standard
+El algoritmo, por su naturaleza iterativa, en cada iteración genera una
+ solución que eventualmente será la solución del sistema.
+ Cada iteración del algoritmo consta de, a partir de la matriz y la solución
+ anterior, generar la siguiente de manera tal que el elemento 
+\begin_inset Formula $i$
+\end_inset
+
+ del vector generado es el que resuelve la siguiente ecuación:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+a_{ii}X_{i}+\sum_{j=1,j\neq i}^{n}a_{ij}Y_{j}=b_{i}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+siendo 
+\begin_inset Formula $X_{i}$
+\end_inset
+
+ la incógnita y 
+\begin_inset Formula $Y$
+\end_inset
+
+ la solución generada en la iteración anterior.
+ 
+\end_layout
+
+\begin_layout Standard
+Quedando finalmente,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+X_{i}=\frac{b_{i}-\sum_{j=1,j\neq i}^{n}a_{ij}Y_{j}}{a_{ii}}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se sabe que 
+\begin_inset Formula $b$
+\end_inset
+
+ es un vector de unos y 
+\begin_inset Formula $a_{ii}=1$
+\end_inset
+
+ para todo 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Entonces queda:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+X_{i}=1-\sum_{j=1,j\neq i}^{n}a_{ij}Y_{j}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Para que el algoritmo sea eficiente, se recorre el vector 
+\begin_inset Formula $Y$
+\end_inset
+
+ una sola vez, acumulando en cada paso, en la correspondiente coordenada
+ de 
+\begin_inset Formula $X_{i}$
+\end_inset
+
+, el valor de 
+\begin_inset Formula $-a_{ij}Y_{j}$
+\end_inset
+
+, solo para los elementos 
+\begin_inset Formula $a_{ij}$
+\end_inset
+
+ no nulos.
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,123 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Apéndice B
+\end_layout
+
+\begin_layout Standard
+Para compilar todos los métodos se debe ejecutar el comando 
+\begin_inset Quotes eld
+\end_inset
+
+make
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Se necesita tener el compilador gcc.
+ Este comando generará los siguientes archivos ejecutables:
+\end_layout
+
+\begin_layout Itemize
+babilonio
+\end_layout
+
+\begin_layout Itemize
+binomial
+\end_layout
+
+\begin_layout Itemize
+binomial_dec
+\end_layout
+
+\begin_layout Itemize
+binomial_inc
+\end_layout
+
+\begin_layout Itemize
+fcont
+\end_layout
+
+\begin_layout Itemize
+fcont_int
+\end_layout
+
+\begin_layout Standard
+Al ejecutarlos
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+En linux se ejecuta: .
+\backslash
+<nombre>
+\end_layout
+
+\end_inset
+
+, los mismos darán un detalle en pantalla sobre los parámetros de entrada,
+ estos son 
+\emph on
+<prec>, <niter>
+\emph default
+ en el caso de los algoritmos binomiales y babilonio.
+ Estos son la prescion elegida y la cantidad de iteraciones deseadas.
+ En el caso de fracciones continuas, además tiene el parámetro opcional
+ 
+\emph on
+[aprox]
+\emph default
+, este parámetro sirve como aproximación inicial de 
+\begin_inset Formula $\sqrt{2}$
+\end_inset
+
+ para el algoritmo.
+\end_layout
+
+\begin_layout Standard
+Los algoritmos imprimen en pantalla el resultado final obtenido para los
+ parámetros dados.
+\end_layout
+
+\end_body
+\end_document

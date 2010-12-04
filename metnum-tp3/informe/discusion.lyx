@@ -1,0 +1,148 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Discusión
+\end_layout
+
+\begin_layout Standard
+Luego de obtener los resultados presentados en la sección anterior, se pueden
+ obsevar distintos aspectos tanto de los algoritmos como de los métodos.
+ Los mismos serán discutidos a continuación.
+\end_layout
+
+\begin_layout Subsection
+Consumo de memoria
+\end_layout
+
+\begin_layout Standard
+En el primer gráfico expuesto se puede ver como el consumo de memoria del
+ método 
+\begin_inset Formula $LU$
+\end_inset
+
+ es ordenes de magnitud superior al del método de jacobi.
+ También se puede ver que para matrices pequeñas el consumo resulta similar,
+ pero al aumentar el tamaño de la matriz, la diferencia aumenta en forma
+ notable, debido a que el orden de consumo de memoria del algoritmo 
+\begin_inset Formula $LU$
+\end_inset
+
+ es cuadrático.
+\end_layout
+
+\begin_layout Standard
+El orden del consumo de memoria del algoritmo de jacobi también es cuadrático
+ en peor caso.
+ Pero este caso es muy dificil de encontrar en el dominio del problema ya
+ que las matrices son típicamente ralas.
+ Entonces, el consumo esperado de memoria se acercaría a un consumo de orden
+ lineal en el tamaño de la matriz.
+\end_layout
+
+\begin_layout Standard
+En el tercer gráfico expuesto se puede analizar el comportamiento del algoritmo
+ de Jacobis para matrices más grandes que las soportadas por el algoritmo
+ de 
+\begin_inset Formula $LU$
+\end_inset
+
+.
+ Se ve como si bien crecen los requerimientos de memoria, este crecimiento
+ es aceptable en función del tamaño de la matriz.
+\end_layout
+
+\begin_layout Subsection
+Tiempo de ejecución
+\end_layout
+
+\begin_layout Standard
+En el segundo gráfico expuesto se puede observar claramente que el tiempo
+ de ejecución del método 
+\begin_inset Formula $LU$
+\end_inset
+
+ es, también, ordenes de magnitud superior al del método de Jacobi.
+ A diferencia del anterior, para matrices pequeñas, ya se nota una diferencia
+ no despreciable en el tiempo de ejecución.
+ Siendo aún mayor para tamaños considerables de matrices.
+\end_layout
+
+\begin_layout Standard
+En el quinto gráfico se puede ver como el algoritmo de Jacobi tiene una
+ performance superior al la del algoritmo 
+\begin_inset Formula $LU$
+\end_inset
+
+.
+ Se puede ver que el crecimiento no es excesivo en función del tamaño de
+ la matriz, permitiendo así trabajar con matrices más grandes que 
+\begin_inset Formula $LU$
+\end_inset
+
+.
+ En particular es interesante notar que el algoritmo de Jacobi tarda poco
+ más de 2.5 segundos para procesar una matriz de 
+\begin_inset Formula $300000x30000$
+\end_inset
+
+, mientras que el algoritmo 
+\begin_inset Formula $LU$
+\end_inset
+
+ tarda un tiempo similar (apenas menos de 2.5 segundos) para una matriz de
+ 
+\begin_inset Formula $450x450$
+\end_inset
+
+.
+ Es decir, el algoritmo de Jacobis tarda un tiempo similar al algoritmo
+ de 
+\begin_inset Formula $LU$
+\end_inset
+
+ para procesar una matriz dos ordenes de magnitud mas grande.
+\end_layout
+
+\end_body
+\end_document
