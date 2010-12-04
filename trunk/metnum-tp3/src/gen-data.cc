@@ -94,10 +94,10 @@ void escribirArchivoAutovalor(const char* nombre, double autovalor, matrix autov
 	myfile.close();
 
 
-	cout << nombre << " ------------------------------------" << endl;
-	cout << "autovalor: " << autovalor << endl;
-	cout << "v es: " << autovector.transpose().print() << endl;
-	cout << nombre << " finished ---------------------------" << endl;
+//	cout << nombre << " ------------------------------------" << endl;
+//	cout << "autovalor: " << autovalor << endl;
+//	cout << "v es: " << autovector.transpose().print() << endl;
+//	cout << nombre << " finished ---------------------------" << endl;
 }
 
 void escribirVectorAArchivo(const matrix& vect, char* nombre)
@@ -207,7 +207,7 @@ int main(int argc, char** argv)
 	for ( uint i = 0 ; i < imgs.size() ; i++ ) {
 		matrix transformada = transformacion * imgs[i];
 		char path[100];
-		sprintf(path, "%s%u.dat", nombre.c_str(), i);
+		sprintf(path, "%s%u.dat", nombre.c_str(), i+1);
 		escribirVectorAArchivo(transformada, path);
 	}
 
