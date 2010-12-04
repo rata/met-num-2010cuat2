@@ -16,10 +16,13 @@ new_size="${new_w}x${new_h}"
 new_src="$src.gray"
 
 $DIR/to-raw.sh $src $new_src $new_size
+echo "Raw img generated, size: $new_size"
 
-#if [ ! -e $DIR/../data/a1.data ]; then
-#	$DIR/gen-data 11 19 $DIR/../imgs/*.gray
-#	echo Datos generados.
-#fi
+if [ ! -e $DIR/../data/autoVal1.dat ]; then
+	$DIR/gen-data 11 19 $DIR/../imgs/*.gray
+	echo Datos generados.
+fi
 
-$DIR/ascii-art $new_src $new_w $new_h $dst
+$DIR/art-attack $new_src $w $h $dst
+
+rm $new_src
