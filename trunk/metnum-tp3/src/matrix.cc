@@ -200,9 +200,22 @@ matrix matrix::column(uint j) const
 	return columna;
 }
 
+void matrix::swap_cols(uint c1, uint c2)
+{
+	assert(valid_pos(1, c1));
+	assert(valid_pos(1, c2));
+
+	for ( uint i = 1 ; i <= this->cant_rows() ; i++ ) {
+		double tmp = this->get(i, c1);
+		this->set(i, c1, this->get(i, c2));
+		this->set(i, c2, tmp);
+	}
+}
+
 void matrix::swap_rows(uint i1, uint i2)
 {
-	assert(valid_pos(i1, i2));
+	assert(valid_pos(i1, 1));
+	assert(valid_pos(i2, 1));
 
 	double *tmp = (double *) malloc(sizeof(double) * m);
 	if (tmp == NULL) {
@@ -214,13 +227,13 @@ void matrix::swap_rows(uint i1, uint i2)
 	double *i2_ptr = mat + (i2 - 1) * m;
 
 	// Copiamos la fila i1 a tmp
-	memcpy(tmp, i1_ptr, m);
+	memcpy(tmp, i1_ptr, sizeof(double) * m);
 
 	// Copiamos la fila i2 a la fila i1
-	memcpy(i1_ptr, i2_ptr, m);
+	memcpy(i1_ptr, i2_ptr, sizeof(double) * m);
 
 	// Copiamos la fila i1 orig a la fila i2
-	memcpy(i2_ptr, tmp, m);
+	memcpy(i2_ptr, tmp, sizeof(double) * m );
 
 	free(tmp);
 }
