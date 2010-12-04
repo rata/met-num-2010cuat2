@@ -1,0 +1,88 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Conclusiones
+\end_layout
+
+\begin_layout Standard
+Luego de analizar todos los resultados se llegó a la conclusión de que para
+ matrices suficientemente grandes, los algoritmos exactos como el caso de
+ 
+\begin_inset Formula $LU$
+\end_inset
+
+ resultan ser prohibitivos, ya sea tanto por el consumo de memoria que el
+ mismo requiere, como por su performance temporal.
+ Es por esto que los métodos iterativos resultan de gran importancia.
+ Cuando se puede asegurar su convergencia, como es el caso de nuestro domino,
+ se puede lograr resolver un sistema de ecuaciones que de otra forma sería
+ imposible de resolver.
+\end_layout
+
+\begin_layout Standard
+También vale decir que aunque se esté en un dominio en el que no sea posible
+ asegurar su convergencia, un método iterativo puede ser una buena opción,
+ ya que un método exacto puede resultar ser inutilizable para contextos
+ con matrices suficientemente grandes, que suelen ser los casos interesantes
+ de resolver.
+ En estos casos un método iterativo puede llegar a ser a lo mejor que se
+ pueda acceder.
+ Y si bien quizá no se puede asegurar la convergencia del método, sí se
+ puede conocer la norma del residuo (
+\begin_inset Formula $b-Ax$
+\end_inset
+
+).
+ Entonces pueden ser una excelente alternativa aún cuando no se puede asegurar
+ su convergencia si, para ese caso, alcanza con acotar el residuo.
+\end_layout
+
+\begin_layout Standard
+Los algoritmos iterativos resultan una alternativa performante, tanto en
+ memoria como en tiempo, a los algoritmos exactos tradicionales y hacen
+ posible trabajar con matrices que son intratables con un método directo.
+\end_layout
+
+\end_body
+\end_document
