@@ -30,6 +30,7 @@ public:
 	matrix transpose() const;
 	matrix diagonal() const;
 	void swap_rows(unsigned int i1, unsigned int i2);
+	void swap_cols(unsigned int c1, unsigned int c2);
 	matrix& operator=(const matrix& m2);
 	matrix column(unsigned int i) const;
 

@@ -88,7 +88,7 @@ void escribirArchivoAutovalor(const char* nombre, double autovalor, matrix autov
 	myfile << autovector.cant_rows() << endl;
 	myfile << autovalor << endl;
 
-	for (uint i = 1 ; i < autovector.cant_rows() ; i++)
+	for (uint i = 1 ; i <= autovector.cant_rows() ; i++)
 		myfile << autovector.get(i,1) << endl;
 
 	myfile.close();
@@ -121,9 +121,33 @@ void escribirVectorAArchivo(const matrix& vect, char* nombre)
 	myfile.close();
 }
 
-bool sort_autovect(pair<double, matrix> i, pair<double, matrix> j)
+void ordenar(matrix &Val, matrix &Vect)
 {
-	return i.first <= j.first;
+	// Los i i de Val son los autovalores y las colmnas de Vect son los
+	// autovecores.
+
+	assert(Val.cant_cols() == Vect.cant_cols());
+
+	for (uint i = 1 ; i <= Val.cant_cols() ; i++) {
+		// Hay que buscar el más poronga y ponerlo en la columna i
+		double valor = Val.get(i, i);
+		uint posicion = i;
+		for ( uint j = i+1 ; j <= Val.cant_cols() ; j++) {
+			double new_val = Val.get(j, j);
+			if (abs(new_val) > abs(valor)) {
+				valor = new_val;
+				posicion = j;
+			}
+		}
+		// En i tengo la posicion inicial de la submatriz
+		// En valor tengo el valor del máximo autovalor de la submatriz
+		// y en posicion, tengo la poscion de dicho autovalor.
+		double i_i = Val.get(i, i);
+		Val.set(i, i, valor);
+		Val.set(posicion, posicion, i_i);
+
+		Vect.swap_cols(i, posicion);
+	}
 }
 
 int main(int argc, char** argv)
@@ -157,22 +181,15 @@ int main(int argc, char** argv)
 	matrix Val(M.cant_rows(), M.cant_cols());
 	calcular_autovalores(M, Vect, Val, 1e-7);
 
-	// TODO: Hay que oredenar los autovalores y autocetores!!!
+
+	ordenar(Val, Vect);
 
 //	cout << "calculado" << endl;
 
 	string nombre = dataDirectory() + "/autoVal";
-	vector<pair<double, matrix> > autoval;
-	for (uint i = 1; i <= M.cant_rows(); i++) {
+	for (uint i = 1; i <= Val.cant_cols(); i++) {
 		double autovalor = Val.get(i, i);
 		matrix autovector = Vect.column(i);
-
-		// TODO: ver el constructor de pair para pasarle directamente a
-		// .push_back
-		pair<double, matrix> p;
-		p.first = autovalor;
-		p.second = autovector;
-		autoval.push_back(p);
 
 		char path[100];
 		sprintf(path, "%s%u.dat", nombre.c_str(), i);
@@ -183,12 +200,6 @@ int main(int argc, char** argv)
 //		autovector.scale(autovalor);
 //		cout << "lambda* v" << endl << autovector.transpose().print() << endl;
 	}
-
-	// TODO: probar que efectivamente funcione y que no la cague
-	// TODO: capaz que calcular_autovalores podria devolver el par, o el par
-	// ordenado. Asi no copiamos tantas cosas (si es que vale la pena
-	// ahorrarse las copiadas y cambiarle la signatura)
-	sort(autoval.begin(), autoval.end(), sort_autovect);
 
 	nombre = dataDirectory() + "/img";
 	// Ojo con esto que pude estar mal!!
