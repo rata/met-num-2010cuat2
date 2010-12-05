@@ -2,12 +2,17 @@ src=$1 # imagen original
 dst=$2 # ascii file
 w=$3   # ancho
 h=$4   # alto
+k=$5   # k (default 3)
 
 DIR=$(dirname $0)
 
 if [ x"$h" = "x" ]; then
-	echo "Usage $0 <src> <dst> <width> <height>"
+	echo "Usage $0 <src> <dst> <width> <height> [k]"
 	exit 1
+fi
+
+if [ x"$k" = "x" ]; then
+	k=3
 fi
 
 new_w=$(expr $w '*' 11)
@@ -23,6 +28,6 @@ if [ ! -e $DIR/../data/autoVal1.dat ]; then
 	echo Datos generados.
 fi
 
-$DIR/art-attack $new_src $w $h $dst
+$DIR/art-attack $new_src $w $h $dst $k
 
 rm $new_src

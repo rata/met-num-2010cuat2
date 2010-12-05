@@ -19,11 +19,12 @@ using namespace std;
 
 typedef unsigned int uint;
 
-void llenarFilaTransformacion(matrix& A , uint fila)
+double llenarFilaTransformacion(matrix& A , uint fila)
 {
 	assert(fila <= A.cant_rows());
 
 	ifstream autovector;
+	double autovalor;
 
 	char path[100];
 	sprintf(path, "../data/autoVal%u.dat", fila);
@@ -40,8 +41,7 @@ void llenarFilaTransformacion(matrix& A , uint fila)
 	assert(lineas == A.cant_cols());
 
 	double valor;
-	// el primero es el valor del autovalor
-	autovector >> valor;
+	autovector >> autovalor;
 
 	for (uint j = 1; j <= lineas; j++) {
 		autovector >> valor;
@@ -49,6 +49,7 @@ void llenarFilaTransformacion(matrix& A , uint fila)
 	}
 
 	autovector.close();
+	return autovalor;
 }
 
 matrix leerCaracter(uint i, uint k)
@@ -108,27 +109,35 @@ matrix leerImagen(string src, uint w, uint h)
 	return res;
 }
 
-double calcular_distancia(const matrix& cuadrante, const matrix& vect)
+double calcular_distancia(const matrix& cuadrante, const matrix& vect, const vector<double>& autovalores, double norma)
 {
 	assert(cuadrante.cant_cols() == 1);
 	assert(vect.cant_cols() == 1);
+	assert(autovalores.size() == cuadrante.cant_rows());
 
 	double distancia = 0;
 	for (uint i = 1; i <= cuadrante.cant_rows(); i++) {
-		double penalidad = pow(1000, cuadrante.cant_rows() - i);
+		//double penalidad = pow(1000, cuadrante.cant_rows() - i);
 		//double penalidad = i;
-		distancia += abs(cuadrante.get(i, 1) - vect.get(i, 1)) * penalidad;
+		double penalidad = abs(autovalores[i-1])/norma;
+		//cout << "penalidad: " << penalidad << endl;
+		distancia += penalidad * abs( cuadrante.get(i, 1) - vect.get(i, 1));
 	}
 
 	return distancia;
 }
 
-char dame_caracter(const matrix& cuadrante, const vector<matrix>& caracteres)
+char dame_caracter(const matrix& cuadrante, const vector<matrix>& caracteres, const vector<double>& autovalores)
 {
 	uint numero = 0;
-	double distancia = calcular_distancia(cuadrante, caracteres[0]);
+	double norma = 0;
+	for (uint i = 0; i < autovalores.size(); i++) {
+		norma += abs(autovalores[i]);
+	}
+
+	double distancia = calcular_distancia(cuadrante, caracteres[0], autovalores, norma);
 	for ( uint i = 1 ; i < caracteres.size() ; i++) {
-		double new_dist = calcular_distancia(cuadrante, caracteres[i]);
+		double new_dist = calcular_distancia(cuadrante, caracteres[i], autovalores, norma);
 		if ( new_dist < distancia ) {
 			distancia = new_dist;
 			numero = i;
@@ -138,7 +147,7 @@ char dame_caracter(const matrix& cuadrante, const vector<matrix>& caracteres)
 }
 
 void toASCII(const matrix& transformacion, const vector<matrix>& caracteres,
-		uint w, uint h, string src, string dst)
+		uint w, uint h, string src, string dst, const vector<double>& autovalores)
 {
 	ofstream out;
 	out.open(dst.c_str());
@@ -155,7 +164,7 @@ void toASCII(const matrix& transformacion, const vector<matrix>& caracteres,
 		for (uint j = 1; j <= w; j++) {
 			assert( (j+(i-1)*w) == col);
 			out << dame_caracter(imgTransformada.column(col),
-					caracteres);
+					caracteres, autovalores);
 			col++;
 		}
 		out << endl;
@@ -183,9 +192,9 @@ int main(int argc, char** argv)
 
 	// Matriz de los primero k AutoVectores
 	matrix transformacion(k, PIXELES_IMG);
-
+	vector<double> autovalores;
 	for (uint i = 1 ; i <= transformacion.cant_rows() ; i++) {
-		llenarFilaTransformacion(transformacion, i);
+		autovalores.push_back(llenarFilaTransformacion(transformacion, i));
 	}
 
 	// Le digo caracter a los vectores de las imagenes de los caracteres ya
@@ -196,7 +205,7 @@ int main(int argc, char** argv)
 		caracteres.push_back(caracter);
 	}
 
-	toASCII(transformacion, caracteres, w, h, src, dst);
+	toASCII(transformacion, caracteres, w, h, src, dst, autovalores);
 
 	return 0;
 }
