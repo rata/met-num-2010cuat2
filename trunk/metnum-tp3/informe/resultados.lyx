@@ -55,16 +55,6 @@ Para analizar el comportamiento de los algoritmos y los metodos implementados,
 \end_layout
 
 \begin_layout Standard
-\begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/mem.png
-	width 16cm
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 En este gráfico se puede observar el consumo máximo de memoria de ambos
  algoritmos al variar el tamaño de la matriz de entrada.
 \end_layout
@@ -100,16 +90,6 @@ emph{-f "
 
  que devuelve el consumo máximo de memoria utilizada por el programa en
  toda su ejecución.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/time.png
-	width 16cm
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
@@ -150,16 +130,6 @@ emph{-f "
 \end_layout
 
 \begin_layout Standard
-\begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/jac_mem.png
-	width 16cm
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
 En este gráfico se puede obsevar cómo varía el consumo máximo de memoria
  del algoritmo de Jacobis en función del tamaño de la matriz para matrices
  grandes.
@@ -172,16 +142,6 @@ En este gráfico no se muestra el consumo de memoria del algoritmo
 
  ya que dicho consumo excede la cantidad de memoria disponible en las máquinas
  de prueba.
-\end_layout
-
-\begin_layout Standard
-\begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/jac_time.png
-	width 16cm
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
