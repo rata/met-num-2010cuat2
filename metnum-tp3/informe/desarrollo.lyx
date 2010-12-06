@@ -45,612 +45,196 @@
 Desarrollo
 \end_layout
 
-\begin_layout Subsection
-Problema
+\begin_layout Standard
+El problema a resolver es dada una imágen digital tratar de representarla
+ con caracteres ASCII.
 \end_layout
 
 \begin_layout Standard
-Sea 
-\begin_inset Formula $W\in\mathbb{R}^{n\times n}$
-\end_inset
-
-una matriz rala donde 
-\begin_inset Formula $w_{ii}=0$
-\end_inset
-
- y 
-\begin_inset Formula $w_{ij}\in\left\{ 0,1\right\} ,i\neq j$
-\end_inset
-
-.
- Sea 
-\begin_inset Formula $p=0.85$
-\end_inset
-
-una probabilidad.
- Sea 
-\begin_inset Formula $c_{j}=\sum_{i}w_{ij}$
-\end_inset
-
-.
+Para esto se divide la imágen original en tantas sub-imágenes como caracteres
+ de ancho y alto se desee y luego se elije el caracter que más se asemeje
+ a la sub-imágen.
+ Esto implica varios puntos relevantes, tanto la descomposición en sub-imágenes
+ como la elección del caracter más representativo entre un conjunto de entrenami
+ento de imágenes de caracteres ASCII.
 \end_layout
 
 \begin_layout Standard
-Se define 
-\begin_inset Formula $A\in\mathbb{R}^{n\times n}$
+Para la descomposición en sub-imágenes la primer restricción a tener en
+ cuenta es que ésta debe ser del mismo tamaño que las imágenes de entrenamiento.
+ Además la cantidad de caracteres en una línea 
+(
+\begin_inset Formula $ancho$
 \end_inset
 
-como:
-\begin_inset Formula \[
-a_{ij}=\begin{cases}
-\frac{1-p}{n}+\frac{pw_{ij}}{c_{j}} & c_{j}\neq0\\
-\frac{1}{n} & c_{j}=0\end{cases}\]
-
+)
+\lang english
+ y la cantidad de líneas (
+\begin_inset Formula $alto$
 \end_inset
 
-
-\end_layout
-
-\begin_layout Standard
-El problema consiste en resolver el siguiente sistema:
-\begin_inset Formula \[
-Ax=x\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-que cumple que 
-\begin_inset Formula $x_{i}\geq0$
-\end_inset
-
- y 
-\begin_inset Formula $\sum_{i}x_{i}=1$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Es importante notar que la matriz 
-\begin_inset Formula $A$
-\end_inset
-
- puede reescribirse como:
-\begin_inset Formula \[
-A=pWD+ez^{\intercal}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-donde 
-\begin_inset Formula $D$
-\end_inset
-
- es una matriz diagonal de la forma:
-\begin_inset Formula \[
-d_{jj}=\begin{cases}
-\frac{1}{c_{j}} & c_{j}\neq0\\
-0 & sino\end{cases}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula $e$
-\end_inset
-
- es un vector columna de unos de dimensión 
-\begin_inset Formula $n$
-\end_inset
-
- y 
-\begin_inset Formula $z\in\mathbb{R}^{n}$
-\end_inset
-
-
-\begin_inset Formula \[
-z_{j}=\begin{cases}
-\frac{1-p}{n} & c_{j}\neq0\\
-\frac{1}{n} & sino\end{cases}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Luego, el sistema:
-\begin_inset Formula \[
-Ax=x\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-(pWD+ez^{\intercal})x=x\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-pWDx+ez^{\intercal}x=x\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-pWDx-x=-ez^{\intercal}x\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-x-pWDx=ez^{\intercal}x\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-(I-pWD)x=ez^{\intercal}x\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Se define 
-\begin_inset Formula $\gamma=z^{\intercal}x\in\mathbb{R}$
-\end_inset
-
-.
- De esta manera, el procedimiento sugerido por la cátedra para resolver
- el sistema es:
-\end_layout
-
-\begin_layout Enumerate
-Suponer 
-\begin_inset Formula $\gamma=1$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-Resolver la ecuacion 
-\begin_inset Formula $(I-pWD)x=e\gamma$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Enumerate
-Normalizar el vector 
-\begin_inset Formula $x$
-\end_inset
-
- de manera que 
-\begin_inset Formula ${\displaystyle \sum_{i=1}^{n}}x_{i}=1$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Propiedad: 
-\bar default
-
-\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n,{\displaystyle \sum_{i=1}^{n}}(WD)_{ij}=1$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Demostración: 
-\bar default
-Sea 
-\begin_inset Formula $j\in\mathbb{N},1\leq j\leq n$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-{\displaystyle \sum_{i=1}^{n}}(WD)_{ij}={\displaystyle \sum_{i=1}^{n}}\frac{w_{ij}}{c_{j}}={\displaystyle \frac{1}{c_{j}}\sum_{i=1}^{n}}w_{ij}={\displaystyle \frac{1}{{\displaystyle \sum_{i=1}^{n}}w_{ij}}\sum_{i=1}^{n}}w_{ij}={\displaystyle \frac{{\displaystyle \sum_{i=1}^{n}}w_{ij}}{{\displaystyle \sum_{i=1}^{n}}w_{ij}}}=1\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Corolario:
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\noun off
-\color none
-
-\begin_inset Formula ${\displaystyle \forall j\in\mathbb{N},1\leq j\leq n\sum_{i=1}^{n}}(pWD)_{ij}=0.85$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Corolario: 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\noun off
-\color none
-
-\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n$
-\end_inset
-
-, 
-\begin_inset Formula ${\displaystyle \sum_{i=1}^{n}}|(pWD)_{ij}|=0.85$
-\end_inset
-
-.
- Pues 
-\family default
-\series default
-\shape default
-\size default
-\emph default
-\bar default
-\noun default
-\color inherit
-
-\begin_inset Formula $(pWD)_{ij}\geq0$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Resolución mediante factorización LU
-\end_layout
-
-\begin_layout Subsubsection*
-Existencia de factorización LU
-\end_layout
-
-\begin_layout Standard
-Mostraremos que la matriz 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\noun off
-\color none
-
-\begin_inset Formula $(I-pWD)$
-\end_inset
-
- es estrictamente diagonal dominante.
- Es decir que 
-\begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n$
-\end_inset
-
-, vale:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(I-pWD)_{ij}|\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Primero veamos que como 
-\begin_inset Formula $p(WD)_{jj}=0$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-|(I-pWD)_{jj}|=|I_{jj}|=1\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Por otro lado, dado que 
-\begin_inset Formula $i\neq j\Rightarrow I_{ij}=0$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\sum_{i=1,i\neq j}^{n}|(I-pWD)_{ij}|=\sum_{i=1,i\neq j}^{n}|I_{ij}-(pWD)_{ij}|=\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|=0.85\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-En consecuencia
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Luego, la matriz 
-\family roman
-\series medium
-\shape up
-\size normal
-\emph off
-\bar no
-\noun off
-\color none
-
-\begin_inset Formula $(I-pWD)$
-\end_inset
-
- es estrictamente diagonal dominante.
- Lo que implica, por la propiedad antes expuesta, que existe una factorización
- LU.
-\end_layout
-
-\begin_layout Subsubsection*
-Implementación
-\end_layout
-
-\begin_layout Standard
-Se utilizó el método de eliminación Gaussiana para hallar 
-\begin_inset Formula $U$
-\end_inset
-
- y 
-\begin_inset Formula $M^{-1}b$
-\end_inset
-
-.
- Mediante el mismo se logró conseguir un sistema de ecuaciones equivalente
- cuya matriz asociada es triangular superior.
- Finalmente, para hallar el vector solución de este sistema equivalente,
- se utilizó la técnica de backsubstitution.
-\end_layout
-
-\begin_layout Standard
-Para resolver el sistema, se agregó a la matriz el vector 
-\begin_inset Quotes eld
-\end_inset
-
-b
-\begin_inset Quotes erd
-\end_inset
-
- como última columna.
- De esta forma, al triangular la matriz, en cada paso se tiene un sistema
- equivalente a anterior.
- Obteniendo al finalizar la matriz 
-\begin_inset Formula $U$
-\end_inset
-
- y el vector 
-\begin_inset Formula $M^{-1}b$
-\end_inset
-
- buscados.
- El resto de la implementación no trajo mayores complicaciones.
-\end_layout
-
-\begin_layout Standard
-El método de eliminación Gaussiana tiene la particularidad de que si la
- matriz es rala no conserva esta propiedad.
- Por este motivo, se decidió representar la matriz como filas contiguas
- en memoria, guardando todos sus elementos.
- Esto resulta en un consumo de memoria 
-\begin_inset Formula $O(n^{2})$
-\end_inset
-
- para la matriz.
- Vale recordar que el órden del método es 
-\begin_inset Formula $O(n^{3})$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-También se decidió utilizar pivoteo parcial para reducir el error numérico,
- aunque, como ya se mostró en secciones anteriores, esto no era necesario
- dado que la matriz tiene factorización 
-\begin_inset Formula $LU$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Subsection
-Resolución mediante el método de Jacobi
-\end_layout
-
-\begin_layout Subsubsection*
-Convergencia del método
-\end_layout
-
-\begin_layout Standard
-Para ver la convergencia del método es suficiente ver que 
-\begin_inset Formula $\Vert T\Vert<1$
-\end_inset
-
-, para 
-\begin_inset Formula $\Vert.\Vert$
-\end_inset
-
- norma matricial inducida y 
-\begin_inset Formula $T=D^{-1}(L+U)$
-\end_inset
-
-.
- Por lo visto en la introducción teórica.
-\end_layout
-
-\begin_layout Standard
-Tomaremos 
-\begin_inset Formula $\Vert.\Vert_{1}$
-\end_inset
-
-.
- En resumen, queremos ver que:
-\begin_inset Formula \[
-\Vert I^{-1}(-pWD)\Vert_{1}<1\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\Vert I^{-1}(-pWD)\Vert_{1}=|-1|\Vert I^{-1}pWD)\Vert_{1}=\Vert pIWD)\Vert_{1}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-\Vert pWD)\Vert_{1}=\max_{j}{\displaystyle \sum_{i=1}^{n}}|(pWD)_{ij}|=0.85<1\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-De esta manera queda asegurada la convergencia del método.
-\end_layout
-
-\begin_layout Subsubsection*
-Implementación
-\end_layout
-
-\begin_layout Standard
-En contraposición con el método de eliminación Gaussiana, este método no
- modifica la matriz.
- Como consecuencia inmediata, si la matriz es rala, lo será en toda la ejecución
- del algoritmo.
- Para aprovechar esto y disminuir el requerimiento de memoria, a la vez
- que se reducen la cantidad de operaciones, se decidió representar solo
- los elementos no nulos de la matriz.
- A su vez, dado que la diagonal de la matriz consta de unos, ésta tampoco
- se incluyó.
-\end_layout
-
-\begin_layout Standard
-Para lograr dicha representación se decidió usar 2 diccionarios anidados.
- El exterior es un diccionario cuyas claves son las columnas no nulas, y
- sus valores son la representación de la columna correspondiente.
- Dichas columnas se representan mediante el diccionario interior.
- Éste tiene como claves las filas no nulas de esta columna y como valor,
- el elemento correspondiente a esa fila y columna.
-\end_layout
-
-\begin_layout Standard
-El algoritmo, por su naturaleza iterativa, en cada iteración genera una
- solución que eventualmente será la solución del sistema.
- Cada iteración del algoritmo consta de, a partir de la matriz y la solución
- anterior, generar la siguiente de manera tal que el elemento 
-\begin_inset Formula $i$
-\end_inset
-
- del vector generado es el que resuelve la siguiente ecuación:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-a_{ii}X_{i}+\sum_{j=1,j\neq i}^{n}a_{ij}Y_{j}=b_{i}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-siendo 
-\begin_inset Formula $X_{i}$
-\end_inset
-
- la incógnita y 
-\begin_inset Formula $Y$
-\end_inset
-
- la solución generada en la iteración anterior.
+) de la imágen representada en ASCII debe ser configurable.
+ Esto se traduce en una cantidad fija de sub-imágenes.
+ Teniendo en cuenta que las imágenes de entrenamiento son de tamaño fijo
  
+\begin_inset Formula $h\times w$
+\end_inset
+
+ se decidio escalar la imágen de entrada a 
+\begin_inset Formula $h.ancho\times w.alto$
+\end_inset
+
+.
+ De esta manera, tomado cuadrantes de tamaño 
+\begin_inset Formula $h\times w$
+\end_inset
+
+ de la imagen escalada se consiguen 
+\begin_inset Formula $ancho\times alto$
+\end_inset
+
+ sub-imágenes.
 \end_layout
 
 \begin_layout Standard
-Quedando finalmente,
+Para elegir el caracter más representativo se debe tener en cuenta que los
+ caracteres ASCII no tienen colores.
+ Por lo que es preferible analizar la imágen original convertida a escala
+ de grises.
+ Tanto las imágenes de entrenamiento como las sub-imágenes se representarán
+ con un vector de 
+\begin_inset Formula $m=h*w$
+\end_inset
+
+ coordenadas.
+ Dado que 
+\begin_inset Formula $m$
+\end_inset
+
+ puede ser un valor considerablemente grande, como sugiere el enunciado
+ del trabajo práctico, se utiliza la técnica 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{PCA}
+\end_layout
+
+\end_inset
+
+ para reducir la cantidad de coordenadas a considerar.
+\end_layout
+
+\begin_layout Standard
+El primer paso es, a partir de los vectores de entrenamiento calcular la
+ matriz de covarianza asociada 
+\begin_inset Formula $M$
+\end_inset
+
+ y sus autovalores y autovectores.
+ Para calcular los autovalores y autovectores, y teniendo en cuenta que
+ 
+\begin_inset Formula $M$
+\end_inset
+
+ es simétrica, se utilizó el algoritmo 
+\begin_inset Formula $QR$
+\end_inset
+
+.
+ Dicho procesamiento es computacionalmente costoso y es independiente de
+ la imágen que se desea transformar, por lo que se decidió guardar los resultado
+s del cómputo de forma persistente en archivos de texto.
+ También se decidió persistir la transformación característica asociada
+ a los autovalores de la matriz aplicada a cada vector de entrenamiento,
+ ya que ésto también es independiente de la imágen a procesar.
+\end_layout
+
+\begin_layout Standard
+Luego, se aplica la transformación característica asociada a un subconjunto
+ de 
+\begin_inset Formula $k$
+\end_inset
+
+ elementos de los autovectores calculados a los vectores de cada cuadrante
+ de la imágen.
+ Y se lo compara con las primeras 
+\begin_inset Formula $k$
+\end_inset
+
+ componentes de los vectores de entrenamiento ya transformados para elegir
+ el más similar y asignarle el correspondiente caracter ASCII.
+\end_layout
+
+\begin_layout Subsection
+Escalado de la imágen
+\end_layout
+
+\begin_layout Standard
+Para escalar la imágen se utilizó la librería 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{ImageMagick}
+\end_layout
+
+\end_inset
+
+, en particular el comando 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{convert}
+\end_layout
+
+\end_inset
+
+.
+ Al mismo tiempo que se escala la imágen se la tranforma a formato RAW en
+ escala de grises.
+\end_layout
+
+\begin_layout Subsection
+Descomposición QR
+\end_layout
+
+\begin_layout Standard
+Para lograr la desomposición 
+\begin_inset Formula $QR$
+\end_inset
+
+ de la matriz 
+\begin_inset Formula $M$
+\end_inset
+
+ se decidió utilizar el método de las rotaciones de Givens.
+\end_layout
+
+\begin_layout Standard
+La implementación que resulta de una traducción inmediata del método resultó
+ ser muy poco eficiente.
+ Luego de analizar las funciones que más costo computacional tenían, se
+ encontró una mejora en la multiplicacion de las matrices de Givens generaría
+ un aumento de performance considerable.
+ Dada la particular forma de las matrices de Givens vale que:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula \[
-X_{i}=\frac{b_{i}-\sum_{j=1,j\neq i}^{n}a_{ij}Y_{j}}{a_{ii}}\]
+fila_{i}(G^{a,b}A)=\begin{cases}
+fila_{i}(A) & i\neq a\wedge i\neq b\\
+fila_{i}(G^{a,b})A & sino\end{cases}\]
 
 \end_inset
 
@@ -658,50 +242,188 @@ X_{i}=\frac{b_{i}-\sum_{j=1,j\neq i}^{n}a_{ij}Y_{j}}{a_{ii}}\]
 \end_layout
 
 \begin_layout Standard
-Se sabe que 
+Aprovechando esto, para obtener el resultado sólo es necesario calcular
+ la multiplicación de las filas 
+\begin_inset Formula $a$
+\end_inset
+
+ y 
 \begin_inset Formula $b$
 \end_inset
 
- es un vector de unos y 
-\begin_inset Formula $a_{ii}=1$
-\end_inset
+ de la matriz, ahorrando así una gran cantidad operaciones en cada multiplicació
+n.
+\end_layout
 
- para todo 
-\begin_inset Formula $i$
-\end_inset
-
-.
- Entonces queda:
+\begin_layout Subsection
+Algoritmo QR
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula \[
-X_{i}=1-\sum_{j=1,j\neq i}^{n}a_{ij}Y_{j}\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-Para que el algoritmo sea eficiente, se recorre el vector 
-\begin_inset Formula $Y$
-\end_inset
-
- una sola vez, acumulando en cada paso, en la correspondiente coordenada
+Para realizar el cálculo de autovalores y autovectores, se realizó el algoritmo
  de 
-\begin_inset Formula $X_{i}$
+\begin_inset Formula $QR$
 \end_inset
 
-, el valor de 
-\begin_inset Formula $-a_{ij}Y_{j}$
+ previamente explicado.
+ Dicho algoritmo es un algoritmo iterativo, como tal se le debe definir
+ un criterio de parada.
+ Los considerados en este trabajo fueron:
+\end_layout
+
+\begin_layout Itemize
+EsDiagonal: Se fija si la matriz 
+\begin_inset Formula $A^{(i)}$
 \end_inset
 
-, solo para los elementos 
-\begin_inset Formula $a_{ij}$
+ es una matriz diagonal.
+\end_layout
+
+\begin_layout Itemize
+EsTriangularSuperior: Se fija si la matriz 
+\begin_inset Formula $A^{(i)}$
 \end_inset
 
- no nulos.
+ es una matriz triangular superior.
+\end_layout
+
+\begin_layout Itemize
+TieneDiferenteDiagonal: Se fija si la matriz 
+\begin_inset Formula $A^{(i)}$
+\end_inset
+
+ y 
+\begin_inset Formula $A^{(i-1)}$
+\end_inset
+
+tienen diferentes elementos en la diagonal.
+\end_layout
+
+\begin_layout Standard
+Todos estos criterios tienen una cota de configurable para la tolerancia.
+ Es decir, si la diferencia entre dos números es menor que la tolerancia,
+ se consideran iguales.
+ Finalmente se decidió que una combinación de 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{EsDiagonal}
+\end_layout
+
+\end_inset
+
+ y de 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{TieneDiferenteDiagonal}
+\end_layout
+
+\end_inset
+
+ es un buen criterio de parada, ya que si la matriz no es diagonal los autovecto
+res no serán adecuados, y si los autovalores cambian entre una iteración
+ y la siguiente (tienen diferente diagonal) estos valores no son suficientemente
+ precisos.
+\end_layout
+
+\begin_layout Subsection
+Semejanza entre vectores
+\end_layout
+
+\begin_layout Standard
+Para definir cuál es el vector que más se asemeja a otro se realizó una
+ busqueda lineal calculando la distancia entre dos vectores y quedandose
+ con aquel de menor distancia.
+ Para definir la distancia (
+\begin_inset Formula $d)$
+\end_inset
+
+ entre dos vectores se definieron varios criterios teniendo en cuenta el
+ dominio del problema.
+\end_layout
+
+\begin_layout Standard
+Los criterios elegidos son todos una suma pesada de las distancias coordenada
+ a coordenada, esto se consideró teniendo en cuenta que una componente del
+ vector tiene mayor relevancia que las siguientes.
+ Quedando la distancia entre dos vectores 
+\begin_inset Formula $x,y\in\mathbb{R}^{n}$
+\end_inset
+
+:
+\begin_inset Formula \[
+d={\displaystyle \sum_{i=1}^{n}\beta_{i}|x-y_{i}|}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Criterio 1: 
+\begin_inset Formula $\beta_{i}=1$
+\end_inset
+
+ Esto resulta en la suma del modulo de las distancias.
+\end_layout
+
+\begin_layout Itemize
+Criterio 2: 
+\begin_inset Formula $\beta_{i}=i$
+\end_inset
+
+ Se priorizan las primeras componentes.
+\end_layout
+
+\begin_layout Itemize
+Criterio 3: 
+\begin_inset Formula $\beta_{i}=100^{n-i}$
+\end_inset
+
+ Se priorizan las primeras componentes.
+\end_layout
+
+\begin_layout Itemize
+Criterio 4: 
+\begin_inset Formula $\beta_{i}=2^{n-i}$
+\end_inset
+
+ Se priorizan las primeras componentes.
+\end_layout
+
+\begin_layout Itemize
+Criterio 5: 
+\begin_inset Formula $\beta_{i}=\frac{|a_{i}|}{{\displaystyle \sum_{j=1}^{n}|a_{j}|}}$
+\end_inset
+
+ Siendo 
+\begin_inset Formula $a$
+\end_inset
+
+ el vector de autovalores ordenado de mayor a menor en módulo.
+\end_layout
+
+\begin_layout Standard
+Finalmente el criterio utilizado es el criterio 5.
+\end_layout
+
+\begin_layout Subsection
+Componentes principales
+\end_layout
+
+\begin_layout Standard
+La cantidad de componentes principales a utilizar para procesar una imagen
+ se decidió que sea un parámetro opcional, de no especificar ninguno, se
+ utilizarán 10.
 \end_layout
 
 \end_body

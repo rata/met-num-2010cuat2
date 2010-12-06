@@ -47,101 +47,66 @@ Discusión
 
 \begin_layout Standard
 Luego de obtener los resultados presentados en la sección anterior, se pueden
- obsevar distintos aspectos tanto de los algoritmos como de los métodos.
- Los mismos serán discutidos a continuación.
+ obsevar distintos aspectos del comportamiento del progrma.
 \end_layout
 
 \begin_layout Subsection
-Consumo de memoria
+Criterios de distancia
 \end_layout
 
 \begin_layout Standard
-En el primer gráfico expuesto se puede ver como el consumo de memoria del
- método 
-\begin_inset Formula $LU$
-\end_inset
-
- es ordenes de magnitud superior al del método de jacobi.
- También se puede ver que para matrices pequeñas el consumo resulta similar,
- pero al aumentar el tamaño de la matriz, la diferencia aumenta en forma
- notable, debido a que el orden de consumo de memoria del algoritmo 
-\begin_inset Formula $LU$
-\end_inset
-
- es cuadrático.
-\end_layout
-
-\begin_layout Standard
-El orden del consumo de memoria del algoritmo de jacobi también es cuadrático
- en peor caso.
- Pero este caso es muy dificil de encontrar en el dominio del problema ya
- que las matrices son típicamente ralas.
- Entonces, el consumo esperado de memoria se acercaría a un consumo de orden
- lineal en el tamaño de la matriz.
-\end_layout
-
-\begin_layout Standard
-En el tercer gráfico expuesto se puede analizar el comportamiento del algoritmo
- de Jacobis para matrices más grandes que las soportadas por el algoritmo
- de 
-\begin_inset Formula $LU$
-\end_inset
-
-.
- Se ve como si bien crecen los requerimientos de memoria, este crecimiento
- es aceptable en función del tamaño de la matriz.
+En cuanto a los criterios considerados del calculo de la distancia entre
+ dos vectores se puede ver que el criterio 3 es claramente inferior ante
+ los criterios 4 y 5.
+ Se puede observar que entre estos dos ultimos criterios las diferencias
+ no son demasiado considerables y no queda claro cuál se asemeja más a la
+ imagen original.
+ Pero se decidió por utilizar el criterio 5, ya que nos pareció intuitivamente
+ mejor y nos gusta más la idea detrás del mismo.
 \end_layout
 
 \begin_layout Subsection
-Tiempo de ejecución
+Componentes principales
 \end_layout
 
 \begin_layout Standard
-En el segundo gráfico expuesto se puede observar claramente que el tiempo
- de ejecución del método 
-\begin_inset Formula $LU$
-\end_inset
+Se puede ver en los gráficos 3 al 6 cómo existe una mejora al aumentar la
+ cantidad de componentes principales tomadas en cuenta.
+ Se ve cómo la imagen gana definición y se logra ver con más claridad la
+ imagen original.
+\end_layout
 
- es, también, ordenes de magnitud superior al del método de Jacobi.
- A diferencia del anterior, para matrices pequeñas, ya se nota una diferencia
- no despreciable en el tiempo de ejecución.
- Siendo aún mayor para tamaños considerables de matrices.
+\begin_layout Subsection
+Precisión en el cálculo de los autovectores
 \end_layout
 
 \begin_layout Standard
-En el quinto gráfico se puede ver como el algoritmo de Jacobi tiene una
- performance superior al la del algoritmo 
-\begin_inset Formula $LU$
-\end_inset
-
-.
- Se puede ver que el crecimiento no es excesivo en función del tamaño de
- la matriz, permitiendo así trabajar con matrices más grandes que 
-\begin_inset Formula $LU$
-\end_inset
-
-.
- En particular es interesante notar que el algoritmo de Jacobi tarda poco
- más de 2.5 segundos para procesar una matriz de 
-\begin_inset Formula $300000x30000$
-\end_inset
-
-, mientras que el algoritmo 
-\begin_inset Formula $LU$
-\end_inset
-
- tarda un tiempo similar (apenas menos de 2.5 segundos) para una matriz de
+Tras realizar varias pruebas con distintas precisiones no se pudo ver claramente
+ una diferencia entre la salida como se puede ver en los gráficos de la
+ seccion anterior, se muestra un ejemplo de esto en las figuras 8 (con precisión
  
-\begin_inset Formula $450x450$
+\begin_inset Formula $10^{-1}$
+\end_inset
+
+) y la figura 7 (con precisión 
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+Si bien experimentalmente no se han encontrado mayores mejoras en los resultados
+ al aumentar solo esta variable, decidimos dejar en la implementación definitiva
+ 
+\begin_inset Formula $10^{-7}$
 \end_inset
 
 .
- Es decir, el algoritmo de Jacobis tarda un tiempo similar al algoritmo
- de 
-\begin_inset Formula $LU$
-\end_inset
-
- para procesar una matriz dos ordenes de magnitud mas grande.
+ El motivo principal de dicha decisión es que numéricamente existe una mejora
+ considerable (que no se ve reflejada en nuestros experimentos), que el
+ costo computacional, si bien es mayor, no es prohibitivo y dicho cómputo
+ se realiza una sola vez sobre el conjunto de entrenamiento.
 \end_layout
 
 \end_body

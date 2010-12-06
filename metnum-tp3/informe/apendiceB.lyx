@@ -36,6 +36,7 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -55,68 +56,130 @@ make
 
 .
  Se necesita tener el compilador gcc.
- Este comando generará los siguientes archivos ejecutables:
-\end_layout
-
-\begin_layout Itemize
-babilonio
-\end_layout
-
-\begin_layout Itemize
-binomial
-\end_layout
-
-\begin_layout Itemize
-binomial_dec
-\end_layout
-
-\begin_layout Itemize
-binomial_inc
-\end_layout
-
-\begin_layout Itemize
-fcont
-\end_layout
-
-\begin_layout Itemize
-fcont_int
+ Para generar la imágen ASCII se debe correr:
 \end_layout
 
 \begin_layout Standard
-Al ejecutarlos
-\begin_inset Foot
-status open
-
-\begin_layout Plain Layout
-En linux se ejecuta: .
-\backslash
-<nombre>
-\end_layout
-
-\end_inset
-
-, los mismos darán un detalle en pantalla sobre los parámetros de entrada,
- estos son 
-\emph on
-<prec>, <niter>
-\emph default
- en el caso de los algoritmos binomiales y babilonio.
- Estos son la prescion elegida y la cantidad de iteraciones deseadas.
- En el caso de fracciones continuas, además tiene el parámetro opcional
- 
-\emph on
-[aprox]
-\emph default
-, este parámetro sirve como aproximación inicial de 
-\begin_inset Formula $\sqrt{2}$
-\end_inset
-
- para el algoritmo.
+run-ascii-art.sh <src> <dst> <width> <height> [k]
 \end_layout
 
 \begin_layout Standard
-Los algoritmos imprimen en pantalla el resultado final obtenido para los
- parámetros dados.
+Donde 
+\begin_inset Quotes eld
+\end_inset
+
+src
+\begin_inset Quotes erd
+\end_inset
+
+ es el path a la imágen original, 
+\begin_inset Quotes eld
+\end_inset
+
+dst
+\begin_inset Quotes erd
+\end_inset
+
+ es el archivo que contendrá la representación ASCII, 
+\begin_inset Quotes eld
+\end_inset
+
+width
+\begin_inset Quotes erd
+\end_inset
+
+ es la cantidad de caracteres por línea, 
+\begin_inset Quotes eld
+\end_inset
+
+height
+\begin_inset Quotes erd
+\end_inset
+
+ es la cantidad de líneas y 
+\begin_inset Quotes eld
+\end_inset
+
+k
+\begin_inset Quotes erd
+\end_inset
+
+ es un parámentro opcional que es la cantidad de componentes principales
+ a utilizar.
+\end_layout
+
+\begin_layout Standard
+Se asume que las imágenes de entrenamiento están en 
+\begin_inset Quotes eld
+\end_inset
+
+../imgs
+\begin_inset Quotes erd
+\end_inset
+
+, que existe el directorio 
+\begin_inset Quotes eld
+\end_inset
+
+../data
+\begin_inset Quotes erd
+\end_inset
+
+ y que está instalado el comando 
+\begin_inset Quotes eld
+\end_inset
+
+convert
+\begin_inset Quotes erd
+\end_inset
+
+ de ImageMagick
+\end_layout
+
+\begin_layout Standard
+El ejecutable 
+\begin_inset Quotes eld
+\end_inset
+
+gen-data
+\begin_inset Quotes erd
+\end_inset
+
+ es el que procesa las imágenes de entrenamiento y 
+\begin_inset Quotes eld
+\end_inset
+
+art-attack
+\begin_inset Quotes erd
+\end_inset
+
+ es el que, usando los datos generados por 
+\begin_inset Quotes eld
+\end_inset
+
+gen-data
+\begin_inset Quotes erd
+\end_inset
+
+, transforma una imágen en una secuencia de caracteres ASCII.
+ El script 
+\begin_inset Quotes eld
+\end_inset
+
+run-ascii-art.sh
+\begin_inset Quotes erd
+\end_inset
+
+ genera, si no existen, los datos con las imágenes de prueba, transforma
+ la imágen en escala de grises y al tamaño adecuado, y llama a 
+\begin_inset Quotes eld
+\end_inset
+
+art-attack
+\begin_inset Quotes erd
+\end_inset
+
+ para generar la imágen ASCII.
 \end_layout
 
 \end_body

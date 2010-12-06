@@ -49,109 +49,380 @@ Resultados
 \end_layout
 
 \begin_layout Standard
-Para analizar el comportamiento de los algoritmos y los metodos implementados,
- se realizaron distintos experimentos.
- A continuacion se incluyen gráficos sobre los comportamientos más relevantes.
+Probando los diferentes criterios de distancia, la cantidad de componentes
+ principales y la presicion para el calculo de autovalores y autovectores
+ se obtuvieron diferentes resultados.
 \end_layout
 
 \begin_layout Standard
-En este gráfico se puede observar el consumo máximo de memoria de ambos
- algoritmos al variar el tamaño de la matriz de entrada.
-\end_layout
-
-\begin_layout Standard
-Para tomar las mediciones se utilizó el comando 
-\begin_inset ERT
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/arana10.jpg
+	scale 40
+
+\end_inset
 
 
-\backslash
-emph{time}
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Imagen a procesar
 \end_layout
 
 \end_inset
 
- de GNU con el parámetro 
-\begin_inset ERT
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/10_e-7_3.png
+	scale 40
+
+\end_inset
 
 
-\backslash
-emph{-f "
-\backslash
-%M"}
+\begin_inset Caption
+
+\begin_layout Plain Layout
+K: 10, precisión:
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+, criterio: 3
 \end_layout
 
 \end_inset
 
- que devuelve el consumo máximo de memoria utilizada por el programa en
- toda su ejecución.
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-En este gráfico se puede observar cómo varía el tiempo de ejecución al cambiar
- el tamaño de la matriz de entrada.
-\end_layout
-
-\begin_layout Standard
-Para tomar las mediciones se utilizó el comando 
-\begin_inset ERT
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/1_e-7_5.png
+	scale 40
+
+\end_inset
 
 
-\backslash
-emph{time}
+\begin_inset Caption
+
+\begin_layout Plain Layout
+K: 1, precisión:
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+, criterio: 5
 \end_layout
 
 \end_inset
 
- de GNU con el parámetro 
-\begin_inset ERT
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
 status open
 
 \begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/3_e-7_5.png
+	scale 40
+
+\end_inset
 
 
-\backslash
-emph{-f "
-\backslash
-%e"}
+\begin_inset Caption
+
+\begin_layout Plain Layout
+K: 3, precisión:
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+, criterio: 5
 \end_layout
 
 \end_inset
 
- que devuelve el tiempo total de ejecución.
+
 \end_layout
 
-\begin_layout Standard
-En este gráfico se puede obsevar cómo varía el consumo máximo de memoria
- del algoritmo de Jacobis en función del tamaño de la matriz para matrices
- grandes.
-\end_layout
-
-\begin_layout Standard
-En este gráfico no se muestra el consumo de memoria del algoritmo 
-\begin_inset Formula $LU$
 \end_inset
 
- ya que dicho consumo excede la cantidad de memoria disponible en las máquinas
- de prueba.
+
 \end_layout
 
 \begin_layout Standard
-En este gráfico se muestra el tiempo de ejecución del algoritmo de Jacobis
- para matrices grandes.
- Se excluye el algoritmo de 
-\begin_inset Formula $LU$
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/10_e-7_5.png
+	scale 40
+
 \end_inset
 
- por lo mencionado en el caso anterior
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+K: 10, precisión:
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+, criterio: 5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/100_e-7_5.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+K: 100, precisión:
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+, criterio: 5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/10_e-7_4.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+K: 10, precisión:
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+, criterio: 4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/10_e-1_5.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+K: 10, precisión:
+\begin_inset Formula $10^{-1}$
+\end_inset
+
+, criterio: 5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Se notó que si se escala una imagen a varias veces su tamaño y se utiliza
+ un tamaño de fuente pequeño para visualizarlo, el resultado que se logra
+ es considerablemente fiel a la imagen original.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/animaniacs.jpg
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Imagen a procesar
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename /home/tas/metodos-tp3/imgs-informe/animaniacs.png
+	scale 40
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Imagen procesada, K: 209, precisión:
+\begin_inset Formula $10^{-7},$
+\end_inset
+
+criterio: 5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
