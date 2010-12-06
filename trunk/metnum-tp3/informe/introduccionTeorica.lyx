@@ -45,81 +45,52 @@
 Introducción teórica
 \end_layout
 
-\begin_layout Standard
-
-\end_layout
-
-\begin_layout Standard
-Sea 
-\begin_inset Formula $A\in\mathbb{R}^{n\times n},x\in\mathbb{R}^{n},b\in\mathbb{R}^{n}$
-\end_inset
-
-.
- Consideremos el sistema: 
-\begin_inset Formula $Ax=b$
-\end_inset
-
-.
-\end_layout
-
 \begin_layout Subsection
-Resolución mediante factorización LU
+Descomposición QR
 \end_layout
 
 \begin_layout Standard
-El método de resolución mediante factorización LU, consta en encontrar dos
- matrices 
-\begin_inset Formula $L$
+Dada 
+\begin_inset Formula $A\in\mathbb{R}^{n\times n}$
 \end_inset
 
- y 
-\begin_inset Formula $U$
+, una descomposicion QR de la matriz consta en dos matrices 
+\begin_inset Formula $Q\in\mathbb{R}^{n\times n}$
 \end_inset
 
- tales que:
+, 
+\begin_inset Formula $R\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ tal que: 
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $L$
+\begin_inset Formula $Q$
 \end_inset
 
- sea Triangular Inferior con unos en la diagonal (inversible)
+ es ortogonal
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $U$
+\begin_inset Formula $R$
 \end_inset
 
- sea Triangular Superior
+ es triangular superior
 \end_layout
 
 \begin_layout Itemize
-\begin_inset Formula $A=LU$
+\begin_inset Formula $A=QR$
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
-De esta forma se reescribe el sistema como: 
-\begin_inset Formula $Ax=LUx=b$
-\end_inset
-
-, al ser 
-\begin_inset Formula $L$
-\end_inset
-
- inversible se procede a resolver el sistema: 
-\begin_inset Formula $Ux=L^{-1}b$
-\end_inset
-
-.
- Como 
-\begin_inset Formula $U$
-\end_inset
-
- es Triangular Superior la resolución de este sistema es sencilla utilizando
- la técnica de 
+Un método para lograr la factorización QR es el método de Givens.
+ Este consiste de rotaciones de los vectores de la matriz, de forma tal
+ que las componentes de la matriz por debajo de la diagonal se anulen.
+ Para ello se construyen 
 \begin_inset ERT
 status open
 
@@ -127,77 +98,184 @@ status open
 
 
 \backslash
-emph{back substitution}
+emph{matrices de rotacion}
 \end_layout
 
+\end_inset
+
+ 
+\begin_inset Formula $G^{a,b}$
+\end_inset
+
+ para anular el elemento 
+\begin_inset Formula $A_{a,b}$
+\end_inset
+
+, estas tienen la forma:
+\begin_inset Formula \[
+G_{i.j}^{a,b}=\begin{cases}
+1 & i=j\wedge i,j\neq a,b\\
+0 & i\neq j\wedge i,j\neq a,b\\
+c & (i=a\wedge j=a)\vee(i=b\wedge j=b)\\
+-s & (i=a\wedge j=b)\\
+s & (i=b\wedge j=a)\end{cases}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Con 
+\begin_inset Formula $c=\frac{A_{b,b}}{\sqrt{(A_{b,b})^{2}+(A_{a,b})^{2}}}$
+\end_inset
+
+ y 
+\begin_inset Formula $s=\frac{A_{a,b}}{\sqrt{(A_{b,b})^{2}+(A_{a,b})^{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Entonces:
+\begin_inset Formula \[
+G^{n,n-1}...G^{n,2}...G^{3,2}G^{n,1}...G^{2,1}A=R\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+G^{n,n-1}...G^{n,2}...G^{3,2}G^{n,1}...G^{2,1}=Q^{-1}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Como 
+\begin_inset Formula $Q$
+\end_inset
+
+ es ortogonal:
+\begin_inset Formula \[
+Q=\left(G^{n,n-1}...G^{n,2}...G^{3,2}G^{n,1}...G^{2,1}\right)^{\intercal}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Vale aclarar que las matrices 
+\begin_inset Formula $G$
+\end_inset
+
+ de un paso se generan sobre el producto de la matriz original y las matrices
+ 
+\begin_inset Formula $G$
+\end_inset
+
+ anteriores.
+\end_layout
+
+\begin_layout Subsection
+Método QR para autovalores y autovectores
+\end_layout
+
+\begin_layout Standard
+Para el cálculo de los autovalores de una matriz se utilizó el 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{algoritmo QR}
+\end_layout
+
+\end_inset
+
+ el mismo consta en:
+\end_layout
+
+\begin_layout Itemize
+A partir de 
+\begin_inset Formula $A^{(1)}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+ (con autovalores reales) se genera su descomposición QR, obteniendo 
+\begin_inset Formula $Q^{(1)}\in\mathbb{R}^{n\times n}$
+\end_inset
+
+, 
+\begin_inset Formula $R^{(1)}\in\mathbb{R}^{n\times n}$
 \end_inset
 
 .
 \end_layout
 
-\begin_layout Standard
-Un método para lograr la factorización LU es el método de Gauss.
- Dicho método, si existe una factorización LU, la encuentra siempre.
-\begin_inset Newline newline
+\begin_layout Itemize
+Se itera generando 
+\begin_inset Formula $A^{(i+1)}=R^{(i)}Q^{(i)}$
 \end_inset
 
 
 \end_layout
 
-\begin_layout Standard
-
-\bar under
-Prop
-\bar default
-: si la matriz 
-\begin_inset Formula $A$
+\begin_layout Itemize
+Hasta que 
+\begin_inset Formula $A^{(n)}$
 \end_inset
 
- es estrictamente diagonal dominante, se puede asegurar la existencia de
- 
-\begin_inset Formula $L$
-\end_inset
-
- y 
-\begin_inset Formula $U$
-\end_inset
-
- y su inversibilidad.
-\end_layout
-
-\begin_layout Subsection
-Resolución mediante el método de Jacobi
+ es triangular superior.
 \end_layout
 
 \begin_layout Standard
-El método de Jacobi pertenece a la familia de métodos iterativosque descompone
- a 
-\begin_inset Formula $A$
+Mediante este método se obtiene en la diagonal de 
+\begin_inset Formula $A^{(n)}$
 \end_inset
 
- en dos matrices 
-\begin_inset Formula $M$
+ los autovalores de la matriz original (
+\begin_inset Formula $A^{(1)}$
 \end_inset
 
-, 
-\begin_inset Formula $K$
+).
+ Si la matriz 
+\begin_inset Formula $A^{(1)}$
 \end_inset
 
- tal que 
-\begin_inset Formula $A=M-K$
+ es simétrica, la matriz final 
+\begin_inset Formula $A^{(n)}$
 \end_inset
 
- con 
-\begin_inset Formula $M$
-\end_inset
+ resulta ser diagonal.
+\end_layout
 
- inversible.
- Luego:
+\begin_layout Standard
+Como:
 \end_layout
 
 \begin_layout Standard
 \begin_inset Formula \[
-Ax=b\]
+A^{(n)}=R^{(n-1)}Q^{(n-1)}\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+A^{(n)}=Q^{(n-1)\intercal}Q^{(n-1)}R^{(n-1)}Q^{(n-1)}\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+A^{(n)}=Q^{(n-1)\intercal}A^{(n-1)}Q^{(n-1)}\]
 
 \end_inset
 
@@ -206,7 +284,7 @@ Ax=b\]
 
 \begin_layout Standard
 \begin_inset Formula \[
-(M-K)x=b\]
+...\]
 
 \end_inset
 
@@ -215,16 +293,7 @@ Ax=b\]
 
 \begin_layout Standard
 \begin_inset Formula \[
-Mx-Kx=b\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-x=M^{-1}Kx+M^{-1}b\]
+A^{(n)}=Q^{(n-1)\intercal}...Q^{(1)\intercal}A^{(1)}Q^{(1)}...Q^{(n-1)}\]
 
 \end_inset
 
@@ -233,20 +302,62 @@ x=M^{-1}Kx+M^{-1}b\]
 
 \begin_layout Standard
 Sea 
-\begin_inset Formula $T=M^{-1}K$
+\begin_inset Formula $E=Q^{(1)}...Q^{(n-1)}$
+\end_inset
+
+:
+\begin_inset Formula \[
+A^{(n)}=E^{\intercal}A^{(1)}E\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+EA^{(n)}=A^{(1)}E\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+A^{(1)}E=EA^{(n)}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Como 
+\begin_inset Formula $A^{(n)}$
+\end_inset
+
+ es diagonal se puede ver que:
+\begin_inset Formula \[
+col_{i}\left(A^{(1)}E\right)=A^{(1)}col_{i}(E)=col_{i}(E)A_{i,i}^{(n)}=col_{i}\left(EA^{(n)}\right)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sea 
+\begin_inset Formula $x=col_{i}(E)$
 \end_inset
 
 , 
-\begin_inset Formula $c=M^{-1}b$
+\begin_inset Formula $\lambda=A_{i,i}^{(n)}$
 \end_inset
 
-.
- Entonces,
-\end_layout
-
-\begin_layout Standard
+:
 \begin_inset Formula \[
-x=Tx+c\]
+A^{(1)}x=\lambda x\]
 
 \end_inset
 
@@ -254,120 +365,13 @@ x=Tx+c\]
 \end_layout
 
 \begin_layout Standard
-En base a esto se plantea el siguiete esquema recursivo:
-\end_layout
-
-\begin_layout Standard
-\begin_inset Formula \[
-x_{n+1}=Tx_{n}+c\]
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Prop
-\bar default
-: si la sucesión 
-\begin_inset Formula $\left\{ x_{n}\right\} $
-\end_inset
-
- converge 
-\begin_inset Formula $\Rightarrow$
-\end_inset
-
+Entonces se puede ver que los autovalores resultan los elementos de la diagonal
+ (como ya se dijo previamente) y los autovalores las columnas de la matriz
  
-\begin_inset Formula $\underset{n\rightarrow\infty}{lim}x_{n}{\displaystyle =x}$
+\begin_inset Formula $E$
 \end_inset
 
 .
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Prop
-\bar default
-: si 
-\begin_inset Formula $\rho(T)<1$
-\end_inset
-
-, dicha sucesión converge.
- 
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Prop
-\bar default
-: sea 
-\begin_inset Formula $\Vert.\Vert$
-\end_inset
-
-una norma matricial inducida
-\begin_inset Formula $\Rightarrow\rho(T)<\Vert T\Vert$
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Standard
-
-\bar under
-Corolario: 
-\bar default
-sea 
-\begin_inset Formula $\Vert.\Vert$
-\end_inset
-
-una norma matricial inducida, si 
-\begin_inset Formula $\Vert T\Vert<1$
-\end_inset
-
-, dicha sucesión converge.
-\end_layout
-
-\begin_layout Standard
-En el método de jacobi se considera 
-\begin_inset Formula $M=D$
-\end_inset
-
- y
-\begin_inset Formula $K=L+U$
-\end_inset
-
-, donde:
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $d_{ij}=\begin{cases}
-a_{ii} & i=j\\
-0 & i\neq j\end{cases}$
-\end_inset
-
- 
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $l_{ij}=\begin{cases}
-a_{ij} & i>j\\
-0 & i\leq j\end{cases}$
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-\begin_inset Formula $u_{ij}=\begin{cases}
-a_{ij} & i<j\\
-0 & i\geq j\end{cases}$
-\end_inset
-
-
 \end_layout
 
 \end_body

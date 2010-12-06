@@ -46,42 +46,68 @@ Conclusiones
 \end_layout
 
 \begin_layout Standard
-Luego de analizar todos los resultados se llegó a la conclusión de que para
- matrices suficientemente grandes, los algoritmos exactos como el caso de
+Al finalizar el trabajo el resultado obtenido es considerado satisfactorio.
+ Porque que se obtienen imágenes ASCII con un alto grado de semejanza con
+ la imágen original.
+\end_layout
+
+\begin_layout Standard
+Lo que más nos llamó la atención es que no pudimos encontrar ninguna diferencia
+ en las imágenes ASCII generadas apartir de los autovectores calculados
+ con distintas precisiones (
+\begin_inset Formula $10^{-1}$
+\end_inset
+
+y 
+\begin_inset Formula $10^{-7}$
+\end_inset
+
+), a pesar que los autovalores presenten una diferencia considerable (eran
+ distintos a partir del segundo dígito en nuestros casos de prueba).
+\end_layout
+
+\begin_layout Standard
+Otra curiosidad es el buen resultado obtenido por el criterio 4 sin justificació
+n aparente.
+ Los resultados son realmente muy parecidos a los obtenidos por el criterio
+ 5, que es el que consideramos el mejor de los criterios y que posee una
  
-\begin_inset Formula $LU$
+\begin_inset Quotes eld
 \end_inset
 
- resultan ser prohibitivos, ya sea tanto por el consumo de memoria que el
- mismo requiere, como por su performance temporal.
- Es por esto que los métodos iterativos resultan de gran importancia.
- Cuando se puede asegurar su convergencia, como es el caso de nuestro domino,
- se puede lograr resolver un sistema de ecuaciones que de otra forma sería
- imposible de resolver.
+justificación
+\begin_inset Quotes erd
+\end_inset
+
+ más intuitiva.
 \end_layout
 
 \begin_layout Standard
-También vale decir que aunque se esté en un dominio en el que no sea posible
- asegurar su convergencia, un método iterativo puede ser una buena opción,
- ya que un método exacto puede resultar ser inutilizable para contextos
- con matrices suficientemente grandes, que suelen ser los casos interesantes
- de resolver.
- En estos casos un método iterativo puede llegar a ser a lo mejor que se
- pueda acceder.
- Y si bien quizá no se puede asegurar la convergencia del método, sí se
- puede conocer la norma del residuo (
-\begin_inset Formula $b-Ax$
-\end_inset
-
-).
- Entonces pueden ser una excelente alternativa aún cuando no se puede asegurar
- su convergencia si, para ese caso, alcanza con acotar el residuo.
+También resulta interesante ver como la cantidad de componentes principales
+ resulta una variable tan importante para obtener un buen resultado final.
+ Se pudo ver como al aumentar las mismas, la precisión aumenta hasta llegar
+ a cierto límite (con más de 100 componentes principales no hemos visto
+ mejoras sustanciales) y considerando pocas componentes el resultado puede
+ ser realmente pobre.
 \end_layout
 
 \begin_layout Standard
-Los algoritmos iterativos resultan una alternativa performante, tanto en
- memoria como en tiempo, a los algoritmos exactos tradicionales y hacen
- posible trabajar con matrices que son intratables con un método directo.
+A la hora de realizar las pruebas y probar el funcionamiento del programa
+ resultó útil la separación entre el procesamiento de las imágenes de prueba
+ y de la imágen a transformar.
+ El tiempo de cómputo necesario para generar dicha información es considerable,
+ lo que hubiera complicado la realización de las pruebas y hubiera hecho
+ prácticamente inusable el programa.
+\end_layout
+
+\begin_layout Standard
+Una característica intrínseca del problema es que no existe una solución
+ única.
+ Por esto, no encontramos ninguna forma de medir la efectividad del programa.
+ E hizo más dificil definir qué criterio es superior a otro.
+ Sin embargo, la única prueba con resultado conocido que pudimos hacer es
+ asegurarnos que usando como imágen de entrada uno de los caracteres de
+ entrenamiento, la imágen ASCII generada sea ese mismo caracter.
 \end_layout
 
 \end_body
