@@ -10,7 +10,7 @@
 #include <iostream>
 
 #define MENOR_CHAR 32
-#define CANT_CARACT 92
+#define CANT_CARACT 95
 #define PIXELES_H 19
 #define PIXELES_W 11
 #define PIXELES_IMG (PIXELES_H * PIXELES_W)
