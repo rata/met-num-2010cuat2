@@ -143,17 +143,6 @@ bool esTriangularSup(const matrix& M, double cota)
 }
 
 static
-bool cambioV(const matrix& Vant, const matrix& V)
-{
-	for (uint i = 1; i <= V.cant_rows(); i++) {
-		if (abs(V.get(i, i) - Vant.get(i, i)) > 0.000000000000001)
-			return true;
-	}
-
-	return false;
-}
-
-static
 bool tieneDiferenteDiag(const matrix& A1, const matrix& A2, double cota)
 {
 	assert(A1.cant_rows() == A2.cant_rows());
