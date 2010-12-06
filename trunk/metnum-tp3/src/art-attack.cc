@@ -117,10 +117,10 @@ double calcular_distancia(const matrix& cuadrante, const matrix& vect, const vec
 
 	double distancia = 0;
 	for (uint i = 1; i <= cuadrante.cant_rows(); i++) {
-		//double penalidad = pow(1000, cuadrante.cant_rows() - i);
+		//double penalidad = 1;
 		//double penalidad = i;
+		//double penalidad = pow(2, cuadrante.cant_rows() - i);
 		double penalidad = abs(autovalores[i-1])/norma;
-		//cout << "penalidad: " << penalidad << endl;
 		distancia += penalidad * abs( cuadrante.get(i, 1) - vect.get(i, 1));
 	}
 
@@ -188,7 +188,7 @@ int main(int argc, char** argv)
 	uint w = atoi(argv[2]);
 	uint h = atoi(argv[3]);
 	string dst = argv[4];
-	uint k = (argc == 5)? 3 : atoi(argv[5]);
+	uint k = (argc == 5)? 10 : atoi(argv[5]);
 
 	// Matriz de los primero k AutoVectores
 	matrix transformacion(k, PIXELES_IMG);
