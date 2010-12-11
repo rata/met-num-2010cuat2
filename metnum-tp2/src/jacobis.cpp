@@ -3,8 +3,8 @@
 #include <map>
 #include <assert.h>
 #include "matrix.hpp"
+#include "matrix_utils.hpp"
 #include "io_utils.hpp"
-#include "vector_utils.hpp"
 
 using namespace std;
 
@@ -186,6 +186,8 @@ int main(int argc, char *argv[])
 	cout << "Respuesta:\n";
 	cout << x.transpose().print();
 
+	cout << "Respuesta Normalizada:\n";
+	cout << normalizar_vector(x).transpose().print();
 	return 0;
 }
 

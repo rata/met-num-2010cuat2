@@ -21,4 +21,6 @@ matrix back_substitution(matrix &m);
 
 void lu_triang(matrix &m);
 
+matrix normalizar_vector(const matrix& vector);
+
 #endif // ifdef _MATRIX_UTILS_HPP
