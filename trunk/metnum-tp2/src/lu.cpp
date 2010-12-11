@@ -112,5 +112,8 @@ int main(int argc, char *argv[])
 	cout << "Respuesta: " << endl;;
 	cout << res.transpose().print();
 
+	cout << "Respuesta Normalizada:\n";
+	cout << normalizar_vector(res).transpose().print();
+	
 	return 0;
 }

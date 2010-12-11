@@ -293,3 +293,24 @@ matrix back_substitution(matrix &m)
 
 	return res;
 }
+
+matrix normalizar_vector(const matrix& vector)
+{
+	assert(vector.cant_cols() == 1);
+	matrix res(vector.cant_rows(), 1);
+
+	double norma = 0;
+
+	for ( uint i = 1 ; i <= vector.cant_rows() ; i++ ) {
+		norma += fabs(vector.get(i,1));
+	}
+
+	if ( norma != 0)
+	{
+		for ( uint i = 1 ; i <= vector.cant_rows() ; i++ ) {
+			res.set(i, 1, vector.get(i, 1)/norma);
+		}
+	}
+	return res;
+}
+
