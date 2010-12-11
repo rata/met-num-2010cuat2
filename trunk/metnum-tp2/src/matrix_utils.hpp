@@ -17,4 +17,8 @@ bool esTriangularSup(const matrix& M, double cota);
 
 bool esSimetrica(const matrix& A);
 
+matrix back_substitution(matrix &m);
+
+void lu_triang(matrix &m);
+
 #endif // ifdef _MATRIX_UTILS_HPP
