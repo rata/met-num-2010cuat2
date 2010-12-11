@@ -18,19 +18,10 @@ int main()
 
 	lu_triang(A);
 
-	int n = 3;
-	double *res = (double *) malloc(sizeof(double) * n);
-	if (res == NULL)
-		throw;
-
 	// Y resolvemos!
-	back_substitution(A, res);
-	cout << "respuesta: ";
-	imprimir_vector(n, res);
-	normalizar(n, res);
-	cout << "respuesta normalizada: ";
-	imprimir_vector(n, res);
+	matrix res = back_substitution(A);
+	cout << "Respuesta: ";
+	cout << res.transpose().print();
 
-	free(res);
 	return 0;
 }
