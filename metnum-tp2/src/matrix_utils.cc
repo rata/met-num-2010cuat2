@@ -86,7 +86,7 @@ void mult_por_G_i(uint i, uint j, matrix& Q, matrix& R)
 }
 
 static
-void triang_col(uint j, matrix& Q, matrix& R)
+void gi_triang_col(uint j, matrix& Q, matrix& R)
 {
 	// A y Q tienen la misma cantidad de filas, asique nos fijamos la
 	// cantidad de filas de Q que ya la tenemos como parametro
@@ -106,7 +106,7 @@ void givens(const matrix& A, matrix& Q, matrix& R)
 	Q = matrix::identity(m);
 
 	for (uint j = 1; j < m; j++)
-		triang_col(j, Q, R);
+		gi_triang_col(j, Q, R);
 
 	// Calculamos QA = R
 	// Q^-1 = Qt ==> A = Q^-1 R = Qt R
@@ -199,3 +199,97 @@ void calcular_autovalores(const matrix& A_orig, matrix& Vect, matrix& Val, doubl
 }
 
 
+
+// Pone en cero el elemento (row, row_base) usando la fila row_base como base
+// para calcular el coeficiente de gauss
+static
+void lu_triang_row(matrix &m, uint row_base, uint row)
+{
+	assert(m.get(row_base, row_base) != 0);
+
+	double coef = m.get(row, row_base) / m.get(row_base, row_base);
+
+	// Ponemos cero donde ya sabemos que la cuenta deberia dar cero
+	m.set(row, row_base, 0);
+
+	for (uint j = row_base + 1; j <= m.cant_cols(); j++) {
+		double val = m.get(row, j) - coef * m.get(row_base, j);
+
+		// Imprimimos la cuenta en forma "simbolica"
+		// XXX: Si el for empezara desde row_base, vemos claramente que
+		// nos deberia dar cero, pero por error numerico, no da. Que
+		// hacemos ? Ni hacemos la cuenta para este que *debe* dar cero
+		// y lo ponemos en cero ? Y si otro de los numeros tambien
+		// deberia dar cero pero no da (y no es de los que anulamos
+		// directamente) ?
+//		cout << "haciendo: (" << row << ", " << j << ")" << endl;
+//		cout << "m[" << row << ", " << j << "] " <<  " - ";
+//			cout << "m[" << row << ", " << row_base <<"]";
+//			cout << " / m[" << row_base << ", " << row_base << "] * ";
+//			cout << "m[" << row_base << ", " << j << "] ";
+//		cout << " = " << val << endl;
+//		cout << endl << m.print();
+
+		m.set(row, j, val);
+	}
+}
+
+static
+void lu_triang_col(matrix &m, uint j)
+{
+	for (uint i = j + 1; i <= m.cant_rows(); i++) {
+		lu_triang_row(m, j, i);
+	}
+}
+
+void lu_triang(matrix &m)
+{
+	// Triangulamos todas las columnas menos la ultima porque es "b"
+	for (uint j = 1; j < m.cant_cols(); j++) {
+//		cout << "col " << j << endl;
+
+		// Pivoteo parcial
+//		uint max_row = j;
+//		double max_module = 0;
+//		uint i;
+//		for (i = j; i <= m.cant_rows(); i++) {
+//			if (abs(m.get(i, j)) > max_module) {
+//				max_module = abs(m.get(i, j));
+//				max_row = i;
+//			}
+//		}
+//		if (max_row != j) {
+//			cout << "swapeando porque " << max_module << "es mayor que"
+//				<< m.get(i, j) << endl;
+//			m.swap_rows(max_row, j);
+//		}
+
+		lu_triang_col(m, j);
+	}
+}
+
+matrix back_substitution(matrix &m)
+{
+	matrix res(m.cant_rows(), 1);
+
+	for (uint i = m.cant_rows(); i > 0; i--) {
+		double x_i = m.get(i, i);
+		assert(x_i != 0);
+
+		// El invariante de ciclo es que de la columna i+1 hasta el final
+		// conocemos el valor de las variables. Asique son un termino
+		// independiente
+		double ti = 0;
+		for (uint j = i + 1; j < m.cant_cols(); j++) {
+			ti += m.get(i, j) * res.get(j, 1);
+		}
+
+		// Pasamos el termino indep restando y dividimos por el coef
+		// para saber el valor de la variable
+		x_i = (m.get(i, m.cant_cols()) - ti) / x_i;
+
+		res.set(i, 1, x_i);
+	}
+
+	return res;
+}

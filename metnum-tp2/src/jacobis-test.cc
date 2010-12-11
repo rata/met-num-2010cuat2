@@ -10,6 +10,8 @@ using namespace std;
 
 double p;
 
+typedef unsigned int uint;
+
 void imprimir(int n, map<int, map<int,double> > &a)
 {
 	for ( int i = 1; i <= n; i++) {
@@ -26,56 +28,6 @@ void imprimir(int n, map<int, map<int,double> > &a)
 		cout << endl;
 	}
 }
-
-double cj(int j, map<int, map<int,double> > &a)
-{
-	uint cant = a.count(j) == 0 ? 0 : a[j].size();
-	if ( cant == 0)
-		return 0.0;
-	else
-		return 1.0/cant;
-}
-
-void parsearW(int n, ifstream &file, map<int, map<int,double> > &a)
-{
-	string palabra;
-	file >> palabra;
-	int cant_links = atoi(palabra.c_str());
-
-//	cout << "Links: " << cant_links << endl;
-
-	string inicial, final;
-	for ( int k = 0 ; k < cant_links; k++) {
-		file >> inicial >> final;
-	
-		int i, j;
-		j = atoi(inicial.c_str());
-		i = atoi(final.c_str());
-		if ( i != j) {
-			// El map es de columnas a map de filas, valor
-			a[j][i] = 1;
-		}
-	}
-	// Como calcular cj no es tan terrible, voy a iterar los mapas
-	// y calcular el cj en cada paso
-
-	map<int, map<int, double> >::iterator it_col;
-	map<int,double>::iterator it_fi;
-
-	// Para cada columna
-	for ( it_col = a.begin() ; it_col != a.end(); it_col++ ) {
-		for ( it_fi = (*it_col).second.begin() ; it_fi != (*it_col).second.end(); it_fi++ ) {
-			double c_j = cj((*it_col).first, a);
-			//Esta linea me suena a que no anda ni en pedo :S
-			(*it_fi).second = (*it_fi).second * c_j * -p;
-		}
-	}
-
-	// ponemos unos en la diagonal
-	for (int i = 1; i <= n; i++)
-		a[i][i] = 1;
-}
-
 
 matrix iterarJacobi(const map<int, map<int, double> > &a, matrix x, const matrix& b)
 {
@@ -140,51 +92,27 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 
 int main(int argc, char *argv[])
 {
-	if (argc != 4 && argc != 5 ) {
-		cout << "Uso: <prob> <pag-file> <link-file> [iteraciones_max = 100]" << endl;
-		return 1;
-	}
-	p = atof(argv[1]);
-	char* pags_path = argv[2];
-	char* link_path = argv[3];
-	int max_iter = 100;
-	
-	if ( argc == 5 )
-		max_iter = atoi(argv[4]);
-
-	ifstream f_pag, f_link;
-
-	if (leer(pags_path, &f_pag) != 0 || leer(link_path, &f_link))
-		return 1;
-
-	string palabra;
-	f_pag >> palabra;
-	int n = atoi(palabra.c_str());
-
-//	cout << "Paginas: " << n << endl;
-	
 	map<int, map<int, double> > a;
+	int n = 3;
+
+	// a[j][i]
+	a[1][1] = 0.003;	a[2][1] = 0.017;	a[3][1] = 0.004;
+	a[1][2] = -0.005;	a[2][2] = 0.002;	a[3][2] = 0.002;
+	a[1][3] = 0.001;	a[2][3] = -0.003;	a[3][3] = -0.003;
+	imprimir(n, a);
+
+	// Propongo como solucion el vector nulo
+	matrix r(n, 1);
+	r.set(1, 1, -0.007);
+	r.set(2, 1, -0.010);
+	r.set(3, 1, 0.002);
 	
+	matrix x = jacobi(a, r, 200);
 
-	parsearW(n, f_link, a);
-
-	//imprimir(n, a);
-
-	cerrar(&f_link);
-	cerrar(&f_pag);
-	matrix b(n, 1);
-	for (unsigned int i = 1; i <= b.cant_rows(); i++)
-		b.set(i, 1, 1);
-	
-	matrix x = jacobi(a, b, max_iter);
-
-	//normalizar(n, x);
+//	normalizar(n, x);
 
 	cout << "Respuesta:\n";
-	cout << x.transpose().print();
+	cout << x.print();
 
 	return 0;
 }
-
-
-
