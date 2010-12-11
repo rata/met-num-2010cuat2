@@ -116,6 +116,67 @@ void givens(const matrix& A, matrix& Q, matrix& R)
 	return;
 }
 
+bool esVector(const matrix& mat)
+{
+	return mat.cant_cols() == 1;
+}
+
+double norma2Vectorial(const matrix& vect)
+{
+	assert(esVector(vect));
+
+	double norma = 0;
+	for ( uint i = 1; i <= vect.cant_rows(); i++) {
+		norma += pow(vect.get(i, 1), 2);
+	}
+
+	return sqrt(norma);
+}
+
+double norma1Vectorial(const matrix& vect)
+{
+	assert(esVector(vect));
+
+	double norma = 0;
+	for ( uint i = 1; i <= vect.cant_rows(); i++) {
+		norma += abs(vect.get(i, 1));
+	}
+
+	return norma;
+}
+
+double normaInfVectorial(const matrix& vect)
+{
+	assert(esVector(vect));
+
+	double max = 0;
+	for ( uint i = 1; i <= vect.cant_rows(); i++) {
+		double coordenada = abs(vect.get(i, 1));
+		if ( max < coordenada)
+			max = coordenada;
+	}
+
+	return max;
+}
+
+bool sonIguales(const matrix& A1, const matrix& A2, double (*norma) (const matrix&), double cota)
+{
+	assert(A1.cant_rows() == A2.cant_rows());
+	assert(A1.cant_cols() == A2.cant_cols());
+	assert(cota > 0);
+	
+	matrix diferencia = A2 - A1;
+	return norma(diferencia) < cota;
+	
+	for (uint i = 1 ; i <= A1.cant_rows(); i++) {
+		for (uint j = 1 ; j <= A1.cant_cols() ; j++ ) {
+			if (abs(A1.get(i, j) - A2.get(i, j)) > cota)
+				return false;
+		}
+	}
+	return true;
+}
+
 
 bool esDiagonal(const matrix& M, double cota)
 {
@@ -249,20 +310,19 @@ void lu_triang(matrix &m)
 //		cout << "col " << j << endl;
 
 		// Pivoteo parcial
-//		uint max_row = j;
-//		double max_module = 0;
-//		uint i;
-//		for (i = j; i <= m.cant_rows(); i++) {
-//			if (abs(m.get(i, j)) > max_module) {
-//				max_module = abs(m.get(i, j));
-//				max_row = i;
-//			}
-//		}
-//		if (max_row != j) {
-//			cout << "swapeando porque " << max_module << "es mayor que"
-//				<< m.get(i, j) << endl;
-//			m.swap_rows(max_row, j);
-//		}
+		uint max_row = j;
+		double max_module = 0;
+		uint i;
+		for (i = j; i <= m.cant_rows(); i++) {
+			if (abs(m.get(i, j)) > max_module) {
+				max_module = abs(m.get(i, j));
+				max_row = i;
+			}
+		}
+		if (max_row != j) {
+			//cout << "swapeando porque " << max_module << " es mayor que " << abs(m.get(j, j)) << endl;
+			m.swap_rows(max_row, j);
+		}
 
 		lu_triang_col(m, j);
 	}
@@ -305,12 +365,12 @@ matrix normalizar_vector(const matrix& vector)
 		norma += fabs(vector.get(i,1));
 	}
 
-	if ( norma != 0)
-	{
+	if ( norma != 0) {
 		for ( uint i = 1 ; i <= vector.cant_rows() ; i++ ) {
 			res.set(i, 1, vector.get(i, 1)/norma);
 		}
 	}
+
 	return res;
 }
 
