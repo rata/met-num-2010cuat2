@@ -17,6 +17,16 @@ bool esTriangularSup(const matrix& M, double cota);
 
 bool esSimetrica(const matrix& A);
 
+bool sonIguales(const matrix& A1, const matrix& A2, double (*norma) (const matrix&), double cota);
+
+bool esVector(const matrix& mat);
+
+double norma2Vectorial(const matrix& vect);
+
+double norma1Vectorial(const matrix& vect);
+
+double normaInfVectorial(const matrix& vect);
+
 matrix back_substitution(matrix &m);
 
 void lu_triang(matrix &m);

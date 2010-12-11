@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <assert.h>
+#include <math.h>
 #include "matrix.hpp"
 #include "matrix_utils.hpp"
 #include "io_utils.hpp"
@@ -93,7 +94,7 @@ matrix iterarJacobi(const map<int, map<int, double> > &a, matrix x, const matrix
 		for ( it_fi = it_col->second.begin() ; it_fi != it_col->second.end(); it_fi++ ) {
 			int i = it_fi->first;
 			int j = it_col->first;
-			cout << "fila: " << i << " columna: " << j << " valor: " << it_fi->second << endl;
+			//cout << "fila: " << i << " columna: " << j << " valor: " << it_fi->second << endl;
 			//cout << "x es: " << x.transpose().print();
 			if (i == j) {
 				diagonal.set(i, 1, it_fi->second);
@@ -101,9 +102,9 @@ matrix iterarJacobi(const map<int, map<int, double> > &a, matrix x, const matrix
 			}
 
 			double elemento = (it_fi->second * x.get(j, 1));
-			cout << "elemento : " << elemento << " ";
-			cout << "it_fi->second : " << it_fi->second << " ";
-			cout << "x.get(" << j << ", 1) : " << x.get(j, 1)<< endl;
+			//cout << "elemento : " << elemento << " ";
+			//cout << "it_fi->second : " << it_fi->second << " ";
+			//cout << "x.get(" << j << ", 1) : " << x.get(j, 1)<< endl;
 			x_sig.set(i, 1, (x_sig.get(i, 1) - elemento));
 		}
 	}
@@ -116,45 +117,44 @@ matrix iterarJacobi(const map<int, map<int, double> > &a, matrix x, const matrix
 	return x_sig;
 }
 
-matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_iter)
+matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_iter, double cota)
 {
 	uint iteracion = 0;
-	//bool cambia = true;
+	bool cambia = true;
 	
 	matrix x = b;
 	//matrix x(b.cant_rows(), 1);
 
-	while(iteracion < max_iter)
+	while(iteracion < max_iter && cambia)
 	{
-		cout << iteracion << ":\n" << x.print();
+		cout << iteracion << ":\n" << x.transpose().print();
 		iteracion++;
-	//	matrix buff = x;
+
+		matrix buff = x;
 		x = iterarJacobi(a, x, b);
-	//	normalizar(n, x);
-	//	cambia = distintos(n, buff, n, x);
-	//	imprimir_vector(n, x);
+		cambia = !sonIguales(buff, x, norma2Vectorial, cota);
+		//cout << "x_ant: "<< buff.transpose().print();
+		//cout << "x_pos: "<< x.transpose().print();
 	}
-	//cout << "cambia: " << cambia << endl;
+	if ( iteracion >= max_iter)
+		cout << "Se llegó a la cantidad máxima de iteraciones: "<< max_iter << endl;
 	return x;
 }
 
 int main(int argc, char *argv[])
 {
 	if (argc != 3 && argc != 4 && argc != 5 ) {
-		cout << "Uso: <pag-file> <link-file> [prob] [iteraciones_max = 100]" << endl;
+		cout << "Uso: <pag-file> <link-file> [cota] [iteraciones_max = 100]" << endl;
 		return 1;
 	}
 	char* pags_path = argv[1];
 	char* link_path = argv[2];
-	int max_iter = 100;
 	p = 0.85;
-	
-	if ( argc >= 4)
-		p = atof(argv[3]);
-	
-	if ( argc == 5 )
-		max_iter = atoi(argv[4]);
 
+	double cota = 1e-8;
+	if ( argc >= 4)
+		cota = atof(argv[3]);
+	
 	ifstream f_pag, f_link;
 
 	if (leer(pags_path, &f_pag) != 0 || leer(link_path, &f_link))
@@ -163,7 +163,11 @@ int main(int argc, char *argv[])
 	string palabra;
 	f_pag >> palabra;
 	int n = atoi(palabra.c_str());
+	
+	int max_iter = pow(n,2);
 
+	if ( argc >= 5 )
+		max_iter = atoi(argv[4]);
 //	cout << "Paginas: " << n << endl;
 	
 	map<int, map<int, double> > a;
@@ -179,7 +183,7 @@ int main(int argc, char *argv[])
 	for (unsigned int i = 1; i <= b.cant_rows(); i++)
 		b.set(i, 1, 1);
 	
-	matrix x = jacobi(a, b, max_iter);
+	matrix x = jacobi(a, b, max_iter, cota);
 
 	//normalizar(n, x);
 
