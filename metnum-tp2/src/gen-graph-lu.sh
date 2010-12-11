@@ -1,0 +1,1 @@
+./graph-lu.sh ../tests/oficiales/dc22-page.tp2 ../tests/oficiales/dc22-pagelinks.tp2 ../tests/oficiales/dc452-page.tp2 ../tests/oficiales/dc452-pagelinks.tp2 ../tests/oficiales/dc4-page.tp2 ../tests/oficiales/dc4-pagelinks.tp2 ../tests/oficiales/dc9-page.tp2 ../tests/oficiales/dc9-pagelinks.tp2
