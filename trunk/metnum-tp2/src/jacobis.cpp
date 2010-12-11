@@ -140,14 +140,17 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 
 int main(int argc, char *argv[])
 {
-	if (argc != 4 && argc != 5 ) {
-		cout << "Uso: <prob> <pag-file> <link-file> [iteraciones_max = 100]" << endl;
+	if (argc != 3 && argc != 4 && argc != 5 ) {
+		cout << "Uso: <pag-file> <link-file> [prob] [iteraciones_max = 100]" << endl;
 		return 1;
 	}
-	p = atof(argv[1]);
-	char* pags_path = argv[2];
-	char* link_path = argv[3];
+	char* pags_path = argv[1];
+	char* link_path = argv[2];
 	int max_iter = 100;
+	p = 0.85;
+	
+	if ( argc >= 4)
+		p = atof(argv[3]);
 	
 	if ( argc == 5 )
 		max_iter = atoi(argv[4]);

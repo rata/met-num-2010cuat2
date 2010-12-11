@@ -4,7 +4,7 @@ LU_OBJS = matrix.o vector_utils.o matrix_utils.o
 
 OBJS = io_utils.o vector_utils.o matrix.o
 
-default: jacobis lu
+default: jacobis lu lu-test jacobis-test
 
 all: default
 
