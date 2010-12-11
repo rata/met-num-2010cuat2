@@ -5,7 +5,6 @@
 #include <cmath>	// abs(double)
 #include "matrix.hpp"
 #include "matrix_utils.hpp"
-#include "vector_utils.hpp"
 
 using namespace std;
 

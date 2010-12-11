@@ -1,6 +1,5 @@
 #include "matrix.hpp"
 #include "matrix_utils.hpp"
-#include "vector_utils.hpp"
 #include <stdlib.h>
 #include <iostream>
 
