@@ -3,7 +3,7 @@
 #include <assert.h>	// assert
 #include <stdlib.h>	// malloc, free
 #include <cmath>	// abs(double)
-#include "matrix.h"
+#include "matrix.hpp"
 #include "vector_utils.hpp"
 
 using namespace std;
