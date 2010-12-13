@@ -125,8 +125,7 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 	matrix x = b;
 	//matrix x(b.cant_rows(), 1);
 
-	while(iteracion < max_iter && cambia)
-	{
+	while ((iteracion < max_iter || max_iter == 0) && cambia) {
 		cout << iteracion << ":\n" << x.transpose().print();
 		iteracion++;
 
@@ -136,8 +135,8 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 		//cout << "x_ant: "<< buff.transpose().print();
 		//cout << "x_pos: "<< x.transpose().print();
 	}
-	if ( iteracion >= max_iter)
-		cout << "Se llegó a la cantidad máxima de iteraciones: "<< max_iter << endl;
+	//if ( iteracion >= max_iter)
+	//	cout << "Se llegó a la cantidad máxima de iteraciones: "<< max_iter << endl;
 	return x;
 }
 
@@ -187,11 +186,11 @@ int main(int argc, char *argv[])
 
 	//normalizar(n, x);
 
-	cout << "Respuesta:\n";
-	cout << x.transpose().print();
+	//cout << "Respuesta:\n";
+	//cout << x.transpose().print();
 
-	cout << "Respuesta Normalizada:\n";
-	cout << normalizar_vector(x).transpose().print();
+	//cout << "Respuesta Normalizada:\n";
+	//cout << normalizar_vector(x).transpose().print();
 	return 0;
 }
 

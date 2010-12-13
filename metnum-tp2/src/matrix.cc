@@ -4,6 +4,7 @@
 #include <string>	// std::string
 #include <string.h>	// memcpy
 #include <cmath>	// abs(double)
+#include <stdio.h>	// sprintf
 #include <iostream>
 #include "matrix.hpp"
 #include "convenciones.hpp"
@@ -254,7 +255,9 @@ std::string matrix::print(void) const
 			// TODO: En vez de agregar mas tabs deberiamos recortar
 			// la presicion del double para que al imprimirlo no
 			// "mueva" una fila de la matriz por mas largo que sea
-			ret << this->get(i, j) << "\t";
+			char numero[20];
+			sprintf(numero, "%.12f", this->get(i, j));
+			ret << numero << "\t";
 		}
 
 		/* Termino la fila, ponemos una nueva linea */

@@ -69,7 +69,7 @@ void load_matrix(matrix &m)
 	for (uint i = 1; i <= m.cant_rows(); i++)
 		m.set(i, last_col, 1);
 
-	cout << "matriz final:" << endl << m.print();
+	//cout << "matriz final:" << endl << m.print();
 
 	return;
 }
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 
 	// Triangulamos
 	lu_triang(m);
-	cout << "matriz triangulada" << endl << m.print();
+	//cout << "matriz triangulada" << endl << m.print();
 
 	// Y resolvemos!
 	matrix res = back_substitution(m);
