@@ -61,12 +61,12 @@ Rodrigo Campos Catelin (561/06)
 El siguiente trabajo analiza las ventajas y desventajas de elegir un método
  iterativo y un método directo al resolver un sistema de ecuaciones lineales.
  Se usó como método directo la resolucion mediante factorización LU y como
- método iterativo el método de Jacobis.
+ método iterativo el método de Jacobi.
  
 \end_layout
 
 \begin_layout Abstract
-Como problema a resolver se escogió el cálculo del ranking de page sobre
+Como problema a resolver se escogió el cálculo del ranking de Page sobre
  distintos dominios.
  Dicho problema tiene la característica de que la matriz que representa
  al sistema de ecuaciones suele ser rala.
@@ -91,6 +91,22 @@ En este trabajo se muestra que el consumo de memoria y tiempo de ejecución
 \begin_layout Abstract
 Palabras clave: resolucion de sistemas lineales, factorizacion LU, metodo
  de jacobis, matriz rala.
+\end_layout
+
+\begin_layout Abstract
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -137,6 +153,26 @@ filename "discusion.lyx"
 \begin_inset CommandInset include
 LatexCommand include
 filename "conclusiones.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "apendiceA.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "apendiceB.lyx"
 
 \end_inset
 

@@ -50,33 +50,64 @@ Problema
 \end_layout
 
 \begin_layout Standard
-Sea 
+El ranking de Page calcula, para un determinado conjunto de 
+\begin_inset Formula $n$
+\end_inset
+
+ páginas web, la probabilidad de que un navegante aleatorio se encuentre
+ en cada una de ellas.
+ Para ello definimos a 
 \begin_inset Formula $W\in\mathbb{R}^{n\times n}$
 \end_inset
 
-una matriz rala donde 
-\begin_inset Formula $w_{ii}=0$
+ como la 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{matriz de conectividad}
+\end_layout
+
 \end_inset
 
- y 
-\begin_inset Formula $w_{ij}\in\left\{ 0,1\right\} ,i\neq j$
+ ignorando 
+\begin_inset Quotes eld
 \end_inset
 
-.
- Sea 
+autolinks
+\begin_inset Quotes erd
+\end_inset
+
+, 
 \begin_inset Formula $p=0.85$
 \end_inset
 
-una probabilidad.
- Sea 
+ la probabilidad de que el navegante siga uno de los links de la página
+ en la que se encuentra y 
 \begin_inset Formula $c_{j}=\sum_{i}w_{ij}$
+\end_inset
+
+ la cantidad de links salientes de la página 
+\begin_inset Formula $j$
 \end_inset
 
 .
 \end_layout
 
 \begin_layout Standard
-Se define 
+Por características del dominio al que se aplicará el ranking de Page (conjunto
+ de páginas web), la matriz 
+\begin_inset Formula $W$
+\end_inset
+
+ resulta ser una matriz rala.
+\end_layout
+
+\begin_layout Standard
+Si definimos 
 \begin_inset Formula $A\in\mathbb{R}^{n\times n}$
 \end_inset
 
@@ -92,7 +123,7 @@ a_{ij}=\begin{cases}
 \end_layout
 
 \begin_layout Standard
-El problema consiste en resolver el siguiente sistema:
+Entonces, el problema se reduce a resolver el siguiente sistema:
 \begin_inset Formula \[
 Ax=x\]
 
@@ -102,7 +133,7 @@ Ax=x\]
 \end_layout
 
 \begin_layout Standard
-que cumple que 
+tal que 
 \begin_inset Formula $x_{i}\geq0$
 \end_inset
 
@@ -295,7 +326,9 @@ Sea
 \begin_layout Standard
 
 \bar under
-Corolario:
+Corolario
+\bar default
+: 
 \family roman
 \series medium
 \shape up
@@ -314,7 +347,7 @@ Corolario:
 \begin_layout Standard
 
 \bar under
-Corolario: 
+Corolario
 \family roman
 \series medium
 \shape up
@@ -323,7 +356,7 @@ Corolario:
 \bar no
 \noun off
 \color none
-
+: 
 \begin_inset Formula $\forall j\in\mathbb{N},1\leq j\leq n$
 \end_inset
 
@@ -409,7 +442,8 @@ Por otro lado, dado que
 \begin_inset Formula $i\neq j\Rightarrow I_{ij}=0$
 \end_inset
 
-
+.
+ Entonces:
 \end_layout
 
 \begin_layout Standard
@@ -427,7 +461,7 @@ En consecuencia
 
 \begin_layout Standard
 \begin_inset Formula \[
-|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|\]
+1=|(I-pWD)_{jj}|>\sum_{i=1,i\neq j}^{n}|(pWD)_{ij}|=0.85\]
 
 \end_inset
 
@@ -463,7 +497,7 @@ Se utilizó el método de eliminación Gaussiana para hallar
 \end_inset
 
  y 
-\begin_inset Formula $M^{-1}b$
+\begin_inset Formula $L^{-1}b$
 \end_inset
 
 .
@@ -484,13 +518,13 @@ b
 
  como última columna.
  De esta forma, al triangular la matriz, en cada paso se tiene un sistema
- equivalente a anterior.
+ equivalente al anterior.
  Obteniendo al finalizar la matriz 
 \begin_inset Formula $U$
 \end_inset
 
  y el vector 
-\begin_inset Formula $M^{-1}b$
+\begin_inset Formula $L^{-1}b$
 \end_inset
 
  buscados.
@@ -517,6 +551,10 @@ El método de eliminación Gaussiana tiene la particularidad de que si la
 \begin_layout Standard
 También se decidió utilizar pivoteo parcial para reducir el error numérico,
  aunque, como ya se mostró en secciones anteriores, esto no era necesario
+ para encontrar una factorización 
+\begin_inset Formula $PLU$
+\end_inset
+
  dado que la matriz tiene factorización 
 \begin_inset Formula $LU$
 \end_inset
@@ -598,13 +636,11 @@ En contraposición con el método de eliminación Gaussiana, este método no
  Para aprovechar esto y disminuir el requerimiento de memoria, a la vez
  que se reducen la cantidad de operaciones, se decidió representar solo
  los elementos no nulos de la matriz.
- A su vez, dado que la diagonal de la matriz consta de unos, ésta tampoco
- se incluyó.
 \end_layout
 
 \begin_layout Standard
 Para lograr dicha representación se decidió usar 2 diccionarios anidados.
- El exterior es un diccionario cuyas claves son las columnas no nulas, y
+ El exterior es un diccionario cuyas claves son las columnas no nulas y
  sus valores son la representación de la columna correspondiente.
  Dichas columnas se representan mediante el diccionario interior.
  Éste tiene como claves las filas no nulas de esta columna y como valor,
@@ -613,7 +649,7 @@ Para lograr dicha representación se decidió usar 2 diccionarios anidados.
 
 \begin_layout Standard
 El algoritmo, por su naturaleza iterativa, en cada iteración genera una
- solución que eventualmente será la solución del sistema.
+ solución que finalmente será la solución del sistema.
  Cada iteración del algoritmo consta de, a partir de la matriz y la solución
  anterior, generar la siguiente de manera tal que el elemento 
 \begin_inset Formula $i$
@@ -702,6 +738,51 @@ Para que el algoritmo sea eficiente, se recorre el vector
 \end_inset
 
  no nulos.
+\end_layout
+
+\begin_layout Subsubsection*
+Criterios de parada
+\end_layout
+
+\begin_layout Standard
+El algorimo de Jacobi es un algoritmo iterativo, como tal se le debe definir
+ un criterio de parada.
+ El criterio para considerar en este caso es si 
+\begin_inset Formula $X_{i}$
+\end_inset
+
+ cambia entre dos iteraciones consecutivas.
+ Para esto es necesario determinar si dos vectores son iguales teniendo
+ en cuenta cierta tolerancia, es decir si la distancia entre ambos vectores
+ es menor a cierta cota superior.
+ Para calcular la distancia entre los dos vectores se utilizaron distintas
+ normas de la resta de ambos:
+\end_layout
+
+\begin_layout Itemize
+Norma uno: suma de los módulos de las coordenadas
+\end_layout
+
+\begin_layout Itemize
+Norma infinito: máximo módulo de las coordenadas
+\end_layout
+
+\begin_layout Itemize
+Norma dos: la raiz cuadrada de la suma de los cuadrados de las coordenadas
+\end_layout
+
+\begin_layout Standard
+Dado que 
+\begin_inset Formula $\Vert.\Vert_{\infty}\leq\Vert.\Vert_{2}\leq\Vert.\Vert_{1}$
+\end_inset
+
+y se restringe el conjunto con una cota superior resulta ser la norma uno
+ la más restrictiva y la infinito la menos restrictiva entre las tres.
+\end_layout
+
+\begin_layout Standard
+Además se puede especificar opcionalmente una cota superior en la cantidad
+ de iteraciones.
 \end_layout
 
 \end_body
