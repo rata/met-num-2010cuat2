@@ -166,7 +166,7 @@ Resolución mediante el método de Jacobi
 \end_layout
 
 \begin_layout Standard
-El método de Jacobi pertenece a la familia de métodos iterativosque descompone
+El método de Jacobi pertenece a la familia de métodos iterativos que descompone
  a 
 \begin_inset Formula $A$
 \end_inset
