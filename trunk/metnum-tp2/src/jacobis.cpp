@@ -126,8 +126,12 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 	//matrix x(b.cant_rows(), 1);
 
 	while ((iteracion < max_iter || max_iter == 0) && cambia) {
-		cout << iteracion << ":\n" << x.transpose().print();
 		iteracion++;
+
+		// Prints para generar graficos
+		for (uint rat = 1; rat <= x.cant_rows(); rat++) {
+			cout << iteracion << " " << rat << " " << normalizar_vector(x).get(rat, 1) << endl;
+		}
 
 		matrix buff = x;
 		x = iterarJacobi(a, x, b);
@@ -135,6 +139,7 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 		//cout << "x_ant: "<< buff.transpose().print();
 		//cout << "x_pos: "<< x.transpose().print();
 	}
+	//cout << "saliendo con " << iteracion << "iteraciones" << endl;
 	//if ( iteracion >= max_iter)
 	//	cout << "Se llegó a la cantidad máxima de iteraciones: "<< max_iter << endl;
 	return x;
