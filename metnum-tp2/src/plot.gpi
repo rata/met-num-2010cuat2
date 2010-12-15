@@ -43,9 +43,24 @@ set terminal png enhanced size 1024,768
 
 
 # 3D
-set xlabel "Iteración"
-set ylabel "Coordenada"
-set zlabel "Valor" #rotate by 90
-set output "plot/error-dc452-3d.png"
-splot 'out/lu-one-iter' title "LU", \
-	'out/jacobis-452' title "Jacobi"
+#unset style data linespoints
+#set xlabel "Iteración"
+#set ylabel "Coordenada"
+#set zlabel "Valor" #rotate by 90
+#set output "plot/error-dc452-3d.png"
+#splot 'out/lu-one-iter' title "LU", \
+#	'out/jacobis-452' title "Jacobi"
+
+
+set output "plot/jacobis-comp-criterios.png"
+set title "Titulo aca"
+# Los ponemos en escala logaritmica porque sino no se ven los puntos (son
+# demasiado chicos los valores)
+set logscale y
+set logscale x
+set xlabel "Precision"
+set ylabel "Norma uno del error"
+plot 'out/jacobis-prec-error-norma1' title "Jacobi Norma1", \
+	'out/jacobis-prec-error-norma2' title "Jacobi Norma 2", \
+	'out/jacobis-prec-error-normaInf' title "Jacobi Norma Infinito"
+

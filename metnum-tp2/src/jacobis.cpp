@@ -128,14 +128,16 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 	while ((iteracion < max_iter || max_iter == 0) && cambia) {
 		iteracion++;
 
-		// Prints para generar graficos
-		for (uint rat = 1; rat <= x.cant_rows(); rat++) {
-			cout << iteracion << " " << rat << " " << normalizar_vector(x).get(rat, 1) << endl;
-		}
+		// Prints para generar graficos 3D
+		//for (uint rat = 1; rat <= x.cant_rows(); rat++) {
+		//	cout << iteracion << " " << rat << " " << normalizar_vector(x).get(rat, 1) << endl;
+		//}
 
 		matrix buff = x;
 		x = iterarJacobi(a, x, b);
 		cambia = !sonIguales(buff, x, norma2Vectorial, cota);
+		//cambia = !sonIguales(buff, x, norma1Vectorial, cota);
+		//cambia = !sonIguales(buff, x, normaInfVectorial, cota);
 		//cout << "x_ant: "<< buff.transpose().print();
 		//cout << "x_pos: "<< x.transpose().print();
 	}
@@ -196,6 +198,24 @@ int main(int argc, char *argv[])
 
 	//cout << "Respuesta Normalizada:\n";
 	//cout << normalizar_vector(x).transpose().print();
+
+	// Prints para generar grafico 2D
+	// imprimimos: precision ---- || error ||
+	// Solucion posta:
+	// 0.053296133260	0.075850096908	0.155995657041	0.086595527303	0.155995657041	0.139104407553	0.128656211993	0.128656211993	0.075850096908
+	matrix sol_lu(9, 1);
+	sol_lu.set(1, 1, 0.053296133260);
+	sol_lu.set(2, 1, 0.075850096908);
+	sol_lu.set(3, 1, 0.155995657041);
+	sol_lu.set(4, 1, 0.086595527303);
+	sol_lu.set(5, 1, 0.155995657041);
+	sol_lu.set(6, 1, 0.139104407553);
+	sol_lu.set(7, 1, 0.128656211993);
+	sol_lu.set(8, 1, 0.128656211993);
+	sol_lu.set(9, 1, 0.075850096908);
+	//cout << cota << " " << norma1Vectorial(sol_lu - normalizar_vector(x)) << endl;
+	printf("%.20f %.20f\n", cota, norma1Vectorial(sol_lu - normalizar_vector(x)));
+
 	return 0;
 }
 
