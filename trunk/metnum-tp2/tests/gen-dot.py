@@ -13,7 +13,7 @@ print "node [shape = circle];"
 nodesf.readline()
 for l in nodesf:
 	node, name = l.split()
-	print node, '[ label = "' + name + '"]'
+	print "\t", node, '[ label = "' + name + '"]'
 
 
 # Descartar la primera linea
@@ -21,7 +21,7 @@ linksf.readline()
 for l in linksf:
 
 	n1, n2 = l.split()
-	print n1, "->", n2
+	print "\t", n1, "->", n2
 
 
 
