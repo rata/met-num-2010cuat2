@@ -122,15 +122,16 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 	uint iteracion = 0;
 	bool cambia = true;
 	
-	matrix x = b;
-	//matrix x(b.cant_rows(), 1);
+	//matrix x = b;
+	matrix x(b.cant_rows(), 1);
 
 	while ((iteracion < max_iter || max_iter == 0) && cambia) {
 		iteracion++;
 
 		// Prints para generar graficos 3D
 		//for (uint rat = 1; rat <= x.cant_rows(); rat++) {
-		//	cout << iteracion << " " << rat << " " << normalizar_vector(x).get(rat, 1) << endl;
+		//	printf("%i %i %.12f\n", iteracion, rat, normalizar_vector(x).get(rat, 1));
+		//	//cout << iteracion << " " << rat << " " << normalizar_vector(x).get(rat, 1) << endl;
 		//}
 
 		matrix buff = x;
@@ -193,8 +194,8 @@ int main(int argc, char *argv[])
 
 	//normalizar(n, x);
 
-	cout << "Respuesta:\n";
-	cout << x.transpose().print();
+//	cout << "Respuesta:\n";
+//	cout << x.transpose().print();
 
 	cout << "Respuesta Normalizada:\n";
 	cout << normalizar_vector(x).transpose().print();

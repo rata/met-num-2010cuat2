@@ -144,5 +144,182 @@ En el quinto gráfico se puede ver como el algoritmo de Jacobi tiene una
  para procesar una matriz dos ordenes de magnitud mas grande.
 \end_layout
 
+\begin_layout Subsection
+Criterios de parada
+\end_layout
+
+\begin_layout Standard
+Dado que los diferentes criterios de parada no modifcan el comportamiento
+ del algoritmo (ya que sólo determinan cuantas iteraciones se realizan)
+ la elección de uno u otro sólo afectará la presición del resultado final
+ que se logra.
+ En el gráfico de criterios de parada se puede ver cómo usando la 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Norma2}
+\end_layout
+
+\end_inset
+
+ y la 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{NormaInfinito }
+\end_layout
+
+\end_inset
+
+ se logra para una misma cota resultados con menor presición que usando
+ la 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Norma1}
+\end_layout
+
+\end_inset
+
+, sin embargo se decidió que la 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Norma2}
+\end_layout
+
+\end_inset
+
+ es una buena norma para utilizar en el criterio de parada, ya que es una
+ buena forma de calcular distancia entre dos vectores y no resulta una norma
+ tan restrictiva como la 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{Norma1}
+\end_layout
+
+\end_inset
+
+.
+ De todas maneras con cualquiera de las tres normas planteadas se vió que
+ se llega a un buen resultado y que el algoritmo para y devuelve un resultado
+ apropiado para presicion elegida.
+\end_layout
+
+\begin_layout Subsection
+Correctitud
+\end_layout
+
+\begin_layout Standard
+En el gráfico 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{"Comparativa LU Jacobi"}
+\end_layout
+
+\end_inset
+
+ se compara el resultado alcanzado utilizar el algoritmo de Jacobi con el
+ obtenido mediante el algoritmo LU, se puede ver cómo en las primeras iteracione
+s el algoritmo de Jacobi se encuentra lejos del resultado calculado por
+ LU, pero al avanzar en la cantidad de iteraciones el primero se acerca
+ al valor del segundo.
+ En conclusión se ve que, dada una cota suficientemente restrictiva, el
+ algoritmo de Jacobi obtendrá el mismo resultado que el algoritmo de LU.
+\end_layout
+
+\begin_layout Standard
+En los ultimo gráficos se presentan casos de prueba más simples y su resultado.
+\end_layout
+
+\begin_layout Standard
+En el 
+\emph on
+Ejemplo1
+\emph default
+ se ve una disposición de páginas en una lista circular, como es de esperar,
+ al ser una distribución simétrica, el ranking de Page para todas resulta
+ ser el mismo.
+\end_layout
+
+\begin_layout Standard
+En el 
+\emph on
+Ejemplo2
+\emph default
+ se ve una disposición el la que todas las página apuntan a una misma página,
+ en este caso la página con mayor probabilidad resulta ser esta última,
+ ya que desde cualquier página sólo se puede ir a esta.
+\end_layout
+
+\begin_layout Standard
+En el 
+\emph on
+Ejemplo3
+\emph default
+ se presenta una distribución de arbol binario, en este caso se puede observar
+ como a medida que se baja en un nivel del arbol la probabilidad aumenta
+ con respecto al nivel anterior, también se ve como las página en un mismo
+ nivel poseen la misma probabilidad.
+ Esto se corresponde con la noción del ranking de page, ya que a una página
+ dada, se puede llegar por medio de los ancestros de dicha página, por lo
+ que la probabilidad depende directamente de esto.
+\end_layout
+
+\begin_layout Standard
+En el 
+\emph on
+Ejemplo4
+\emph default
+ se ve por un lado una distribución de arbol en el que a medida que se disminuye
+ en el nivel del arbol, la cantidad de hijos aumenta y por el otro un grafo
+ 
+\begin_inset Formula $K_{3}$
+\end_inset
+
+.
+ En los resultados obtenidos se ve que en los dos primeros niveles del arbol
+ la probabilidad aumenta, mientras que en los los siguientes niveles (donde
+ las páginas tienen más de dos hijos) la probabilidad disminuye, esto se
+ corresponde a que la probabilidad de pasar de un padre a un hijo disminuye
+ a medida que aumenta la cantidad de hijos por lo que la probabilidad de
+ estar en un nodo con muchos hermanos es menor que la de estar en un nodo
+ con menos hermanos.
+ Por otro lado se puede ver que la mayor probabilidad se logra el la isla
+ del grafo 
+\begin_inset Formula $K_{3}$
+\end_inset
+
+ esto es debido a que una vez que se llega a esa isla, (dado que la probabilidad
+ de continuar por los links es mayor a la probabilidad de saltar a una página
+ cualquiera) es probable que se continúe en esa isla.
+\end_layout
+
 \end_body
 \end_document

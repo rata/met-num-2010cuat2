@@ -10,7 +10,7 @@ set terminal png enhanced size 1024,768
 ##set xr [0.0:540]
 ##set yr [15000:20000]
 #plot 'out/lu_mem' using 1:2 title "LU", \
-#	'out/jacobis_mem' title "Jacobis"
+#	'out/jacobis_mem' title "Jacobi"
 #
 #
 #set output "plot/time.png"
@@ -21,7 +21,7 @@ set terminal png enhanced size 1024,768
 ##set xr [0.0:540]
 ##set yr [15000:20000]
 #plot 'out/lu_time' using 1:2 title "LU", \
-#	'out/jacobis_time' title "Jacobis"
+#	'out/jacobis_time' title "Jacobi"
 
 #set output "plot/jac_time.png"
 #set title "Tiempo de ejecución"
@@ -30,7 +30,7 @@ set terminal png enhanced size 1024,768
 #set ylabel "Tiempo de ejecución (segundos)"
 ##set xr [0.0:540]
 ##set yr [15000:20000]
-#plot 'out/jacobis_time' title "Jacobis"
+#plot 'out/jacobis_time' title "Jacobi"
 #
 #set output "plot/jac_mem.png"
 #set title "Consumo de memoria"
@@ -39,7 +39,21 @@ set terminal png enhanced size 1024,768
 #set ylabel "Maximo uso de memoria (KB)"
 ##set xr [0.0:540]
 ##set yr [15000:20000]
-#plot 'out/jacobis_mem' title "Jacobis"
+#plot 'out/jacobis_mem' title "Jacobi"
+
+
+# 3D
+set title "Comparativa LU Jacobi"
+set style data points
+set grid
+set view 75,325 
+set xlabel "Iteración"
+set ylabel "Coordenada"
+set zlabel "Valor" rotate by 90
+set zrange [-0.01:0.17]
+set output "plot/error-dc9-3d.png"
+splot 'out/lu-one-iter-dc9' title "LU", \
+	'out/jacobis-dc9' title "Jacobi"
 
 
 # 3D
@@ -53,13 +67,13 @@ set terminal png enhanced size 1024,768
 
 
 set output "plot/jacobis-comp-criterios.png"
-set title "Titulo aca"
+set title "Criterios de parada"
 # Los ponemos en escala logaritmica porque sino no se ven los puntos (son
 # demasiado chicos los valores)
 set logscale y
 set logscale x
 set xlabel "Precision"
-set ylabel "Norma uno del error"
+set ylabel "Norma uno del error" 
 plot 'out/jacobis-prec-error-norma1' title "Jacobi Norma1", \
 	'out/jacobis-prec-error-norma2' title "Jacobi Norma 2", \
 	'out/jacobis-prec-error-normaInf' title "Jacobi Norma Infinito"
