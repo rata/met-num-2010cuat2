@@ -1,0 +1,65 @@
+digraph finite_state_machine {
+node [shape = circle];
+	1 [ label = "pag1"]
+	2 [ label = "pag2"]
+	3 [ label = "pag3"]
+	4 [ label = "pag4"]
+	5 [ label = "pag5"]
+	6 [ label = "pag6"]
+	7 [ label = "pag7"]
+	8 [ label = "pag8"]
+	9 [ label = "pag9"]
+	10 [ label = "pag10"]
+	11 [ label = "pag11"]
+	12 [ label = "pag12"]
+	13 [ label = "pag13"]
+	14 [ label = "pag14"]
+	15 [ label = "pag15"]
+	16 [ label = "pag16"]
+	17 [ label = "pag17"]
+	18 [ label = "pag18"]
+	19 [ label = "pag19"]
+	20 [ label = "pag20"]
+	21 [ label = "pag21"]
+	22 [ label = "pag22"]
+	23 [ label = "pag23"]
+	24 [ label = "pag24"]
+	25 [ label = "pag25"]
+	26 [ label = "pag26"]
+	27 [ label = "pag27"]
+	28 [ label = "pag28"]
+	29 [ label = "pag29"]
+	30 [ label = "pag30"]
+	1 -> 2
+	1 -> 3
+	2 -> 4
+	2 -> 5
+	3 -> 6
+	3 -> 7
+	4 -> 8
+	4 -> 9
+	4 -> 10
+	5 -> 11
+	5 -> 12
+	5 -> 13
+	6 -> 14
+	6 -> 15
+	6 -> 16
+	7 -> 17
+	7 -> 18
+	7 -> 19
+	8 -> 20
+	8 -> 21
+	8 -> 22
+	8 -> 23
+	19 -> 24
+	19 -> 25
+	19 -> 26
+	19 -> 27
+	28 -> 29
+	28 -> 30
+	29 -> 30
+	29 -> 28
+	30 -> 28
+	30 -> 29
+}

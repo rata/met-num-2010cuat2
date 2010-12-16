@@ -55,8 +55,59 @@ Para analizar el comportamiento de los algoritmos y los metodos implementados,
 \end_layout
 
 \begin_layout Standard
+Las matrices para los gráficos de memoria y tiempo de ejecución son (en
+ orden ascendente en cuanto al tamaño de la matriz):
+\end_layout
+
+\begin_layout Itemize
+dc4 (4 páginas)
+\end_layout
+
+\begin_layout Itemize
+ejemplo2 (7 páginas)
+\end_layout
+
+\begin_layout Itemize
+dc9 (9 páginas)
+\end_layout
+
+\begin_layout Itemize
+ejemplo1 (11 páginas)
+\end_layout
+
+\begin_layout Itemize
+dc22 (22 páginas)
+\end_layout
+
+\begin_layout Itemize
+dc452 (452 páginas)
+\end_layout
+
+\begin_layout Itemize
+extwiki-20100920 (2395 páginas)
+\end_layout
+
+\begin_layout Itemize
+iawiki-20100910 (7182 páginas)
+\end_layout
+
+\begin_layout Itemize
+obama.transition.05.11.2009-text (30002 páginas)
+\end_layout
+
+\begin_layout Itemize
+US.CS.2004-11-text (451006 páginas)
+\end_layout
+
+\begin_layout Standard
+Para los gráficos comparativos en performance temporal y espacial de los
+ dos algoritmos sólo se incluyeron las 6 primeras matrices.
+\end_layout
+
+\begin_layout Standard
+\align left
 \begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/mem.png
+	filename /home/tas/metnum-tp2/src/plot/mem.png
 	width 16cm
 
 \end_inset
@@ -103,8 +154,9 @@ emph{-f "
 \end_layout
 
 \begin_layout Standard
+\align left
 \begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/time.png
+	filename /home/tas/metnum-tp2/src/plot/time.png
 	width 16cm
 
 \end_inset
@@ -151,7 +203,7 @@ emph{-f "
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/jac_mem.png
+	filename /home/tas/metnum-tp2/src/plot/jac_mem.png
 	width 16cm
 
 \end_inset
@@ -161,13 +213,22 @@ emph{-f "
 
 \begin_layout Standard
 En este gráfico se puede obsevar cómo varía el consumo máximo de memoria
- del algoritmo de Jacobis en función del tamaño de la matriz para matrices
+ del algoritmo de Jacobi en función del tamaño de la matriz para matrices
  grandes.
 \end_layout
 
 \begin_layout Standard
 En este gráfico no se muestra el consumo de memoria del algoritmo 
-\begin_inset Formula $LU$
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{LU}
+\end_layout
+
 \end_inset
 
  ya que dicho consumo excede la cantidad de memoria disponible en las máquinas
@@ -175,8 +236,9 @@ En este gráfico no se muestra el consumo de memoria del algoritmo
 \end_layout
 
 \begin_layout Standard
+\align left
 \begin_inset Graphics
-	filename /home/rodrigo/src/facu/metnum/met-num-2010cuat2/metnum-tp2/src/plot/jac_time.png
+	filename /home/tas/metnum-tp2/src/plot/jac_time.png
 	width 16cm
 
 \end_inset
@@ -185,13 +247,527 @@ En este gráfico no se muestra el consumo de memoria del algoritmo
 \end_layout
 
 \begin_layout Standard
-En este gráfico se muestra el tiempo de ejecución del algoritmo de Jacobis
+En este gráfico se muestra el tiempo de ejecución del algoritmo de Jacobi
  para matrices grandes.
  Se excluye el algoritmo de 
 \begin_inset Formula $LU$
 \end_inset
 
- por lo mencionado en el caso anterior
+ por lo mencionado en el caso anterior.
+\end_layout
+
+\begin_layout Standard
+\align left
+\begin_inset Graphics
+	filename /home/tas/metnum-tp2/src/plot/jacobis-comp-criterios.png
+	width 16cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En este gráfico se muestra el error que comete el algoritmo de Jacobi para
+ una misma cota de precisión al considerar los diferentes criterios de parada.
+ Para calcular el error se tomo la norma uno de la diferencia entre el valor
+ calculado en cada iteracion y el valor calculado por el algoritmo LU.
+\end_layout
+
+\begin_layout Standard
+\align left
+\begin_inset Graphics
+	filename /home/tas/metnum-tp2/src/plot/error-dc9-3d.png
+	width 16cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En este gráfico se muestra los diferentes resultados obtenidos por el algoritmo
+ de Jacobi al aumentar la cantidad de iteraciones y el valor exacto obtenido
+ mediante el método de LU.
+ Se detalla en el mismo coordenada por coordenada.
+ Para realizar este gráfico se utilizó el set de prueba 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+emph{dc9}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+A continuación se presentaran gráficos de casos de prueba, en ellos se detallará
+ la distribucion de las páginas y el resultado calculado del ranking de
+ Page utilizando el algoritmo de Jacobi.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename /home/tas/metnum-tp2/tests/circular.png
+	width 16cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Ejemplo 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\bar under
+Resultado obtenido
+\bar default
+: Todas las páginas tiene probabilidad 
+\begin_inset Formula $\frac{1}{30}$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename /home/tas/metnum-tp2/tests/isla.png
+	width 16cm
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Ejemplo 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\bar under
+Resultado obtenido
+\bar default
+: Las páginas 1 a 15 tienen probabilidad 
+\begin_inset Formula $0.03478260$
+\end_inset
+
+ y la página 16 tiene probabilidad 
+\begin_inset Formula $0.47826086$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename /home/tas/metnum-tp2/tests/arbolbin.png
+	width 16cm
+	scaleBeforeRotation
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Ejemplo 3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\bar under
+Resultado obtenido
+\bar default
+: 
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="6">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Páginas
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2-3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4-7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8-15
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+16-17
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Resultado
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0368
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0524
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0591
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0619
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0631
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\noindent
+\align center
+\begin_inset Graphics
+	filename /home/tas/metnum-tp2/tests/arbol.png
+	width 16cm
+	scaleBeforeRotation
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Ejemplo 4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\bar under
+Resultado obtenido
+\bar default
+: 
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="7">
+<features>
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Páginas
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+2-3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+4-7
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+8-19
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+20-27
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+28-30
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Resultado
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0171
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0244
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+0.0275
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0249
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.0224
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+0.1145
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
