@@ -107,7 +107,7 @@ Para los gráficos comparativos en performance temporal y espacial de los
 \begin_layout Standard
 \align left
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/src/plot/mem.png
+	filename ../src/plot/mem.png
 	width 16cm
 
 \end_inset
@@ -156,7 +156,7 @@ emph{-f "
 \begin_layout Standard
 \align left
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/src/plot/time.png
+	filename ../src/plot/time.png
 	width 16cm
 
 \end_inset
@@ -203,7 +203,7 @@ emph{-f "
 
 \begin_layout Standard
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/src/plot/jac_mem.png
+	filename ../src/plot/jac_mem.png
 	width 16cm
 
 \end_inset
@@ -238,7 +238,7 @@ emph{LU}
 \begin_layout Standard
 \align left
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/src/plot/jac_time.png
+	filename ../src/plot/jac_time.png
 	width 16cm
 
 \end_inset
@@ -259,7 +259,7 @@ En este gráfico se muestra el tiempo de ejecución del algoritmo de Jacobi
 \begin_layout Standard
 \align left
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/src/plot/jacobis-comp-criterios.png
+	filename ../src/plot/jacobis-comp-criterios.png
 	width 16cm
 
 \end_inset
@@ -277,7 +277,7 @@ En este gráfico se muestra el error que comete el algoritmo de Jacobi para
 \begin_layout Standard
 \align left
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/src/plot/error-dc9-3d.png
+	filename ../src/plot/error-dc9-3d.png
 	width 16cm
 
 \end_inset
@@ -317,13 +317,13 @@ A continuación se presentaran gráficos de casos de prueba, en ellos se detalla
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/tests/circular.png
+	filename ../tests/circular.png
 	width 16cm
 
 \end_inset
@@ -362,13 +362,13 @@ Resultado obtenido
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/tests/isla.png
+	filename ../tests/isla.png
 	width 16cm
 
 \end_inset
@@ -411,13 +411,13 @@ Resultado obtenido
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/tests/arbolbin.png
+	filename ../tests/arbolbin.png
 	width 16cm
 	scaleBeforeRotation
 
@@ -579,13 +579,13 @@ Resultado
 placement H
 wide false
 sideways false
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \noindent
 \align center
 \begin_inset Graphics
-	filename /home/tas/metnum-tp2/tests/arbol.png
+	filename ../tests/arbol.png
 	width 16cm
 	scaleBeforeRotation
 

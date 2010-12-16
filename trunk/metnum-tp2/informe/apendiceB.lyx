@@ -73,9 +73,7 @@ Al ejecutarlos
 status open
 
 \begin_layout Plain Layout
-En linux se ejecuta: .
-\backslash
-<nombre>
+En linux se ejecuta: ./<nombre>
 \end_layout
 
 \end_inset
