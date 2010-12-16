@@ -151,7 +151,7 @@ matrix jacobi(const map<int, map<int, double> > &a, const matrix& b, uint max_it
 int main(int argc, char *argv[])
 {
 	if (argc != 3 && argc != 4 && argc != 5 ) {
-		cout << "Uso: <pag-file> <link-file> [cota] [iteraciones_max = 100]" << endl;
+		cout << "Uso: <pag-file> <link-file> [cota = 10^-8] [iteraciones_max]" << endl;
 		return 1;
 	}
 	char* pags_path = argv[1];
