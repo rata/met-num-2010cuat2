@@ -4,9 +4,9 @@ LU_OBJS = matrix.o matrix_utils.o
 
 OBJS = io_utils.o matrix.o matrix_utils.o
 
-default: jacobis lu lu-test jacobis-test
+default: jacobis lu
 
-all: default
+all: default jacobis-test lu-test
 
 jacobis: $(OBJS) jacobis.o
 	$(CXX) $(CXXFLAGS) $^ -o $@
