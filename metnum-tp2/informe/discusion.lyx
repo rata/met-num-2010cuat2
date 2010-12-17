@@ -273,7 +273,7 @@ En el
 \emph on
 Ejemplo2
 \emph default
- se ve una disposición el la que todas las página apuntan a una misma página,
+ se ve una disposición el la que todas las páginas apuntan a una misma página,
  en este caso la página con mayor probabilidad resulta ser esta última,
  ya que desde cualquier página sólo se puede ir a ésta.
 \end_layout
@@ -285,8 +285,8 @@ Ejemplo3
 \emph default
  se presenta una distribución de árbol binario, en este caso se puede observar
  como a medida que se baja en un nivel del árbol la probabilidad aumenta
- con respecto al nivel anterior, también se ve como las página en un mismo
- nivel poseen la misma probabilidad.
+ con respecto al nivel anterior.
+ También se ve que las página en un mismo nivel poseen la misma probabilidad.
  Esto se corresponde con la noción del ranking de page, ya que a una página
  dada, se puede llegar por medio de los ancestros de dicha página, por lo
  que la probabilidad depende directamente de esto.
@@ -297,9 +297,9 @@ En el
 \emph on
 Ejemplo4
 \emph default
- se ve por un lado una distribución de árbol en el que a medida que se disminuye
- en el nivel del árbol, la cantidad de hijos aumenta y por el otro un grafo
- 
+ se ve por un lado una distribución de árbol en el que, a medida que se
+ disminuye en el nivel del árbol, la cantidad de hijos aumenta y, por el
+ otro, un grafo 
 \begin_inset Formula $K_{3}$
 \end_inset
 
@@ -320,6 +320,12 @@ Ejemplo4
  Ésto es debido a que una vez que se llega a esa isla, (dado que la probabilidad
  de continuar por los links es mayor a la probabilidad de saltar a una página
  cualquiera) es probable que se continúe en esa isla.
+\end_layout
+
+\begin_layout Standard
+Es decir, el ranking de Page funcionó como era esperado en estos ejemplos,
+ si bien no fue totalmente trivial pensar cuál era el ranking de Page esperado
+ en algunos casos.
 \end_layout
 
 \end_body
