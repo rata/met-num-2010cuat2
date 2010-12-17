@@ -109,6 +109,12 @@ iteraciones_max
 \end_inset
 
 .
+ Si se especifica 
+\begin_inset Formula $0$
+\end_inset
+
+ como cantidad máxima de iteraciones, se ignora este parámetro y el criterio
+ de parada sólo tendrá en cuenta la cota.
 \end_layout
 
 \begin_layout Standard
