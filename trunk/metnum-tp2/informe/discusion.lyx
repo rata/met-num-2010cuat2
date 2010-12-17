@@ -109,7 +109,7 @@ En el segundo gráfico expuesto se puede observar claramente que el tiempo
 \end_layout
 
 \begin_layout Standard
-En el quinto gráfico se puede ver como el algoritmo de Jacobi tiene una
+En el cuarto gráfico se puede ver como el algoritmo de Jacobi tiene una
  performance superior al la del algoritmo 
 \begin_inset Formula $LU$
 \end_inset
@@ -222,9 +222,9 @@ emph{Norma1}
 \end_inset
 
 .
- De todas maneras con cualquiera de las tres normas planteadas se vió que
- se llega a un buen resultado y que el algoritmo para y devuelve un resultado
- apropiado para presicion elegida.
+ De todas maneras con cualquiera de las tres normas planteadas se vio que
+ se llega a un buen resultado y que el algoritmo devuelve un resultado apropiado
+ para presicion elegida.
 \end_layout
 
 \begin_layout Subsection
@@ -245,11 +245,11 @@ emph{"Comparativa LU Jacobi"}
 
 \end_inset
 
- se compara el resultado alcanzado utilizar el algoritmo de Jacobi con el
- obtenido mediante el algoritmo LU, se puede ver cómo en las primeras iteracione
-s el algoritmo de Jacobi se encuentra lejos del resultado calculado por
- LU, pero al avanzar en la cantidad de iteraciones el primero se acerca
- al valor del segundo.
+ se compara el resultado alcanzado al utilizar el algoritmo de Jacobi con
+ el obtenido mediante el algoritmo LU.
+ Se puede ver que en las primeras iteraciones el algoritmo de Jacobi se
+ encuentra lejos del resultado calculado por LU, pero al avanzar en la cantidad
+ de iteraciones el primero se acerca al valor del segundo.
  En conclusión se ve que, dada una cota suficientemente restrictiva, el
  algoritmo de Jacobi obtendrá el mismo resultado que el algoritmo de LU.
 \end_layout
@@ -263,8 +263,8 @@ En el
 \emph on
 Ejemplo1
 \emph default
- se ve una disposición de páginas en una lista circular, como es de esperar,
- al ser una distribución simétrica, el ranking de Page para todas resulta
+ se ve una disposición de páginas en una lista circular, como es de esperar
+ al ser indistinguibles los nodos, el ranking de Page para todas resulta
  ser el mismo.
 \end_layout
 
@@ -275,7 +275,7 @@ Ejemplo2
 \emph default
  se ve una disposición el la que todas las página apuntan a una misma página,
  en este caso la página con mayor probabilidad resulta ser esta última,
- ya que desde cualquier página sólo se puede ir a esta.
+ ya que desde cualquier página sólo se puede ir a ésta.
 \end_layout
 
 \begin_layout Standard
@@ -283,8 +283,8 @@ En el
 \emph on
 Ejemplo3
 \emph default
- se presenta una distribución de arbol binario, en este caso se puede observar
- como a medida que se baja en un nivel del arbol la probabilidad aumenta
+ se presenta una distribución de árbol binario, en este caso se puede observar
+ como a medida que se baja en un nivel del árbol la probabilidad aumenta
  con respecto al nivel anterior, también se ve como las página en un mismo
  nivel poseen la misma probabilidad.
  Esto se corresponde con la noción del ranking de page, ya que a una página
@@ -297,26 +297,27 @@ En el
 \emph on
 Ejemplo4
 \emph default
- se ve por un lado una distribución de arbol en el que a medida que se disminuye
- en el nivel del arbol, la cantidad de hijos aumenta y por el otro un grafo
+ se ve por un lado una distribución de árbol en el que a medida que se disminuye
+ en el nivel del árbol, la cantidad de hijos aumenta y por el otro un grafo
  
 \begin_inset Formula $K_{3}$
 \end_inset
 
 .
- En los resultados obtenidos se ve que en los dos primeros niveles del arbol
+ En los resultados obtenidos se ve que en los dos primeros niveles del árbol
  la probabilidad aumenta, mientras que en los los siguientes niveles (donde
- las páginas tienen más de dos hijos) la probabilidad disminuye, esto se
- corresponde a que la probabilidad de pasar de un padre a un hijo disminuye
- a medida que aumenta la cantidad de hijos por lo que la probabilidad de
+ las páginas tienen más de dos hijos) la probabilidad disminuye.
+ Esto se debe a que la probabilidad de pasar de un padre a un hijo disminuye
+ a medida que aumenta la cantidad de hijos, por lo que la probabilidad de
  estar en un nodo con muchos hermanos es menor que la de estar en un nodo
  con menos hermanos.
- Por otro lado se puede ver que la mayor probabilidad se logra el la isla
+ Por otro lado se puede ver que la mayor probabilidad se logra en la isla
  del grafo 
 \begin_inset Formula $K_{3}$
 \end_inset
 
- esto es debido a que una vez que se llega a esa isla, (dado que la probabilidad
+.
+ Ésto es debido a que una vez que se llega a esa isla, (dado que la probabilidad
  de continuar por los links es mayor a la probabilidad de saltar a una página
  cualquiera) es probable que se continúe en esa isla.
 \end_layout

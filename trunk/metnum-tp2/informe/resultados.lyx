@@ -101,7 +101,12 @@ US.CS.2004-11-text (451006 páginas)
 
 \begin_layout Standard
 Para los gráficos comparativos en performance temporal y espacial de los
- dos algoritmos sólo se incluyeron las 6 primeras matrices.
+ dos algoritmos sólo se incluyeron las 6 primeras matrices, ya que la memoria
+ requerida por el algoritmo 
+\begin_inset Formula $LU$
+\end_inset
+
+ excede a la disponible en las maquinas de prueba.
 \end_layout
 
 \begin_layout Standard
@@ -231,8 +236,8 @@ emph{LU}
 
 \end_inset
 
- ya que dicho consumo excede la cantidad de memoria disponible en las máquinas
- de prueba.
+ ya que, como se dijo anteriormente, dicho consumo excede la cantidad de
+ memoria disponible en las máquinas de prueba.
 \end_layout
 
 \begin_layout Standard
@@ -271,7 +276,8 @@ En este gráfico se muestra el tiempo de ejecución del algoritmo de Jacobi
 En este gráfico se muestra el error que comete el algoritmo de Jacobi para
  una misma cota de precisión al considerar los diferentes criterios de parada.
  Para calcular el error se tomo la norma uno de la diferencia entre el valor
- calculado en cada iteracion y el valor calculado por el algoritmo LU.
+ alcanzado por el algoritmo de Jacobi y el valor exacto calculado por el
+ algoritmo LU.
 \end_layout
 
 \begin_layout Standard
