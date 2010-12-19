@@ -4,7 +4,7 @@
 \begin_header
 \textclass article
 \use_default_options true
-\language english
+\language spanish
 \inputencoding auto
 \font_roman default
 \font_sans default
@@ -17,6 +17,7 @@
 
 \graphics default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -250,7 +251,7 @@ x=Tx+c\]
 \end_layout
 
 \begin_layout Standard
-En base a esto se plantea el siguiete esquema recursivo:
+En base a esto se plantea el siguiente esquema recursivo:
 \end_layout
 
 \begin_layout Standard
@@ -328,7 +329,7 @@ una norma matricial inducida, si
 \end_layout
 
 \begin_layout Standard
-En el método de jacobi se considera 
+En el método de Jacobi se considera 
 \begin_inset Formula $M=D$
 \end_inset
 

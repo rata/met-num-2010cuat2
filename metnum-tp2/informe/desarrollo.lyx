@@ -4,7 +4,7 @@
 \begin_header
 \textclass article
 \use_default_options true
-\language english
+\language spanish
 \inputencoding auto
 \font_roman default
 \font_sans default
@@ -17,6 +17,7 @@
 
 \graphics default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -271,7 +272,7 @@ Suponer
 \end_layout
 
 \begin_layout Enumerate
-Resolver la ecuacion 
+Resolver la ecuación 
 \begin_inset Formula $(I-pWD)x=e\gamma$
 \end_inset
 
@@ -541,7 +542,7 @@ El método de eliminación Gaussiana tiene la particularidad de que si la
 \end_inset
 
  para la matriz.
- Vale recordar que el órden del método es 
+ Vale recordar que el orden del método es 
 \begin_inset Formula $O(n^{3})$
 \end_inset
 
@@ -745,7 +746,7 @@ Criterios de parada
 \end_layout
 
 \begin_layout Standard
-El algorimo de Jacobi es un algoritmo iterativo, como tal se le debe definir
+El algoritmo de Jacobi es un algoritmo iterativo, como tal se le debe definir
  un criterio de parada.
  El criterio para considerar en este caso es si 
 \begin_inset Formula $X_{i}$
@@ -768,7 +769,7 @@ Norma infinito: máximo módulo de las coordenadas
 \end_layout
 
 \begin_layout Itemize
-Norma dos: la raiz cuadrada de la suma de los cuadrados de las coordenadas
+Norma dos: la raíz cuadrada de la suma de los cuadrados de las coordenadas
 \end_layout
 
 \begin_layout Standard
