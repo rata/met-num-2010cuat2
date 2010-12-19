@@ -217,7 +217,7 @@ emph{-f "
 \end_layout
 
 \begin_layout Standard
-En este gráfico se puede obsevar cómo varía el consumo máximo de memoria
+En este gráfico se puede observar cómo varía el consumo máximo de memoria
  del algoritmo de Jacobi en función del tamaño de la matriz para matrices
  grandes.
 \end_layout
@@ -314,7 +314,7 @@ emph{dc9}
 
 \begin_layout Standard
 A continuación se presentaran gráficos de casos de prueba, en ellos se detallará
- la distribucion de las páginas y el resultado calculado del ranking de
+ la distribución de las páginas y el resultado calculado del ranking de
  Page utilizando el algoritmo de Jacobi.
 \end_layout
 

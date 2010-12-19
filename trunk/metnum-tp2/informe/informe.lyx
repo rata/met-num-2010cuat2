@@ -4,7 +4,7 @@
 \begin_header
 \textclass article
 \use_default_options true
-\language english
+\language spanish
 \inputencoding auto
 \font_roman default
 \font_sans default
@@ -17,6 +17,7 @@
 
 \graphics default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -42,7 +43,7 @@
 \begin_body
 
 \begin_layout Title
-Métodos Nuéricos
+Métodos Numéricos
 \end_layout
 
 \begin_layout Title
@@ -60,7 +61,7 @@ Rodrigo Campos Catelin (561/06)
 \begin_layout Abstract
 El siguiente trabajo analiza las ventajas y desventajas de elegir un método
  iterativo y un método directo al resolver un sistema de ecuaciones lineales.
- Se usó como método directo la resolucion mediante factorización LU y como
+ Se usó como método directo la resolución mediante factorización LU y como
  método iterativo el método de Jacobi.
  
 \end_layout
@@ -89,8 +90,8 @@ En este trabajo se muestra que el consumo de memoria y tiempo de ejecución
 \end_layout
 
 \begin_layout Abstract
-Palabras clave: resolucion de sistemas lineales, factorizacion LU, metodo
- de jacobis, matriz rala.
+Palabras clave: resolución de sistemas lineales, factorización LU, método
+ de Jacobi, matriz rala.
 \end_layout
 
 \begin_layout Abstract
