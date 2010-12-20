@@ -64,7 +64,7 @@ Resolución mediante factorización LU
 \end_layout
 
 \begin_layout Standard
-El método de resolución mediante factorización LU, consta en encontrar dos
+El método de resolución mediante factorización LU consta en encontrar dos
  matrices 
 \begin_inset Formula $L$
 \end_inset
