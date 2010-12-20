@@ -80,9 +80,11 @@ También vale decir que aunque se esté en un dominio en el que no sea posible
 \end_layout
 
 \begin_layout Standard
-Los algoritmos iterativos resultan una alternativa performante, tanto en
- memoria como en tiempo, a los algoritmos exactos tradicionales y hacen
- posible trabajar con matrices que son intratables con un método directo.
+Cuando se trabaja con matrices ralas los algoritmos iterativos resultan
+ una alternativa con buen desempeño, tanto en memoria como en tiempo, a
+ los algoritmos exactos tradicionales.
+ Esto posibilita trabajar con matrices que son intratables con un método
+ directo.
 \end_layout
 
 \end_body

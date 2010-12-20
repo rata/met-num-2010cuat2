@@ -207,6 +207,7 @@ emph{-f "
 \end_layout
 
 \begin_layout Standard
+\align left
 \begin_inset Graphics
 	filename ../src/plot/jac_mem.png
 	width 16cm
@@ -319,11 +320,12 @@ A continuación se presentaran gráficos de casos de prueba, en ellos se detalla
 \end_layout
 
 \begin_layout Standard
+\align left
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -364,11 +366,12 @@ Resultado obtenido
 \end_layout
 
 \begin_layout Standard
+\align left
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -413,11 +416,12 @@ Resultado obtenido
 \end_layout
 
 \begin_layout Standard
+\align left
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
@@ -581,11 +585,12 @@ Resultado
 \end_layout
 
 \begin_layout Standard
+\align left
 \begin_inset Float figure
 placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \noindent
