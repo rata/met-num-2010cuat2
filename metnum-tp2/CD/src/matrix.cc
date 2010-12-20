@@ -7,7 +7,6 @@
 #include <stdio.h>	// sprintf
 #include <iostream>
 #include "matrix.hpp"
-#include "convenciones.hpp"
 
 typedef unsigned int uint;
 
@@ -137,10 +136,6 @@ matrix matrix::operator*(const matrix& a) const
 			for (uint k = 1; k <= a.cant_rows(); k++) {
 				val += this->get(i, k) * a.get(k, j);
 			}
-
-			//if (abs(val) < tolerancia())
-			//	val = 0;
-
 			res.set(i, j, val);
 		}
 	}
